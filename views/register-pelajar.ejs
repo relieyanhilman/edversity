@@ -20,18 +20,44 @@
         <div class="row">
           <div class="col login-side me-4">
             <img src="IMG/logo-login_register.png" alt="ed.versity" />
-            <h4 class="text-light" style="font-weight: 600">Daftar sebagai Pelajar</h4>
+            <h4 class="text-light" style="font-weight: 600">
+              Daftar sebagai Pelajar
+            </h4>
             <img class="login-side-image" src="IMG/daftar.svg" />
           </div>
           <div class="col login-form">
+            <% if (success && success.length) { %> 
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <%= success %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <% } %> 
+              
+              
+              <% if (error && error.length) { %> 
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <%= error %>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% } %> 
             <center>
               <h4 class="text-dark mt-2">Daftar</h4>
-              <div class="bg-primary-color mb-4" style="width: 30%; height: 4px"></div>
+
+              <div
+                class="bg-primary-color mb-4"
+                style="width: 30%; height: 4px"
+              ></div>
             </center>
-            <form>
+            <form action="/" method="POST">
               <div class="mb-3">
                 <label for="inputLabel" class="form-label">Nama Lengkap</label>
-                <input name="nama_lengkap" type="text" class="form-control" placeholder="Masukkan Nama Lengkap..." />
+
+                <input
+                  name="nama_lengkap"
+                  type="text"
+                  class="form-control"
+                  placeholder="Masukkan Nama Lengkap..."
+                />
               </div>
               <div class="mb-3">
                 <label for="inputLabel" class="form-label">Alamat Email</label>
@@ -59,26 +85,39 @@
                     aria-describedby="button-addon2"
                     name="asal_sekolah"
                   />
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="button-addon2"
+                  >
                     Cari
                   </button>
                 </div>
               </div>
               <div class="mb-3">
-                <label for="inputLabel" class="inputPassword form-label">Angkatan</label>
-                <input name="angkatan" type="text" class="form-control" placeholder="Masukkan angkatan anda.." />
+                <label for="inputLabel" class="inputPassword form-label"
+                  >Angkatan</label
+                >
+                <input
+                  name="angkatan"
+                  type="text"
+                  class="form-control"
+                  placeholder="Masukkan angkatan anda.."
+                />
               </div>
               <div class="dropdown mb-3">
                 <div class="row">
                   <div class="col">
                     <label class="form-label">Jenjang</label> <br />
-                    <button
+
+                    <!-- <button
                       class="btn btn-outline-secondary dropdown-toggle"
                       type="button"
                       id="dropdownMenuButton1"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                       style="width: 460px"
+                      name="jenjang"
                     >
                       Pilih salah satu
                     </button>
@@ -87,52 +126,81 @@
                       aria-labelledby="dropdownMenuButton1"
                       style="width: 100%; text-align: center"
                     >
-                      <li><a class="dropdown-item" href="#">SMA/SMK</a></li>
-                      <li><a class="dropdown-item" href="#">Mahasiswa</a></li>
-                    </ul>
+                      <li>
+                        <a value="SMA/SMK" class="dropdown-item"> SMA/SMK </a>
+                      </li>
+                      <li>
+                        <a value="Mahasiswa" class="dropdown-item">
+                          Mahasiswa
+                        </a>
+                      </li>
+                    </ul> -->
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                      name="jenjang"
+                    >
+                      <option selected disabled hidden>Pilih salah satu</option>
+                      <option value="SMA/SMK">SMA/SMK</option>
+                      <option value="Mahasiswa">Mahasiswa</option>
+                    </select>
                   </div>
                 </div>
               </div>
               <div class="mb-3">
-                <label for="inputLabel" class="inputPassword form-label">Kata Sandi</label>
+                <label for="inputLabel" class="inputPassword form-label"
+                  >Kata Sandi</label
+                >
                 <input
                   type="password"
                   class="form-control"
                   placeholder="Password Minimal 8 karakter"
+                  name="password"
                 />
               </div>
               <div class="mb-3">
-                <label for="inputLabel" class="inputPassword form-label">Konfirmasi Sandi</label>
+                <label for="inputLabel" class="inputPassword form-label"
+                  >Konfirmasi Sandi</label
+                >
                 <input
+                  name="password1"
                   type="password"
                   class="form-control"
                   placeholder="Password Minimal 8 karakter"
                 />
               </div>
               <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="inputCheck" />
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="inputCheck"
+                />
                 <label class="form-check-label" for="inputCheck"
                   >Saya menyetujui segala persyaratan & ketentuan</label
                 >
               </div>
               <div>
-                <p style="font-size: .9rem;" class="text-center">
-                  Dengan menyetujui segala <a href="persyaratan.html"> Persyaratan </a> & <a href="ketentuan.html"> Ketentuan </a>, maka Anda menyetujui Ketentuan, Kebijakan Data dan Kebijakan Cookie kami.
+                <p style="font-size: 0.9rem" class="text-center">
+                  Dengan menyetujui segala
+                  <a href="persyaratan.html"> Persyaratan </a> &
+                  <a href="ketentuan.html"> Ketentuan </a>, maka Anda menyetujui
+                  Ketentuan, Kebijakan Data dan Kebijakan Cookie kami.
                 </p>
               </div>
-              <a
+              <button
                 type="submit"
                 style="width: 100%; margin-top: 6px"
                 class="btn text-white bg-primary-color"
-                href="login-pelajar.html"
               >
                 Daftar
-              </a>
+              </button>
             </form>
             <center>
               <p class="text-secondary mt-4">
                 Sudah punya akun?
-                <a class="register-link" href="login-pelajar.html">Masuk Sekarang</a>
+                <a class="register-link" href="login-pelajar.html"
+                  >Masuk Sekarang</a
+                >
               </p>
             </center>
           </div>
