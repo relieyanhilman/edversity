@@ -1,0 +1,201 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins;
+  font-weight: 500;
+}
+
+body {
+  background-color: #022721;
+  font-weight: 500;
+  background-image: url(IMG/bg-pattern.png);
+  background-attachment: fixed;
+}
+
+.splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation-name: open;
+  animation-duration: 2s;
+  animation-delay: 4s;
+  animation-fill-mode: forwards;
+  z-index: 99;
+}
+
+.navbar {
+  z-index: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+.splash::after,
+.splash::before {
+  content: "";
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: 99;
+  animation-name: open;
+  animation-fill-mode: forwards;
+  animation-duration: 4s;
+}
+
+@media (min-width: 40rem) {
+  .splash::after,
+  .splash::before {
+    content: "";
+    position: absolute;
+    height: 100vh;
+    width: 40vw;
+    z-index: 99;
+    animation-name: open;
+    animation-fill-mode: forwards;
+    animation-duration: 4s;
+  }
+
+  
+}
+
+.login-section a {
+  color: white;
+  text-decoration: none;
+}
+
+.img-login:hover {
+  transform: scale(0.98) translateY(6px);
+  opacity: 0.5;
+  transition: 0.2s ease;
+}
+
+.splash::after {
+  left: 30vw;
+  animation-delay: 200ms;
+}
+.splash::before {
+  left: 0;
+  animation-delay: 0.4s;
+}
+@keyframes open {
+  0% {
+    transform: translate(0, 0);
+    opacity: 100%;
+  }
+
+  100% {
+    transform: translate(0, -1600px);
+    opacity: 0;
+  }
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+}
+
+.content {
+  height: 100vh;
+  width: 100vw;
+  background-color: #022721;
+  font-weight: 500;
+  background-image: url(IMG/bg-pattern.png);
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  background-color: #1a1a1a;
+  width: 60%;
+  padding: 60px 80px;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .content {
+    background-size: auto;
+    height: 100vh;
+  }
+  body {
+    height: 100vh;
+  }
+  .container {
+    background-color: #1a1a1a;
+    width: 92%;
+    margin-top: 50px !important;
+    padding: 10px 40px;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    justify-content: center;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+  }
+  h6 {
+    font-size: small;
+  }
+  .splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation-name: open;
+    animation-duration: 5s;
+    animation-delay: 3s;
+    animation-fill-mode: forwards;
+    z-index: 99;
+  }
+  @keyframes open {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 100%;
+    }
+    20% {
+      transform: translate(0, 0) scale(.3);
+      opacity: 100%;
+    }
+
+    100% {
+      transform: translate(0, -1600px) scale(0.3);
+      opacity: 0;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    padding-top: 20px;
+    color: transparent;
+  }
+  100% {
+    padding-top: 0;
+    color: white;
+  }
+}
+
+.login_pengajar-btn:hover,
+.login_pelajar-btn:hover {
+  background-color: rgb(200, 200, 200);
+}

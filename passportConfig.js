@@ -2,7 +2,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const  pool  = require("./db");
 const bcrypt = require("bcrypt");
 
-function initialize(passport) {
+function initializeStudent(passport) {
   const authenticateUser = (email, password, done) => {
     pool.query(
       `SELECT * FROM student WHERE email = $1`,
@@ -36,7 +36,7 @@ function initialize(passport) {
     );
   };
 
-  passport.use(
+  passport.use('local',
     new LocalStrategy(
       {
         usernameField: "email",
@@ -69,4 +69,4 @@ function initialize(passport) {
   });
 }
 
-module.exports = initialize;
+module.exports = initializeStudent;

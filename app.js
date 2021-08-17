@@ -36,28 +36,30 @@ app.use((req, res, next) => {
   next();
 });
 
-//test
+//STUDENT
+
+//halaman utama 
 app.get("/", (req, res) => {
-  res.send("hallo dunia");
+  res.render('main-page');
 });
 
-//form register
+//form register student
 app.get("/registerStudent", (req, res) => {
-  res.render("register-pelajar");
+  res.render("student/register-pelajar");
 });
 
-//form login
+//form login student
 app.get("/loginStudent", (req, res) => {
-  res.render("login-pelajar");
+  res.render("student/login-pelajar");
 });
 
-//dashboard
-app.get("/dashboardStudent", isLoggedIn, (req, res) => {
-  res.render("home");
+//dashboard student
+app.get("/dashboardStudent", isLoggedInStudent, (req, res) => {
+  res.render("student/home");
 });
 
 
-//post register
+//post register student
 app.post(
   "/registerStudent",
   catchAsync(async (req, res) => {
@@ -89,8 +91,9 @@ app.post(
   })
 );
 
-//isLoggedIn?
-function isLoggedIn(req,res,next) {
+
+//isLoggedIn? student 
+function isLoggedInStudent(req,res,next) {
   if(!req.isAuthenticated()){
     // req.session.kembaliKe = req.originalUrl;
     req.flash('error', 'anda harus login dulu');
@@ -99,7 +102,7 @@ function isLoggedIn(req,res,next) {
   next();
 }
 
-//post login
+//post login student
 app.post(
   "/loginStudent",
   passport.authenticate("local", {
@@ -109,7 +112,16 @@ app.post(
   })
 );
 
+//MENTOR
 
+app.get('/loginMentor', (req, res) => {
+  res.render('mentor/login-mentor');
+})
+
+app.post('/loginMentor', async(req, res) => {
+  const {email, password} = req.body;
+  console.log(`${email} ${password}`);
+})
 
 
 app.listen(3000, () => {
