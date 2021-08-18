@@ -8,8 +8,11 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 
-const initializePassport = require("./passportConfig");
-initializePassport(passport);
+const {initializeStudent: initializePassportStudent, initializeMentor: initializePassportMentor} = require("./passportConfig");
+
+initializePassportStudent(passport);
+initializePassportMentor(passport);
+
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -105,7 +108,7 @@ function isLoggedInStudent(req,res,next) {
 //post login student
 app.post(
   "/loginStudent",
-  passport.authenticate("local", {
+  passport.authenticate("localStudent", {
     successRedirect: "/dashboardStudent",
     failureRedirect: "/loginStudent",
     failureFlash: true,
@@ -114,13 +117,59 @@ app.post(
 
 //MENTOR
 
+//form login mentor
 app.get('/loginMentor', (req, res) => {
   res.render('mentor/login-mentor');
 })
 
-app.post('/loginMentor', async(req, res) => {
-  const {email, password} = req.body;
-  console.log(`${email} ${password}`);
+
+
+//post register mentor
+app.post(
+  "/registerMentor",
+  catchAsync(async (req, res) => {
+    const {nama_lengkap, jurusan, username, email, password} =
+      req.body;
+
+    let hashedPassword = await bcrypt.hash(password, 10);
+
+    const rowsSelect = await pool.query(
+      `SELECT * FROM mentor
+      WHERE email = $1`,
+      [email]
+    );
+
+    if (rowsSelect.rows.length > 0) {
+      req.flash("error", "email sudah digunakan");
+      res.redirect("/");  //kalo harusnya direct ke '/registerMentor'
+    } else {
+      const rowsInsert = await pool.query(
+        `INSERT INTO mentor(nama_lengkap, jurusan, username, email, password)
+        VALUES($1, $2, $3, $4, $5)
+        RETURNING email, password`,
+        [nama_lengkap, jurusan, username, email, hashedPassword]
+      );
+      console.log(rowsInsert.rows[0]);
+      req.flash("success", "kamu sudah terdaftar, silakan login");
+      res.redirect("/loginMentor");
+    }
+  })
+);
+
+
+//post login mentor
+app.post(
+  '/loginMentor',
+  passport.authenticate("localMentor", {
+    successRedirect: "/dashboardMentor",
+    failureRedirect: "/loginMentor",
+    failureFlash: true,
+  })
+);
+
+//dashboard mentor
+app.get('/dashboardMentor', (req, res) => {
+  res.render('mentor/home-mentor');
 })
 
 

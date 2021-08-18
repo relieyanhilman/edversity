@@ -22,6 +22,33 @@
             <img class="login-side-image" src="IMG/pengajar.svg" />
           </div>
           <div class="col-md-6 col-12 login-form">
+            <% if (success && success.length) { %>
+              <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+              >
+                <%= success %>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <% } %> <% if (error && error.length) { %>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                role="alert"
+              >
+                <%= error %>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <% } %>
             <center>
               <h4 class="text-dark mt-4">Masuk</h4>
               <div class="bg-primary-color mb-4" style="width: 30%; height: 4px;"></div>
@@ -34,7 +61,7 @@
               </div>
               <div class="mb-3">
                 <label for="inputPassword1" class="inputPassword form-label">Kata Sandi</label>
-                <input type="password" placeholder="Mohon isi kata sandi anda.." class="form-control" name="email"/>
+                <input type="password" placeholder="Mohon isi kata sandi anda.." class="form-control" name="password"/>
               </div>
               <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="check1" />
