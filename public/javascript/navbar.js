@@ -1,23 +1,23 @@
 const navbar = document.querySelectorAll(".navbar")
 navbar.forEach(navs=> {
   navs.innerHTML = `<div class="container-fluid">
-  <a class="navbar-brand ms-3" href="home.html"><img src="IMG/logo.svg" /></a>
+  <a class="navbar-brand ms-3" href="/dashboardStudent"><img src="IMG/logo.svg" /></a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+        <a class="nav-link active" aria-current="page" href="/dashboardStudent">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="edpedia.html">ed.pedia</a>
+        <a class="nav-link" href="/edpedia-comingsoon">ed.pedia</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="edwallet.html" tabindex="-1">ed.wallet</a>
       </li>
       <li class="nav-item">
-        <a style="color: #fff100 !important" class="nav-link" href="bukakelas-pelajar.html">
+        <a style="color: #fff100 !important" class="nav-link" href="/buka-kelas">
           BUKA KELAS
         </a>
       </li>

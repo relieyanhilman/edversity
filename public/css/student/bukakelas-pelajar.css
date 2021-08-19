@@ -1,0 +1,237 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins;
+}
+
+body {
+  background-color: #1a1a1a;
+  background-image: url(../../IMG/bg-pattern.png);
+  background-attachment: fixed;
+  font-weight: 500;
+}
+
+.req-btn:focus {
+  box-shadow: none !important;
+}
+
+.btn-link {
+  padding: 0 0 !important;
+  font-size: larger;
+  margin: 10px 0 !important;
+  text-decoration: underline;
+  color: black;
+  font-weight: 500;
+  outline: none;
+  border: none;
+}
+
+.btn-link:hover{
+  color: #078874;
+}
+
+
+.nav-tabs .active {
+  color: #07695b !important;
+  background-color: #ededed !important;
+  outline: none;
+  border: none;
+}
+
+.nav-tabs .nav-link {
+  text-shadow: none !important;
+}
+
+.list-prodi {
+  background-color: #fff;
+}
+
+.nav-tabs {
+  outline: none;
+  border: none;
+}
+
+.headContainer {
+  padding: 20px 40px;
+  z-index: 99;
+  background-color: #fff;
+  justify-content: center;
+  background-image: url(../../IMG/header-buka_kelas.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.form-control:focus {
+  box-shadow: none !important;
+  outline: none;
+  border: none;
+}
+
+@media (max-width: 600px) {
+  .d-flex {
+    justify-content: center;
+  }
+  .input-search input {
+    width: 80%;
+  }
+  .navbar-nav {
+    font-size: larger;
+    text-align: center !important;
+  }
+
+  .input-search .btn {
+    display: none;
+  }
+
+  #requestBtn {
+    font-size: medium;
+  }
+
+  #inboxModal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0px;
+    left: 0;
+    z-index: 10040;
+  }
+  .modal-body label {
+    line-height: 1;
+  }
+
+  .inbox-label {
+    font-size: 12px;
+  }
+
+  .berita-terbaru .col-md-4 {
+    padding-bottom: 20px;
+  }
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.form-control,
+.search-class {
+  z-index: 0;
+}
+
+.input-search input {
+  outline: none;
+  background-color: white;
+  border: none;
+}
+
+.tab-container .nav-link {
+  color: black !important;
+}
+
+.inboxModal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0px;
+  left: 4%;
+  z-index: 10040;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.input-search input {
+  color: white;
+  border: none;
+  background: none;
+  border-bottom: 1px solid white;
+  padding: 5px 10px;
+  outline: none;
+}
+
+.input-search input::placeholder {
+  color: white;
+}
+
+.input-search .btn {
+  position: absolute;
+  right: 6%;
+}
+
+[placeholder]:focus::-webkit-input-placeholder {
+  color: white;
+  transition: text-indent 0.4s 0.4s ease;
+  text-indent: -100%;
+  opacity: 1;
+}
+
+.navbar-nav {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.nav-link {
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  color: white !important;
+}
+
+.nav-link:hover {
+  transition: 0.2s ease !important;
+  opacity: 0.7 !important;
+}
+.search-btn {
+  background-color: white;
+}
+
+.foto-profil {
+  border-radius: 100%;
+  width: 80px;
+}
+
+.list-prodi {
+  height: 360px;
+}
+
+.requestContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}
+
+.primary-color {
+  color: #078874;
+}
+
+.bg-primary-color {
+  background-color: #078874;
+}
+
+.primary-outline {
+  border: solid 0.5px #078874;
+  color: #078874;
+}
+
+.secondary-color {
+  color: #022721;
+}
+
+.bg-secondary-color {
+  background-color: #022721;
+}
+
+.bg-dark-color {
+  background-color: rgb(20, 20, 20);
+}
+
+.dark-color {
+  color: rgb(20, 20, 20);
+}
+
+#requestBtn:hover {
+  color: #022721 !important;
+  transition: 0.2s ease;
+  opacity: 0.95;
+  transform: scale(1.2);
+}
