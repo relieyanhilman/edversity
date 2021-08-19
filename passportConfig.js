@@ -1,7 +1,6 @@
-const LocalStrategy = require("passport-local").Strategy;
-const  pool  = require("./db");
-const bcrypt = require("bcrypt");
-
+const LocalStrategy = require('passport-local').Strategy;
+const pool = require('./db');
+const bcrypt = require('bcrypt');
 
 //FOR STUDENT
 function initializeStudent(passport) {
@@ -13,7 +12,6 @@ function initializeStudent(passport) {
         if (err) {
           throw err;
         }
-        
 
         if (result.rows.length > 0) {
           const studentUser = result.rows[0];
@@ -27,22 +25,23 @@ function initializeStudent(passport) {
               return done(null, studentUser);
             } else {
               return done(null, false, {
-                message: "Email atau password salah",
+                message: 'Email atau password salah',
               });
             }
           });
         } else {
-          return done(null, false, { message: "Email tidak terdaftar" });
+          return done(null, false, { message: 'Email tidak terdaftar' });
         }
       }
     );
   };
 
-  passport.use('localStudent',
+  passport.use(
+    'localStudent',
     new LocalStrategy(
       {
-        usernameField: "email",
-        passwordField: "password",
+        usernameField: 'email',
+        passwordField: 'password',
       },
       authenticateUser
       // (err, user, done) => {
@@ -82,7 +81,6 @@ function initializeMentor(passport) {
         if (err) {
           throw err;
         }
-        
 
         if (result.rows.length > 0) {
           const mentorUser = result.rows[0];
@@ -96,22 +94,23 @@ function initializeMentor(passport) {
               return done(null, mentorUser);
             } else {
               return done(null, false, {
-                message: "Email atau password salah",
+                message: 'Email atau password salah',
               });
             }
           });
         } else {
-          return done(null, false, { message: "Email tidak terdaftar" });
+          return done(null, false, { message: 'Email tidak terdaftar' });
         }
       }
     );
   };
 
-  passport.use('localMentor',
+  passport.use(
+    'localMentor',
     new LocalStrategy(
       {
-        usernameField: "email",
-        passwordField: "password",
+        usernameField: 'email',
+        passwordField: 'password',
       },
       authenticateUser
       // (err, user, done) => {
@@ -140,6 +139,71 @@ function initializeMentor(passport) {
   });
 }
 
+//FOR ADMIN
 
+function initializeAdmin(passport) {
+  const authenticateUser = (username, password, done) => {
+    pool.query(
+      `SELECT * FROM users WHERE username = $1`,
+      [username],
+      (err, result) => {
+        if (err) {
+          throw err;
+        }
 
-module.exports = {initializeStudent, initializeMentor};
+        if (result.rows.length > 0) {
+          const adminUser = result.rows[0];
+
+          bcrypt.compare(password, adminUser.password, (err, isMatch) => {
+            if (err) {
+              throw err;
+            }
+
+            if (isMatch) {
+              return done(null, adminUser);
+            } else {
+              return done(null, false, {
+                message: 'Username atau password salah',
+              });
+            }
+          });
+        } else {
+          return done(null, false, { message: 'Username tidak terdaftar' });
+        }
+      }
+    );
+  };
+
+  passport.use(
+    'localUser',
+    new LocalStrategy(
+      {
+        usernameField: 'username',
+        passwordField: 'password',
+      },
+      authenticateUser
+      // (err, user, done) => {
+      //   if (err){
+      //     return done(err);
+      //   }
+      // }
+    )
+  );
+
+  passport.serializeUser((adminUser, done) => done(null, adminUser.user_id));
+
+  passport.deserializeUser((user_id, done) => {
+    pool.query(
+      `SELECT * FROM users WHERE user_id = $1`,
+      [user_id],
+      (err, result) => {
+        if (err) {
+          throw err;
+        }
+        return done(null, result.rows[0]);
+      }
+    );
+  });
+}
+
+module.exports = { initializeStudent, initializeMentor, initializeAdmin };
