@@ -12,7 +12,7 @@
   </head>
   <body>
     <!-- Modal -->
-    <div class="modal fade" id="request" tabindex="-1" aria-hidden="true">
+    <!-- <div class="modal fade" id="request" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-body">
@@ -30,7 +30,8 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+    
     <!-- Modal; -->
     <!-- Main Container -->
     <div class="container main-container mt-5 mb-5">
@@ -48,19 +49,19 @@
             <center>
               <div class="bg-primary-color mb-4" style="width: 30%; height: 4px;"></div>
             </center>
-            <form action="/" method="POST">
+            <form action="/request-kelas" method="POST" enctype="multipart/form-data">
               <div class="mb-3">
                 <label for="inputLabel" class="form-label">Program Studi</label>
-                <input placeholder="Contoh : Teknik Sipil" type="email" class="inputEmail form-control" aria-describedby="emailHelp" />
+                <input placeholder="Contoh : Teknik Sipil" type="text" class="inputEmail form-control" aria-describedby="emailHelp" name="program_studi" required/>
               </div>
               <div class="mb-3">
                 <label for="inputLabel" class="form-label">Mata Kuliah</label>
-                <input placeholder="Contoh : Struktur Bangunan" type="email" class="inputEmail form-control" aria-describedby="emailHelp" />
+                <input placeholder="Contoh : Struktur Bangunan" type="text" class="inputEmail form-control" aria-describedby="emailHelp" name="mata_kuliah" />
               </div>
               <div class="mb-3">
                 <label for="inputLabel" class="form-label">Tanggal & Waktu Kelas</label>
-                <input type="date" class="form-control mb-2" />
-                <input type="time" class="form-control" />
+                <input type="date" class="form-control mb-2" name="tanggal_kelas"/>
+                <input type="time" class="form-control" name="waktu_kelas" />
               </div>
               <div class="mb-3">
                 <label for="inputLabel" class="form-label">Paket Kelas</label>
@@ -77,20 +78,20 @@
               </div>
               <div class="mb-3">
                 <label for="inputLabel" class="form-label">Deskripsi Materi</label>
-                <textarea class="form-control mb-2" name="" id="" cols="64" rows="4"></textarea>
-                <input type="file" class="inputDesc form-control" />
+                <textarea class="form-control mb-2" cols="64" rows="4" name="deskripsi_materi"></textarea>
+                <input type="file" class="inputDesc form-control" name="file_materi"/>
               </div>
               <div class="tipe_kelas mb-3">
                 <label class="form-label">Tipe Kelas</label>
                   <br>
                   <input class="radio me-2" type="radio" id="public" name="tipe_kelas" value="public"  data-bs-toggle="tooltip" data-bs-placement="top" 
-                  title="Kelas Public bisa diikuti oleh siapapun (tidak memerlukan persetujuan untuk masuk) dan mentor yang akan mengajar tidak bisa dipilih"/>
+                  title="Kelas Public bisa diikuti oleh siapapun (tidak memerlukan persetujuan untuk masuk) dan mentor yang akan mengajar tidak bisa dipilih" value="public"/>
                   <label for="public">Public</label>
                 <input class="ms-5 radio me-2" type="radio" id="private" name="tipe_kelas" value="private" data-bs-toggle="tooltip" data-bs-placement="top" 
-                title="Kelas private membutuhkan izin dari yang me-request kelas untuk masuk dan mentor yang mengajukan untuk mengajar bisa di pilih"/>
+                title="Kelas private membutuhkan izin dari yang me-request kelas untuk masuk dan mentor yang mengajukan untuk mengajar bisa di pilih" value="private" />
                 <label for="private">Private</label>
               </div>
-              <button type="button" data-bs-toggle="modal" data-bs-target="#request" style="width: 100%; margin-top: 6px;" class="btn text-light bg-primary-color">Kirim</button>
+              <button type="submit" style="width: 100%; margin-top: 6px;" class="btn text-light bg-primary-color">Kirim</button>
             </form>
           </div>
         </div>
