@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const app = express();
 const pool = require("./db");
 const path = require("path");
@@ -43,10 +43,12 @@ const upload = multer({
 const {
   initializeStudent: initializePassportStudent,
   initializeMentor: initializePassportMentor,
-} = require("./passportConfig");
+  initializeAdmin: initializePassportAdmin,
+} = require('./passportConfig');
 
 initializePassportStudent(passport);
 initializePassportMentor(passport);
+initializePassportAdmin(passport);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -58,7 +60,7 @@ app.use(methodOverride('_method'))
 
 app.use(
   session({
-    secret: "secret",
+    secret: 'secret',
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 60000 },
@@ -70,8 +72,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
   next();
 });
 
@@ -306,5 +308,5 @@ function isLoggedInMentor(req, res, next) {
 }
 
 app.listen(3000, () => {
-  console.log("server sudah berjalan di port 3000");
+  console.log('server sudah berjalan di port 3000');
 });
