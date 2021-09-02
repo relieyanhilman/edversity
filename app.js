@@ -3,10 +3,13 @@ const app = express();
 const pool = require("./db");
 const path = require("path");
 const catchAsync = require("./utils/catchAsync");
+const prettyDate2 = require('./utils/prettyDate2')
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
+const ExpressError = require('./utils/ExpressError');
+const methodOverride = require('method-override')
 
 const multer = require("multer");
 
@@ -51,6 +54,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/public/uploads", express.static("public/uploads"));
+app.use(methodOverride('_method'))
 
 app.use(
   session({
@@ -100,17 +104,31 @@ function isLoggedInStudent(req, res, next) {
 
 //dashboard student
 app.get(
-  "/dashboard-student",
-  isLoggedInStudent,
+  "/dashboard-student", isLoggedInStudent,
   catchAsync(async (req, res) => {
-    // pool.query(
-    //   ``,
-    //   [req.params.id]
-    //   )
-    // console.log(req.user);
-    res.render("student/home");
+    
+    //nanti isi routing isLoggedInStudent abis /dashboard-student
+    const currentUser = req.user;
+    
+    res.render("student/home", {currentUser});
   })
 );
+
+app.get(
+  "/dashboard-student/profile/:id", isLoggedInStudent,
+  catchAsync(async(req,res) => {
+    const {id} = req.params;
+    
+    const profileDataRaw = await pool.query(
+      `SELECT * FROM student WHERE student_id = $1`, [id]
+    );
+
+    const profileData = profileDataRaw.rows[0];
+    
+    
+    res.render('student/option', {profileData})
+  })
+)
 
 //post register student
 app.post(
@@ -178,10 +196,14 @@ app.post(
       waktu_kelas,
       deskripsi_materi,
       tipe_kelas,
+      paket
     } = req.body;
 
+    
+
+    
     const uploadKelas = await pool.query(
-      `INSERT INTO course(program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, deskripsi_materi,tipe_kelas, file_materi) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+      `INSERT INTO course(program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, deskripsi_materi,tipe_kelas, file_materi, paket) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
       [
         program_studi,
         mata_kuliah,
@@ -190,12 +212,15 @@ app.post(
         deskripsi_materi,
         tipe_kelas,
         req.file.path,
+        paket
       ]
     );
 
-    // console.log(req.file);
-    console.log(uploadKelas.rows[0]);
-    res.send("berhasil upload");
+    req.flash('success', 'berhasil upload kelas');
+    res.redirect('/dashboard-student');
+    
+    // console.log(uploadKelas.rows[0]);
+    // res.send("berhasil upload");
     // console.log(req.body);
     // console.log(req.file);
     // res.send(req.body);
@@ -258,6 +283,18 @@ app.post(
 app.get("/dashboard-mentor", isLoggedInMentor, (req, res) => {
   res.render("mentor/home-mentor");
 });
+
+
+app.all('*', (req, res, next) => {
+  next(new ExpressError('Page tidak ditemukan', 404))
+
+})
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = "oh no, ada yang salah bro"
+  res.status(statusCode).render('error', { err })
+})
 
 //Check authentikasi mentor
 function isLoggedInMentor(req, res, next) {

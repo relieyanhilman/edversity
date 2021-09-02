@@ -33,7 +33,7 @@ navbar.forEach(navs=> {
         <button type="submit" class="btn"><i class="fa fa-search text-light"> </i></button>
       </div>
 
-      <a href="option.html" class="nav-link">
+      <a href="/dasboard-student/profile/" class="nav-link">
         <i style="font-size: 1.6rem;" class="fa fa-sliders text-light"></i>
       </a>
     </div>

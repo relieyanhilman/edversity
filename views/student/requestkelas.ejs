@@ -64,17 +64,18 @@
                 <input type="time" class="form-control" name="waktu_kelas" />
               </div>
               <div class="mb-3">
-                <label for="inputLabel" class="form-label">Paket Kelas</label>
-                <div class="dropdown">
-                  <button style="width: 100%; border: 0.5px solid #ced4da;" class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Paket Kelas
-                  </button>
-                  <ul class="dropdown-menu" style="width: 100%; text-align: center;" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Menunggu format</a></li>
-                    <li><a class="dropdown-item" href="#">Menunggu Format</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                  </ul>
-                </div>
+                <label for="inputLabel" class="form-label">Paket Kelas</label>          
+      
+                <select style="text-align-last: center;" 
+                      class="form-select"
+                      aria-label="Default select example"
+                      name="paket"
+                    >
+                      <option selected disabled hidden>Paket Kelas</option>
+                      <option value="sarjana" >sarjana</option>
+                      <option value="cumlaude">cumlaude</option>
+                      <option value="mawapres">mawapres</option>
+                    </select>
               </div>
               <div class="mb-3">
                 <label for="inputLabel" class="form-label">Deskripsi Materi</label>
