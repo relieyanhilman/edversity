@@ -43,12 +43,10 @@ const upload = multer({
 const {
   initializeStudent: initializePassportStudent,
   initializeMentor: initializePassportMentor,
-  initializeAdmin: initializePassportAdmin,
 } = require('./passportConfig');
 
 initializePassportStudent(passport);
 initializePassportMentor(passport);
-initializePassportAdmin(passport);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
