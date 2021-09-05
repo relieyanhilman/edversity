@@ -116,6 +116,7 @@ app.get(
   })
 );
 
+//student form mengubah profile
 app.get(
   "/dashboard-student/profile/:id", isLoggedInStudent,
   catchAsync(async(req,res) => {
@@ -131,6 +132,37 @@ app.get(
     res.render('student/option', {profileData})
   })
 )
+
+//student mengubah profile
+app.put(
+  "/dashboard-student/profile/:id", isLoggedInStudent, catchAsync(async(req, res) =>{
+    const id = parseInt(req.params.id);
+    const {nama_lengkap, username, no_handphone, email} = req.body;
+
+
+    console.log(req.body);
+    console.log(id);
+    const updatedProfile= await pool.query(
+      "UPDATE student SET nama_lengkap=$1, username=$2, no_handphone=$3, email=$4 WHERE student_id=$5" , [nama_lengkap, username, no_handphone, email, id]
+    )
+    
+    // req.flash('success', 'Data profile berhasil di-update');  
+    res.redirect(`/dashboard-student`);
+  })
+)
+
+//student pusat bantuan
+app.get('/dashboard-student/profile/:id/pusat-bantuan', isLoggedInStudent, catchAsync(async(req, res) => {
+  const {id} = req.params;
+  const profileDataRaw = await pool.query(
+    `SELECT * FROM student WHERE student_id = $1`, [id]
+  );
+  
+
+  const profileData = profileDataRaw.rows[0];
+
+  res.render('student/pusat-bantuan', {profileData});
+}))
 
 //post register student
 app.post(
@@ -221,13 +253,7 @@ app.post(
     req.flash('success', 'berhasil upload kelas');
     res.redirect('/dashboard-student');
     
-    // console.log(uploadKelas.rows[0]);
-    // res.send("berhasil upload");
-    // console.log(req.body);
-    // console.log(req.file);
-    // res.send(req.body);
-    //  req.flash('success', 'Course berhasil ditambahkan');
-    //  res.redirect('/dashboard-student');
+    
   })
 );
 

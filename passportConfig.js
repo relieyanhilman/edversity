@@ -9,10 +9,11 @@ function initializeStudent(passport) {
       `SELECT * FROM student WHERE email = $1`,
       [email],
       (err, result) => {
+        
         if (err) {
           throw err;
         }
-
+        
         if (result.rows.length > 0) {
           const studentUser = result.rows[0];
 
