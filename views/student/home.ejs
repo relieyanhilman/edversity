@@ -103,13 +103,13 @@
               <a class="nav-link active" aria-current="page" href="/dashboard-student">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/edpedia-comingsoon">ed.pedia</a>
+              <a class="nav-link" href="/edpedia-comingsoon/<%=currentUser.student_id%> ">ed.pedia</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="edwallet.html" tabindex="-1">ed.wallet</a>
+              <a class="nav-link" href="/dashboard-student/edwallet/<%= currentUser.student_id %>" tabindex="-1">ed.wallet</a>
             </li>
             <li class="nav-item">
-              <a style="color: #fff100 !important" class="nav-link" href="/buka-kelas">
+              <a style="color: #fff100 !important" class="nav-link" href="/buka-kelas/<%= currentUser.student_id %> ">
                 BUKA KELAS
               </a>
             </li>
@@ -268,8 +268,14 @@
           <div class="col-12">
             <div id="carouselControls1" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner kelas-dibuka">
+                <% for (int i =0; i< <%=courseInfo.length> / 3; i++ {) %> 
                 <div class="carousel-item active">
                   <div class="row">
+                    
+                    <% for (int j =0; j< <%=courseInfo.length>; j++ {) %>
+                      <% for (j; j+2; j++) {%>
+                          
+                        <% }}  %> 
                     <div class="col-md-4 mb-3">
                       <a class="card-kelas" href="info-kelas.html">
                         <div class="card">
@@ -297,148 +303,11 @@
                         </div>
                       </a>
                     </div>
-                    <div class="col-md-4 mb-3">
-                      <a class="card-kelas" href="info-kelas.html">
-                        <div class="card">
-                          <img class="img-fluid" alt="100%x280" src="IMG/bg-buka_kelas.jpg" />
-                          <div class="card-body bg-light">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <!-- foto profil -->
-                                <img
-                                  class="foto-profil"
-                                  src="IMG/foto-profil.jpg"
-                                  alt="foto-profil"
-                                />
-                              </div>
-                              <div class="col ms-3">
-                                <h5 class="mb-3">Struktur Bangunan</h5>
-                                <div style="line-height: 0.3">
-                                  <p class="card-text">Iqbal Bin Yahya</p>
-                                  <p>30 Mei 2022</p>
-                                  <p>23:59 WIB</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                      <a class="card-kelas" href="info-kelas.html">
-                        <div class="card">
-                          <img class="img-fluid" alt="100%x280" src="IMG/bg-buka_kelas.jpg" />
-                          <div class="card-body bg-light">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <!-- foto profil -->
-                                <img
-                                  class="foto-profil"
-                                  src="IMG/foto-profil.jpg"
-                                  alt="foto-profil"
-                                />
-                              </div>
-                              <div class="col ms-3">
-                                <h5 class="mb-3">Struktur Bangunan</h5>
-                                <div style="line-height: 0.3">
-                                  <p class="card-text">Iqbal Bin Yahya</p>
-                                  <p>30 Mei 2022</p>
-                                  <p>23:59 WIB</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
+                    
                   </div>
                 </div>
                 <!-- Kelas yang sudah di buka - Slide 2 -->
-                <div class="carousel-item">
-                  <div class="row">
-                    <div class="col-md-4 mb-3">
-                      <a class="card-kelas" href="info-kelas.html">
-                        <div class="card">
-                          <img class="img-fluid" alt="100%x280" src="IMG/bg-buka_kelas.jpg" />
-                          <div class="card-body bg-light">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <!-- foto profil -->
-                                <img
-                                  class="foto-profil"
-                                  src="IMG/foto-profil.jpg"
-                                  alt="foto-profil"
-                                />
-                              </div>
-                              <div class="col ms-3">
-                                <h5 class="mb-3">Struktur Bangunan</h5>
-                                <div style="line-height: 0.3">
-                                  <p class="card-text">Iqbal Bin Yahya</p>
-                                  <p>30 Mei 2022</p>
-                                  <p>23:59 WIB</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                      <a href="info-kelas.html" class="card-kelas">
-                        <div class="card">
-                          <img class="img-fluid" alt="100%x280" src="IMG/bg-buka_kelas.jpg" />
-                          <div class="card-body bg-light">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <!-- foto profil -->
-                                <img
-                                  class="foto-profil"
-                                  src="IMG/foto-profil.jpg"
-                                  alt="foto-profil"
-                                />
-                              </div>
-                              <div class="col ms-3">
-                                <h5 class="mb-3">Struktur Bangunan</h5>
-                                <div style="line-height: 0.3">
-                                  <p class="card-text">Iqbal Bin Yahya</p>
-                                  <p>30 Mei 2022</p>
-                                  <p>23:59 WIB</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                      <a href="info-kelas.html" class="card-kelas">
-                        <div class="card">
-                          <img class="img-fluid" alt="100%x280" src="IMG/bg-buka_kelas.jpg" />
-                          <div class="card-body bg-light">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <!-- foto profil -->
-                                <img
-                                  class="foto-profil"
-                                  src="IMG/foto-profil.jpg"
-                                  alt="foto-profil"
-                                />
-                              </div>
-                              <div class="col ms-3">
-                                <h5 class="mb-3">Struktur Bangunan</h5>
-                                <div style="line-height: 0.3">
-                                  <p class="card-text">Iqbal Bin Yahya</p>
-                                  <p>30 Mei 2022</p>
-                                  <p>23:59 WIB</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -446,98 +315,7 @@
       </div>
     </section> 
                     
-                <!-- Kelas yang sudah di buka - Slide 2 -->
-                <div class="carousel-item">
-                  <div class="row">
-                    <div class="col-md-4 mb-3">
-                      <a class="card-kelas" href="info-kelas.html">
-                        <div class="card">
-                          <img class="img-fluid" alt="100%x280" src="IMG/bg-buka_kelas.jpg" />
-                          <div class="card-body bg-light">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <!-- foto profil -->
-                                <img
-                                  class="foto-profil"
-                                  src="IMG/foto-profil.jpg"
-                                  alt="foto-profil"
-                                />
-                              </div>
-                              <div class="col ms-3">
-                                <h5 class="mb-3">Struktur Bangunan</h5>
-                                <div style="line-height: 0.3">
-                                  <p class="card-text">Iqbal Bin Yahya</p>
-                                  <p>30 Mei 2022</p>
-                                  <p>23:59 WIB</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                      <a href="info-kelas.html" class="card-kelas">
-                        <div class="card">
-                          <img class="img-fluid" alt="100%x280" src="IMG/bg-buka_kelas.jpg" />
-                          <div class="card-body bg-light">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <!-- foto profil -->
-                                <img
-                                  class="foto-profil"
-                                  src="IMG/foto-profil.jpg"
-                                  alt="foto-profil"
-                                />
-                              </div>
-                              <div class="col ms-3">
-                                <h5 class="mb-3">Struktur Bangunan</h5>
-                                <div style="line-height: 0.3">
-                                  <p class="card-text">Iqbal Bin Yahya</p>
-                                  <p>30 Mei 2022</p>
-                                  <p>23:59 WIB</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                      <a href="info-kelas.html" class="card-kelas">
-                        <div class="card">
-                          <img class="img-fluid" alt="100%x280" src="IMG/bg-buka_kelas.jpg" />
-                          <div class="card-body bg-light">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <!-- foto profil -->
-                                <img
-                                  class="foto-profil"
-                                  src="IMG/foto-profil.jpg"
-                                  alt="foto-profil"
-                                />
-                              </div>
-                              <div class="col ms-3">
-                                <h5 class="mb-3">Struktur Bangunan</h5>
-                                <div style="line-height: 0.3">
-                                  <p class="card-text">Iqbal Bin Yahya</p>
-                                  <p>30 Mei 2022</p>
-                                  <p>23:59 WIB</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+               
 
     <!-- Kelas yang sudah di buka (berdasarkan fakultas) -->
     <!-- Fakultas A -->
@@ -648,92 +426,7 @@
                     </div>
                   </div>
                 </div>
-                <!-- Slide 2 -->
-                <div class="carousel-item">
-                  <div class="row">
-                    <div class="col-md-4 mb-3">
-                      <a href="info-kelas.html" class="card-kelas">
-                        <div class="card">
-                          <img class="img-fluid" alt="100%x280" src="IMG/bg-buka_kelas.jpg" />
-                          <div class="card-body bg-light">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <!-- foto profil -->
-                                <img
-                                  class="foto-profil"
-                                  src="IMG/foto-profil.jpg"
-                                  alt="foto-profil"
-                                />
-                              </div>
-                              <div class="col ms-3">
-                                <h5 class="mb-3">Struktur Bangunan</h5>
-                                <div style="line-height: 0.3">
-                                  <p class="card-text">Iqbal Bin Yahya</p>
-                                  <p>30 Mei 2022</p>
-                                  <p>23:59 WIB</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                      <a href="info-kelas.html" class="card-kelas">
-                        <div class="card">
-                          <img class="img-fluid" alt="100%x280" src="IMG/bg-buka_kelas.jpg" />
-                          <div class="card-body bg-light">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <!-- foto profil -->
-                                <img
-                                  class="foto-profil"
-                                  src="IMG/foto-profil.jpg"
-                                  alt="foto-profil"
-                                />
-                              </div>
-                              <div class="col ms-3">
-                                <h5 class="mb-3">Struktur Bangunan</h5>
-                                <div style="line-height: 0.3">
-                                  <p class="card-text">Iqbal Bin Yahya</p>
-                                  <p>30 Mei 2022</p>
-                                  <p>23:59 WIB</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                      <a href="info-kelas.html" class="card-kelas">
-                        <div class="card">
-                          <img class="img-fluid" alt="100%x280" src="IMG/bg-buka_kelas.jpg" />
-                          <div class="card-body bg-light">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <!-- foto profil -->
-                                <img
-                                  class="foto-profil"
-                                  src="IMG/foto-profil.jpg"
-                                  alt="foto-profil"
-                                />
-                              </div>
-                              <div class="col ms-3">
-                                <h5 class="mb-3">Struktur Bangunan</h5>
-                                <div style="line-height: 0.3">
-                                  <p class="card-text">Iqbal Bin Yahya</p>
-                                  <p>30 Mei 2022</p>
-                                  <p>23:59 WIB</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>

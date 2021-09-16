@@ -17,8 +17,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="shortcut icon" href="IMG/logo.png" />
-    <link rel="stylesheet" href="css/student/bukakelas-pelajar.css" />
+    <link rel="shortcut icon" href="/IMG/logo.png" />
+    <link rel="stylesheet" href="/css/student/bukakelas-pelajar.css" />
   </head>
   <body>
     <!-- Modal -->
@@ -74,6 +74,45 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-primary-color sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand ms-3" href="/dashboard-student"><img src="/IMG/logo.svg" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/dashboard-student">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/edpedia-comingsoon">ed.pedia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard-student/edwallet/<%= currentUser.student_id %>" tabindex="-1">ed.wallet</a>
+            </li>
+            <li class="nav-item">
+              <a style="color: #fff100 !important" class="nav-link" href="/buka-kelas/<%= currentUser.student_id  %> ">
+                BUKA KELAS
+              </a>
+            </li>
+          </ul>
+          <div class="d-flex">
+            <!-- Notif -->
+            <!-- data-bs-toggle="modal" data-bs-target="#inboxModal" -->
+            <a href="edmessage.html" class="nav-link" >
+              <i style="font-size: 1.4rem;" class="fa fa-bell text-light"></i>
+            </a>
+            <div class="input-search">
+              <input class="input-field"  placeholder="Search" />
+              <button type="submit" class="btn"><i class="fa fa-search text-light"> </i></button>
+            </div>
+      
+            <a href="/dashboard-student/profile/<%=currentUser.student_id%>" class="nav-link">
+              <i style="font-size: 1.6rem;" class="fa fa-sliders text-light"></i>
+            </a>
+          </div>
+        </div>
+      </div>
       <!-- <div class="container-fluid">
         <a class="navbar-brand ms-4" href="home.html"><img src="IMG/logo.svg " alt="logo" /></a>
         <button
@@ -126,7 +165,7 @@
     <div class="container-fluid headContainer mt-5 mb-5 container rounded bg-light">
       <div class="mt-5">
         <center>
-          <img class="img-fluid" src="IMG/logo-03.svg" alt="" />
+          <img class="img-fluid" src="/IMG/logo-03.svg" alt="" />
         </center>
         <div class="requestContainer mb-5">
           <a
@@ -227,7 +266,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -263,7 +302,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -301,7 +340,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -337,7 +376,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -416,7 +455,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -452,7 +491,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -490,7 +529,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -526,7 +565,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -605,7 +644,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -641,7 +680,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -679,7 +718,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -715,7 +754,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -794,7 +833,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -830,7 +869,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -868,7 +907,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -981,7 +1020,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -1017,7 +1056,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -1055,7 +1094,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -1091,7 +1130,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -1170,7 +1209,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -1206,7 +1245,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -1244,7 +1283,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -1280,7 +1319,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -1359,7 +1398,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -1395,7 +1434,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -1433,7 +1472,7 @@
                         <div class="col-3">
                           <img
                             class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
+                            src="/IMG/foto-profil.jpg"
                             alt="profil"
                           />
                         </div>
@@ -1501,7 +1540,7 @@
           <h3 class="text-light">Berita Terbaru</h3>
           <div class="col-md-4 col-12">
             <div class="card">
-              <img src="IMG/no-image.svg" class="card-img-top" alt="..." />
+              <img src="/IMG/no-image.svg" class="card-img-top" alt="..." />
               <div class="card-body">
                 <p class="card-text">
                   Some quick example text to build on the card title and make up the bulk of the
@@ -1512,7 +1551,7 @@
           </div>
           <div class="col-md-4 col-12">
             <div class="card">
-              <img src="IMG/no-image.svg" class="card-img-top" alt="..." />
+              <img src="/IMG/no-image.svg" class="card-img-top" alt="..." />
               <div class="card-body">
                 <p class="card-text">
                   Some quick example text to build on the card title and make up the bulk of the
@@ -1523,7 +1562,7 @@
           </div>
           <div class="col-md-4 col-12">
             <div class="card">
-              <img src="IMG/no-image.svg" class="card-img-top" alt="..." />
+              <img src="/IMG/no-image.svg" class="card-img-top" alt="..." />
               <div class="card-body">
                 <p class="card-text">
                   Some quick example text to build on the card title and make up the bulk of the
@@ -1545,7 +1584,7 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
-    <script src="javascript/navbar.js"></script>
-    <script src="javascript/notif.js"></script>
+    <!-- <script src="javascript/navbar.js"></script> --> <!-- langsung isi di file ini aja -->
+    <!-- <script src="javascript/notif.js"></script> -->
   </body>
 </html>

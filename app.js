@@ -44,6 +44,7 @@ const {
   initializeStudent: initializePassportStudent,
   initializeMentor: initializePassportMentor,
 } = require('./passportConfig');
+const { query } = require('express');
 
 initializePassportStudent(passport);
 initializePassportMentor(passport);
@@ -94,6 +95,7 @@ app.get("/login-student", (req, res) => {
 
 //isLoggedIn? student
 function isLoggedInStudent(req, res, next) {
+
   if (!req.isAuthenticated()) {
     // req.session.kembaliKe = req.originalUrl;
     req.flash("error", "anda harus login dulu");
@@ -110,14 +112,22 @@ app.get(
     //nanti isi routing isLoggedInStudent abis /dashboard-student
     const currentUser = req.user;
     
-    res.render("student/home", {currentUser});
+    const courseInfoRaw = await pool.query
+    (
+      `SELECT * FROM course`
+    )
+
+    const courseInfo = courseInfoRaw.rows;
+    
+    res.render("student/home", {currentUser, courseInfo});
   })
 );
 
 //student form mengubah profile
 app.get(
-  "/dashboard-student/profile/:id", isLoggedInStudent,
+  "/dashboard-student/profile/:id",
   catchAsync(async(req,res) => {
+    //nnti isiin middleware isLoggedInStudent
     const {id} = req.params;
     
     const profileDataRaw = await pool.query(
@@ -133,13 +143,12 @@ app.get(
 
 //student mengubah profile
 app.put(
-  "/dashboard-student/profile/:id", isLoggedInStudent, catchAsync(async(req, res) =>{
+  "/dashboard-student/profile/:id", catchAsync(async(req, res) =>{
+    //nnti isiin middleware isLoggedInStudent
     const id = parseInt(req.params.id);
     const {nama_lengkap, username, no_handphone, email} = req.body;
 
 
-    console.log(req.body);
-    console.log(id);
     const updatedProfile= await pool.query(
       "UPDATE student SET nama_lengkap=$1, username=$2, no_handphone=$3, email=$4 WHERE student_id=$5" , [nama_lengkap, username, no_handphone, email, id]
     )
@@ -149,8 +158,22 @@ app.put(
   })
 )
 
+app.get('/dashboard-student/edwallet/:id', catchAsync(async(req, res) => {
+  const {id} = req.params;
+
+  const currentUserRaw = await pool.query(
+    `SELECT * FROM student WHERE student_id = $1`, [id]
+  )
+
+  const currentUser = currentUserRaw.rows[0];
+
+
+  res.render('edwallet', {currentUser});
+}))
+
 //student pusat bantuan
-app.get('/dashboard-student/profile/:id/pusat-bantuan', isLoggedInStudent, catchAsync(async(req, res) => {
+app.get('/dashboard-student/profile/:id/pusat-bantuan', catchAsync(async(req, res) => {
+  //nnti isiin middleware isLoggedInStudent
   const {id} = req.params;
   const profileDataRaw = await pool.query(
     `SELECT * FROM student WHERE student_id = $1`, [id]
@@ -198,20 +221,61 @@ app.post(
 app.post(
   "/login-student",
   passport.authenticate("localStudent", {
-    successRedirect: "/dashboard-student",
+    successRedirect: "/dashboard-student" ,
     failureRedirect: "/login-student",
     failureFlash: true,
   })
 );
 
-//edpedia comingsoon
-app.get("/edpedia-comingsoon", isLoggedInStudent, (req, res) => {
-  res.render("student/edpedia");
-});
+// app.get('/login-student', function(req, res, next) {
+//   passport.authenticate('LocalStudent', function(err, user, info) {
+//     if (err) { return next(err); }
+//     if (!user) { return res.redirect('/login-student'); }
+//     req.logIn(user, function(err) {
+//       if (err) { return next(err); }
+//       const currentUser = req.user
+//       console.log(currentUser)
+//       // return res.redirect(`/dashboard-student/${currentUser.student_id}`);
+//     });
+//   })(req, res, next);
+// });
 
-app.get("/buka-kelas", (req, res) => {
-  res.render("student/bukakelas-pelajar");
-});
+//post logout student
+app.get(
+  "/logout-student", (req, res) => {
+    req.logout();
+    console.log('udah sampai sini')
+    res.redirect('/login-student');
+  }
+);
+
+//edpedia comingsoon
+app.get("/edpedia-comingsoon/:id", catchAsync(async(req, res) => {
+  //nnti isiin middleware isLoggedInStudent
+  const {id} = req.params;
+
+  const currentUserRaw = await pool.query(
+    `SELECT * FROM student WHERE student_id = $1`, [id]
+  )
+  
+  const currentUser = currentUserRaw.rows[0];
+
+  res.render("student/edpedia", {currentUser});
+}));
+
+app.get("/buka-kelas/:id", catchAsync(async(req, res) => {
+  
+  const {id} = req.params;
+
+  const currentUserRaw = await pool.query(
+    `SELECT * FROM student WHERE student_id = $1`, [id]
+  )
+  
+  const currentUser = currentUserRaw.rows[0];
+
+  res.render("student/bukakelas-pelajar", {currentUser});
+  
+}));
 
 app.get("/request-kelas", (req, res) => {
   res.render("student/requestkelas");
