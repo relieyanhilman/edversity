@@ -107,10 +107,14 @@ function isLoggedInStudent(req, res, next) {
 //dashboard student
 app.get(
   "/dashboard-student", isLoggedInStudent,
+  // (req, res) => {
+  //   res.render("student/home");
+  // });
   catchAsync(async (req, res) => {
     
     //nanti isi routing isLoggedInStudent abis /dashboard-student
     const currentUser = req.user;
+    // console.log(currentUser);
     
     const courseInfoRaw = await pool.query
     (
@@ -294,12 +298,9 @@ app.post(
       tipe_kelas,
       paket
     } = req.body;
-
-    
-
     
     const uploadKelas = await pool.query(
-      `INSERT INTO course(program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, deskripsi_materi,tipe_kelas, file_materi, paket) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+      `INSERT INTO course(program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, deskripsi_materi, tipe_kelas, file_materi, paket) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
       [
         program_studi,
         mata_kuliah,
@@ -314,8 +315,6 @@ app.post(
 
     req.flash('success', 'berhasil upload kelas');
     res.redirect('/dashboard-student');
-    
-    
   })
 );
 
@@ -371,8 +370,61 @@ app.post(
 
 //dashboard mentor
 app.get("/dashboard-mentor", isLoggedInMentor, (req, res) => {
+  // console.log(req.user);
   res.render("mentor/home-mentor");
 });
+
+//edwallet mentor
+app.get("/edwallet-mentor", isLoggedInMentor, (req, res) => {
+  res.render("mentor/edwallet-mentor");
+});
+
+// request kelas mentor
+app.get("/request-kelas-mentor", isLoggedInMentor, (req, res) => {
+  res.render("mentor/requestkelas-mentor");
+});
+
+// profile mentor
+app.get("/profile-mentor", isLoggedInMentor, (req, res) => {
+  res.render("mentor/option-mentor");
+});
+
+app.post(
+  "/request-kelas-mentor",
+  // res.send(req.body);
+  upload.single("file_materi"),
+  catchAsync(async (req, res) => {
+    const {
+      program_studi,
+      mata_kuliah,
+      tanggal_kelas,
+      waktu_kelas,
+      paket,
+      deskripsi_materi
+    } = req.body;
+
+    console.log(req.user);
+
+    const uploadKelas = await pool.query(
+      `INSERT INTO course(mentor_id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, tipe_kelas, file_materi, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+      [
+        req.user.mentor_id,
+        program_studi,
+        mata_kuliah,
+        tanggal_kelas,
+        waktu_kelas,
+        paket,
+        deskripsi_materi,
+        'public',
+        req.file.path,
+        'open'
+      ]
+    );
+
+    req.flash('success', 'berhasil buka kelas');
+    res.redirect('/dashboard-mentor');
+  })
+);
 
 
 app.all('*', (req, res, next) => {
