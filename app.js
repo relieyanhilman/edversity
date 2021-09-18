@@ -1,15 +1,15 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const pool = require("./db");
 const path = require("path");
 const catchAsync = require("./utils/catchAsync");
-const prettyDate2 = require('./utils/prettyDate2')
+const prettyDate2 = require("./utils/prettyDate2");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
-const ExpressError = require('./utils/ExpressError');
-const methodOverride = require('method-override')
+const ExpressError = require("./utils/ExpressError");
+const methodOverride = require("method-override");
 
 const multer = require("multer");
 
@@ -43,8 +43,8 @@ const upload = multer({
 const {
   initializeStudent: initializePassportStudent,
   initializeMentor: initializePassportMentor,
-} = require('./passportConfig');
-const { query } = require('express');
+} = require("./passportConfig");
+const { query } = require("express");
 
 initializePassportStudent(passport);
 initializePassportMentor(passport);
@@ -55,11 +55,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/public/uploads", express.static("public/uploads"));
-app.use(methodOverride('_method'))
+app.use(methodOverride("_method"));
 
 app.use(
   session({
-    secret: 'secret',
+    secret: "secret",
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 60000 },
@@ -71,8 +71,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  res.locals.success = req.flash('success');
-  res.locals.error = req.flash('error');
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
   next();
 });
 
@@ -95,7 +95,6 @@ app.get("/login-student", (req, res) => {
 
 //isLoggedIn? student
 function isLoggedInStudent(req, res, next) {
-
   if (!req.isAuthenticated()) {
     // req.session.kembaliKe = req.originalUrl;
     req.flash("error", "anda harus login dulu");
@@ -106,84 +105,89 @@ function isLoggedInStudent(req, res, next) {
 
 //dashboard student
 app.get(
-  "/dashboard-student", isLoggedInStudent,
+  "/dashboard-student",
+  isLoggedInStudent,
   catchAsync(async (req, res) => {
-    
     //nanti isi routing isLoggedInStudent abis /dashboard-student
+    console.log(req.user);
     const currentUser = req.user;
-    
-    const courseInfoRaw = await pool.query
-    (
-      `SELECT * FROM course`
-    )
+
+    const courseInfoRaw = await pool.query(`SELECT * FROM course`);
 
     const courseInfo = courseInfoRaw.rows;
-    
-    res.render("student/home", {currentUser, courseInfo});
+
+    res.render("student/home", { currentUser, courseInfo });
   })
 );
 
 //student form mengubah profile
 app.get(
   "/dashboard-student/profile/:id",
-  catchAsync(async(req,res) => {
+  catchAsync(async (req, res) => {
     //nnti isiin middleware isLoggedInStudent
-    const {id} = req.params;
-    
+    const { id } = req.params;
+
     const profileDataRaw = await pool.query(
-      `SELECT * FROM student WHERE student_id = $1`, [id]
+      `SELECT * FROM student WHERE student_id = $1`,
+      [id]
     );
 
     const profileData = profileDataRaw.rows[0];
-    
-    
-    res.render('student/option', {profileData})
+
+    res.render("student/option", { profileData });
   })
-)
+);
 
 //student mengubah profile
 app.put(
-  "/dashboard-student/profile/:id", catchAsync(async(req, res) =>{
+  "/dashboard-student/profile/:id",
+  catchAsync(async (req, res) => {
     //nnti isiin middleware isLoggedInStudent
     const id = parseInt(req.params.id);
-    const {nama_lengkap, username, no_handphone, email} = req.body;
+    const { nama_lengkap, username, no_handphone, email } = req.body;
 
+    const updatedProfile = await pool.query(
+      "UPDATE student SET nama_lengkap=$1, username=$2, no_handphone=$3, email=$4 WHERE student_id=$5",
+      [nama_lengkap, username, no_handphone, email, id]
+    );
 
-    const updatedProfile= await pool.query(
-      "UPDATE student SET nama_lengkap=$1, username=$2, no_handphone=$3, email=$4 WHERE student_id=$5" , [nama_lengkap, username, no_handphone, email, id]
-    )
-    
-    // req.flash('success', 'Data profile berhasil di-update');  
+    // req.flash('success', 'Data profile berhasil di-update');
     res.redirect(`/dashboard-student`);
   })
-)
+);
 
-app.get('/dashboard-student/edwallet/:id', catchAsync(async(req, res) => {
-  const {id} = req.params;
+app.get(
+  "/dashboard-student/edwallet/:id",
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
 
-  const currentUserRaw = await pool.query(
-    `SELECT * FROM student WHERE student_id = $1`, [id]
-  )
+    const currentUserRaw = await pool.query(
+      `SELECT * FROM student WHERE student_id = $1`,
+      [id]
+    );
 
-  const currentUser = currentUserRaw.rows[0];
+    const currentUser = currentUserRaw.rows[0];
 
-
-  res.render('edwallet', {currentUser});
-}))
+    res.render("edwallet", { currentUser });
+  })
+);
 
 //student pusat bantuan
-app.get('/dashboard-student/profile/:id/pusat-bantuan', catchAsync(async(req, res) => {
-  //nnti isiin middleware isLoggedInStudent
-  const {id} = req.params;
-  const profileDataRaw = await pool.query(
-    `SELECT * FROM student WHERE student_id = $1`, [id]
-  );
-  
+app.get(
+  "/dashboard-student/profile/:id/pusat-bantuan",
+  catchAsync(async (req, res) => {
+    //nnti isiin middleware isLoggedInStudent
+    const { id } = req.params;
+    const profileDataRaw = await pool.query(
+      `SELECT * FROM student WHERE student_id = $1`,
+      [id]
+    );
 
-  const profileData = profileDataRaw.rows[0];
+    const profileData = profileDataRaw.rows[0];
 
-  res.render('student/pusat-bantuan', {profileData});
-}))
+    res.render("student/pusat-bantuan", { profileData });
+  })
+);
 
 //post register student
 app.post(
@@ -221,7 +225,7 @@ app.post(
 app.post(
   "/login-student",
   passport.authenticate("localStudent", {
-    successRedirect: "/dashboard-student" ,
+    successRedirect: "/dashboard-student",
     failureRedirect: "/login-student",
     failureFlash: true,
   })
@@ -241,41 +245,45 @@ app.post(
 // });
 
 //post logout student
-app.get(
-  "/logout-student", (req, res) => {
-    req.logout();
-    console.log('udah sampai sini')
-    res.redirect('/login-student');
-  }
-);
+app.get("/logout-student", (req, res) => {
+  req.logout();
+  console.log("udah sampai sini");
+  res.redirect("/login-student");
+});
 
 //edpedia comingsoon
-app.get("/edpedia-comingsoon/:id", catchAsync(async(req, res) => {
-  //nnti isiin middleware isLoggedInStudent
-  const {id} = req.params;
+app.get(
+  "/edpedia-comingsoon/:id",
+  catchAsync(async (req, res) => {
+    //nnti isiin middleware isLoggedInStudent
+    const { id } = req.params;
 
-  const currentUserRaw = await pool.query(
-    `SELECT * FROM student WHERE student_id = $1`, [id]
-  )
-  
-  const currentUser = currentUserRaw.rows[0];
+    const currentUserRaw = await pool.query(
+      `SELECT * FROM student WHERE student_id = $1`,
+      [id]
+    );
 
-  res.render("student/edpedia", {currentUser});
-}));
+    const currentUser = currentUserRaw.rows[0];
 
-app.get("/buka-kelas/:id", catchAsync(async(req, res) => {
-  
-  const {id} = req.params;
+    res.render("student/edpedia", { currentUser });
+  })
+);
 
-  const currentUserRaw = await pool.query(
-    `SELECT * FROM student WHERE student_id = $1`, [id]
-  )
-  
-  const currentUser = currentUserRaw.rows[0];
+app.get(
+  "/buka-kelas/:id",
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
 
-  res.render("student/bukakelas-pelajar", {currentUser});
-  
-}));
+    const currentUserRaw = await pool.query(
+      `SELECT * FROM student WHERE student_id = $1`,
+      [id]
+    );
+
+    const currentUser = currentUserRaw.rows[0];
+
+    res.render("student/bukakelas-pelajar", { currentUser });
+  })
+);
 
 app.get("/request-kelas", (req, res) => {
   res.render("student/requestkelas");
@@ -292,12 +300,9 @@ app.post(
       waktu_kelas,
       deskripsi_materi,
       tipe_kelas,
-      paket
+      paket,
     } = req.body;
 
-    
-
-    
     const uploadKelas = await pool.query(
       `INSERT INTO course(program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, deskripsi_materi,tipe_kelas, file_materi, paket) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
       [
@@ -308,14 +313,12 @@ app.post(
         deskripsi_materi,
         tipe_kelas,
         req.file.path,
-        paket
+        paket,
       ]
     );
 
-    req.flash('success', 'berhasil upload kelas');
-    res.redirect('/dashboard-student');
-    
-    
+    req.flash("success", "berhasil upload kelas");
+    res.redirect("/dashboard-student");
   })
 );
 
@@ -363,28 +366,84 @@ app.post(
 app.post(
   "/login-mentor",
   passport.authenticate("localMentor", {
-    successRedirect: "/dashboard-mentor",
+    successRedirect: "/dashboard-mentor/",
     failureRedirect: "/login-mentor",
     failureFlash: true,
   })
 );
 
+// app.get(
+//   "/login-mentor",
+//   passport.authenticate("localMentor", (req, res) => {
+
+//   })
+// );
+
 //dashboard mentor
+app.get('/dashboard-mentor', (req, res) => {
+  console.log(req.user);
+})
+//role 2
+//get		detail-kelas			/dashboard-mentor/:id/detail-kelas/:kelasId
+//post		daftar-mentor-kelas		/dashboard-mentor/:id/detail-kelas/:kelasId
+
+//get		render-edpedia-comingsoon	/edpedia-comingsoon/:id
+
+//get		render-pusat-bantuan		/dashboard-mentor/profile/:id/pusat-bantuan
+
+//get		logout				/logout-mentor
+//get		render-dashboard 		/dashboard-mentor/:id
+
+//////////////////////////////
+//detail kelas
+app.get("/dashboard-mentor/:id/detail-kelas/:kelasId", (req, res) => {
+  res.send("ini udah di detail-kelas");
+
+  // res.render("");
+});
+
+//daftar mentor kelas
+app.post("/dashboard-mentor/:id/detail-kelas/:kelasId", (req, res) => {
+  res.send("ini buat post detail-kelas");
+});
+
+//page edpedia
+app.get("/dashboard-mentor/edpedia-comingsoon", (req, res) => {
+  // res.send("ini buat render-edpedia-comingsoon");
+
+  const currentUser = req.user;
+  console.log(currentUser);
+  // res.render('edpedia-mentor', {currentUser});
+});
+
+//page pusat bantuan
+app.get("/dashboard-mentor/profile/:id/pusat-bantuan", (req, res) => {
+  res.send("ini buat render pusat bantuan");
+});
+
+//logout
+app.get("/logout-mentor", (req, res) => {
+  res.send("ini buat logout");
+});
+
+//render dashboard
+app.get("/dashboard-mentor/:id", (req, res) => {
+  res.send("ini buat render dashboard");
+});
+
 app.get("/dashboard-mentor", isLoggedInMentor, (req, res) => {
   res.render("mentor/home-mentor");
 });
 
-
-app.all('*', (req, res, next) => {
-  next(new ExpressError('Page tidak ditemukan', 404))
-
-})
+app.all("*", (req, res, next) => {
+  next(new ExpressError("Page tidak ditemukan", 404));
+});
 
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
-  if (!err.message) err.message = "oh no, ada yang salah bro"
-  res.status(statusCode).render('error', { err })
-})
+  if (!err.message) err.message = "oh no, ada yang salah bro";
+  res.status(statusCode).render("error", { err });
+});
 
 //Check authentikasi mentor
 function isLoggedInMentor(req, res, next) {
@@ -396,5 +455,5 @@ function isLoggedInMentor(req, res, next) {
 }
 
 app.listen(3000, () => {
-  console.log('server sudah berjalan di port 3000');
+  console.log("server sudah berjalan di port 3000");
 });
