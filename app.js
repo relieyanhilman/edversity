@@ -337,6 +337,7 @@ app.post(
   catchAsync(async (req, res) => {
     const { nama_lengkap, jurusan, username, email, password } = req.body;
 
+    // res.send(req.body);
     let hashedPassword = await bcrypt.hash(password, 10);
 
     const rowsSelect = await pool.query(
@@ -366,7 +367,7 @@ app.post(
 app.post(
   "/login-mentor",
   passport.authenticate("localMentor", {
-    successRedirect: "/dashboard-mentor/",
+    successRedirect: "/dashboard-mentor/edpedia-comingsoon",
     failureRedirect: "/login-mentor",
     failureFlash: true,
   })
@@ -376,11 +377,11 @@ app.post(
 
 //role 2
 //get		detail-kelas			/dashboard-mentor/:id/detail-kelas/:kelasId
-//post		daftar-mentor-kelas		/dashboard-mentor/:id/detail-kelas/:kelasId
+//post	daftar-mentor-kelas		/dashboard-mentor/:id/detail-kelas/:kelasId
 
-//get		render-edpedia-comingsoon	/edpedia-comingsoon/:id
+//get		render-edpedia-comingsoon	/edpedia-comingsoon/:id   DONE!!
 
-//get		render-pusat-bantuan		/dashboard-mentor/profile/:id/pusat-bantuan
+//get		render-pusat-bantuan		/dashboard-mentor/profile/:id/pusat-bantuan DONE
 
 //get		logout				/logout-mentor
 //get		render-dashboard 		/dashboard-mentor/:id
@@ -399,18 +400,34 @@ app.post("/dashboard-mentor/:id/detail-kelas/:kelasId", (req, res) => {
 });
 
 //page edpedia
-app.get("/dashboard-mentor/edpedia-comingsoon", (req, res) => {
+app.get("/dashboard-mentor/:id/edpedia-comingsoon", catchAsync(async(req, res) => {
   // res.send("ini buat render-edpedia-comingsoon");
+  const {id} = req.params;
 
-  const currentUser = req.user;
-  console.log(currentUser);
-  // res.render('edpedia-mentor', {currentUser});
-});
+  const currentUserRaw = await pool.query(
+    `SELECT * FROM mentor WHERE mentor_id = $1`, [id]
+  )
+
+  const currentUser = currentUserRaw.rows[0];
+
+  // const currentUser = req.user;
+  // console.log(currentUser);
+  res.render('mentor/edpedia-mentor', {currentUser});
+}));
 
 //page pusat bantuan
-app.get("/dashboard-mentor/profile/:id/pusat-bantuan", (req, res) => {
-  res.send("ini buat render pusat bantuan");
-});
+app.get("/dashboard-mentor/profile/:id/pusat-bantuan", catchAsync(async(req, res) => {
+  const {id} = req.params;
+
+  const currentUserRaw = await pool.query(
+    `SELECT * FROM mentor WHERE mentor_id = $1`, [id]
+  )
+  const currentUser = currentUserRaw.rows[0];
+  
+  res.render('mentor/pusat-bantuan-mentor', {currentUser})
+
+  // res.send("ini buat render pusat bantuan");
+}));
 
 //logout
 app.get("/logout-mentor", (req, res) => {
@@ -418,11 +435,22 @@ app.get("/logout-mentor", (req, res) => {
 });
 
 //render dashboard
-app.get("/dashboard-mentor/:id", (req, res) => {
-  res.send("ini buat render dashboard");
-});
+app.get("/dashboard-mentor/:id", catchAsync(async(req, res) => {
+  const {id} = req.params;
+
+  const currentUserRaw = await pool.query(
+    `SELECT * FROM mentor WHERE mentor_id = $1`, [id]
+  )
+
+  const currentUser = currentUserRaw.rows[0];
+
+
+
+  res.render('mentor/home-mentor', {currentUser});
+}));
 
 app.get("/dashboard-mentor", isLoggedInMentor, (req, res) => {
+  console.log(req.user)
   res.render("mentor/home-mentor");
 });
 
