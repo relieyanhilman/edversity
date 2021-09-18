@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins;
+}
+
+body {
+  background-color: #022721;
+  font-weight: 500;
+  background-image: url(IMG/bg-pattern.png);
+  background-attachment: fixed;
+}
+
+button:focus {
+  box-shadow: none !important;
+}
+
+.login-form-container {
+  border-radius: 20px;
+  background-color: rgb(20, 20, 20);
+  margin-top: 20px;
+  padding: 60px 60px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .login-form-container {
+    padding: 6% 6% !important;
+  }
+}
+
+.login-form {
+  background-color: white;
+  padding: 40px 40px;
+  border-radius: 10px;
+}
+
+.radio:checked {
+  background-color: #078874;
+  color: #078874;
+  border-color: #022721;
+}
+
+.inputEmail:focus {
+  box-shadow: red;
+  outline: none;
+}
+
+.login-side-image {
+  border-radius: 10px;
+  margin-top: 10%;
+}
+
+.form-control:focus {
+  outline: none;
+  box-shadow: none;
+  border: solid 0.5px gray;
+}
+
+.register-link {
+  color: #078874;
+}
+
+.primary-color {
+  color: #078874;
+}
+
+.primary-outline {
+  border: solid 0.5px #078874;
+  color: #078874;
+}
+
+.bg-primary-color {
+  background-color: #078874;
+  color: #fff;
+}

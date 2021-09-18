@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ed.versity - Request Kelas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/mentor/requestkelas-mentor.css" />
+  <link rel="shortcut icon" href="IMG/logo.png" />
+</head>
+
+<body>
+
+  <!-- Main Container -->
+  <div class="container main-container mt-5 mb-5">
+    <div class="login-form-container">
+      <div class="row mt-1 mb-1">
+        <div class="col-md-6 col-12 login-side">
+          <img src="IMG/logo-login_register.png" alt="ed.versity" />
+
+          <img class="login-side-image" src="IMG/req-kelas.svg" style="margin-top: 100px;" />
+        </div>
+        <div class="col-md-6 col-12 login-form mt-4">
+          <h4 class="" style="text-align: center;">Buka Kelas</h4>
+          <center>
+            <div class="bg-primary-color mb-4" style="width: 30%; height: 4px;"></div>
+          </center>
+          <form action="/request-kelas-mentor" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="program_studi" class="form-label">Program Studi</label>
+              <input placeholder="Contoh: Teknik Sipil" type="text" id="program_studi" name="program_studi"
+                class="form-control" aria-describedby="emailHelp" />
+            </div>
+            <div class="mb-3">
+              <label for="mata_kuliah" class="form-label">Mata Kuliah</label>
+              <input placeholder="Contoh: Struktur Bangunan" id="mata_kuliah" name="mata_kuliah" type="text"
+                class="inputEmail form-control" aria-describedby="emailHelp" />
+            </div>
+            <div class="mb-3">
+              <label for="tanggal" class="inputPassword form-label">Tanggal & Waktu Kelas</label>
+              <input type="date" id="tanggal_kelas" name="tanggal_kelas" class="form-control mb-2" />
+              <input type="time" id="waktu_kelas" name="waktu_kelas" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="paket" class="form-label">Paket Kelas</label>
+              <select class="form-select" id="paket" name="paket">
+                <option selected disabled hidden>Pilih Paket Kelas</option>
+                <option value="sarjana">Sarjana</option>
+                <option value="cumlaude">Cumlaude</option>
+                <option value="mawapres">Mawapres</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="deskripsi_materi" class="form-label">Deskripsi Materi</label>
+              <textarea class="form-control mb-2" name="deskripsi_materi" id="deskripsi_materi" cols="50"
+                rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="file_materi" class="form-label">File Materi</label>
+              <input type="file" class="form-control" id="file_materi" name="file_materi" />
+            </div>
+            <button type="submit" style="width: 100%; margin-top: 6px;"
+              class="btn text-light bg-primary-color">Kirim</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <!-- <div class="modal fade" id="notif-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h5 class="mb-1">Request Kelas Berhasil</h5>
+          <div class="bg-primary-color mb-4" style="width: 50%; height: 4px;"></div>
+          <h6 class="fw-bold mb-4">
+            Permintaan kelas anda sedang diproses lebih lanjut
+          </h6>
+          <div class="row">
+            <div class="col">
+              <a class="btn primary-outline" href="info-kelas-mentor.html">Cek Kelas</a>
+              <a class="btn bg-primary-color text-light" href="home-mentor.html">Kembali ke Dashboard</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Modal; -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,254 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins;
+  font-weight: 500;
+}
+
+body {
+  background-color: #1a1a1a;
+  background-image: url(IMG/bg-pattern.png);
+  background-attachment: fixed;
+}
+
+button:focus {
+  box-shadow: none !important;
+}
+
+.row .bg-primary-color:hover {
+  box-shadow: 5px 5px #1a1a1a;
+}
+
+.inboxModal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0px;
+  left: 4%;
+  z-index: 10040;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.input-search input {
+  color: white;
+  border: none;
+  background: none;
+  border-bottom: 1px solid white;
+  padding: 5px 10px;
+  outline: none;
+}
+
+.input-search input::placeholder {
+  color: white;
+}
+
+.nav-tabs .active {
+  color: #07695b !important;
+  background-color: #ededed !important;
+  outline: none;
+  border: none;
+}
+
+.nav-tabs .nav-link {
+  text-shadow: none !important;
+}
+
+.nav-tabs {
+  outline: none;
+  border: none;
+}
+
+.container {
+  overflow: hidden;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.input-search .btn {
+  position: absolute;
+  right: 6%;
+}
+
+@media (max-width: 600px) {
+  .input-search input {
+    width: 80%;
+  }
+  .margin-top-5 {
+    margin-top: 20px;
+  }
+
+  .list-prodi {
+    margin-right: 10px;
+  }
+  .form-section {
+    margin-top: 20px;
+    background-color: white;
+    padding: 10px 16px !important;
+  }
+  #kelas-aktif img {
+    width: 40px;
+  }
+  #daftar-tersimpan img {
+    width: 40px;
+  }
+  .vector-kelas-kosong {
+    width: 300px;
+  }
+  .navbar-nav {
+    text-align: center !important;
+  }
+
+  .input-search .btn {
+    display: none;
+  }
+
+  .navbar-brand {
+    width: 60%;
+  }
+
+  #inboxModal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0px;
+    left: 0;
+    z-index: 10040;
+  }
+
+  .modal-body label {
+    line-height: 1;
+  }
+
+  .inbox-label {
+    font-size: 12px;
+  }
+  h4 {
+    font-size: medium;
+  }
+  p {
+    font-size: small;
+  }
+
+  button {
+    font-size: medium;
+  }
+
+  .d-flex {
+    justify-content: center;
+  }
+}
+
+
+
+.nav-item {
+  font-size: large;
+}
+
+.form-control,
+.search-class {
+  z-index: 0;
+}
+
+.form-section {
+  background-color: white;
+  padding: 20px 40px;
+}
+
+.tab-container .nav-link {
+  color: black !important;
+}
+
+.navbar-nav {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.nav-link {
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  color: white !important;
+  padding: 6px 14px !important;
+}
+
+.nav-link:hover {
+  transition: 0.2s ease !important;
+  opacity: 0.7 !important;
+}
+.search-btn {
+  background-color: white;
+}
+
+.foto-profil {
+  border-radius: 100%;
+  width: 80px;
+}
+
+.sidebar {
+  background-color: #fff;
+  height: 360px;
+}
+
+.requestContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}
+
+.bg-vector {
+  background-image: url(IMG/vector_call-center.svg);
+  background-size: cover;
+}
+
+.primary-color {
+  color: #078874;
+}
+
+.bg-primary-color {
+  background-color: #078874;
+}
+
+.primary-outline {
+  border: solid 0.5px #078874;
+  color: #078874;
+}
+
+.secondary-color {
+  color: #022721;
+}
+
+.bg-secondary-color {
+  background-color: #022721;
+}
+
+.bg-dark-color {
+  background-color: rgb(20, 20, 20);
+}
+
+.dark-color {
+  color: rgb(20, 20, 20);
+}
+
+#requestBtn {
+  font-size: 16px;
+  padding: 8px 54px;
+  transition: 0.3s ease;
+  z-index: 2;
+}
+
+#requestBtn:hover {
+  opacity: 0.95;
+  transform: scale(1.2);
+}
+
+@media screen and (min-width: 576px) {
+  .requestBtn {
+    font-size: 16px;
+  }
+}

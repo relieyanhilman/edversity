@@ -9,13 +9,13 @@ navbar.forEach(navs=> {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="home-mentor.html">Home</a>
+            <a class="nav-link active" aria-current="page" href="/dashboard-mentor">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="edpedia-mentor.html">ed.pedia</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="edwallet-mentor.html" tabindex="-1">ed.wallet</a>
+            <a class="nav-link" href="/edwallet-mentor" tabindex="-1">ed.wallet</a>
           </li>
           
         </ul>
@@ -30,7 +30,7 @@ navbar.forEach(navs=> {
             <button type="submit" class="btn"><i class="fa fa-search text-light"> </i></button>
           </div>
 
-          <a href="option-mentor.html" class="nav-link">
+          <a href="/profile-mentor" class="nav-link">
             <i style="font-size: 1.6rem;" class="fa fa-sliders text-light"></i>
           </a>
         </div>

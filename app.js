@@ -372,17 +372,8 @@ app.post(
   })
 );
 
-// app.get(
-//   "/login-mentor",
-//   passport.authenticate("localMentor", (req, res) => {
-
-//   })
-// );
-
 //dashboard mentor
-app.get('/dashboard-mentor', (req, res) => {
-  console.log(req.user);
-})
+
 //role 2
 //get		detail-kelas			/dashboard-mentor/:id/detail-kelas/:kelasId
 //post		daftar-mentor-kelas		/dashboard-mentor/:id/detail-kelas/:kelasId
