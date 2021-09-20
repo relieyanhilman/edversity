@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ed.versity - info kelas</title>
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/b7a74d837b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/mentor/info-kelas-mentor.css" />
+  </head>
+  <body>
+    <!-- Modal -->
+    <!-- Inbox/Notif -->
+    <div class="modal fade inboxModal" id="inboxModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+      <!-- <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="row mt-1">
+              <div class="col-1">
+                <i class="fa mt-1 fs-3 fa-bell primary-color me-2"></i>
+              </div>
+              <div class="col" style="line-height: 0.4;">
+                <h5>Request kelas telah disetujui</h5>
+                <label class="inbox-label">Cek selengkapnya untuk memilih mentor</label>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-1">
+                <i class="fa mt-1 fs-3 fa-tag primary-color me-2"></i>
+              </div>
+              <div class="col" style="line-height: 0.4;">
+                <h5>Promo Kelas</h5>
+                <label class="inbox-label">Cek selengkapnya untuk memilih mentor</label>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-1">
+                <i class="fa mt-1 fs-3 fa-tag primary-color me-2"></i>
+              </div>
+              <div class="col" style="line-height: 0.4;">
+                <h5>Request Kelas telah di tolak</h5>
+                <label class="inbox-label">Cek selengkapnya untuk memilih mentor</label>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-1">
+                <i class="fa mt-1 fs-3 fa-check primary-color me-2"></i>
+              </div>
+              <div class="col" style="line-height: 0.4;">
+                <h5>Verifikasi Akun Anda</h5>
+                <label class="inbox-label">Cek selengkapnya untuk memilih mentor</label>
+              </div>
+            </div>
+
+            <a class="btn primary-outline w-100 mt-4" href="edmessage-mentor.html">Lihat Semua</a>
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <!-- Modal; -->
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary-color sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand ms-3" href="home-mentor.html"><img src="/IMG/logo.svg " alt="logo" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/dashboard-mentor">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="edpedia-mentor.html">ed.pedia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/edwallet-mentor" tabindex="-1">ed.wallet</a>
+            </li>
+            
+          </ul>
+          <div class="d-flex">
+            <!-- Notif -->
+            <!-- data-bs-toggle="modal" data-bs-target="#inboxModal" -->
+            <a href="edmessage-mentor.html" class="nav-link">
+              <i style="font-size: 1.4rem;" class="fa fa-bell text-light"></i>
+            </a>
+            <div class="input-search">
+              <input class="input-field"  placeholder="Search" />
+              <button type="submit" class="btn"><i class="fa fa-search text-light"> </i></button>
+            </div>
+  
+            <a href="/profile-mentor" class="nav-link">
+              <i style="font-size: 1.6rem;" class="fa fa-sliders text-light"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+    <!-- Navbar ; -->
+
+    <div class="container">
+      <div class="row">
+        <a href="javascript:history.back()" class="text-light"><i class="pe-2 text-light fa fa-chevron-left"></i>Kembali</a>
+      </div>
+      <div class="inner-container rounded bg-light">
+        <div class="row mt-4">
+          <div class="col-md-8 detail-kelas px-5 py-5">
+            <div class="row">
+              <div class="col-md-6">
+                <!-- Program Studi -->
+                <h4 class="fw-bold"><%= currentKelas.mata_kuliah  %>   <i class="fa fa-lock fs-5"></i></h4>
+                <!-- Mata Kuliah -->
+                <p class="text-secondary"><%= currentKelas.program_studi  %> </p>
+              </div>
+              <div class="col-md-6 col-12 mt-1">
+                <button style="float: right;" data-bs-toggle="modal" data-bs-target="#konfirmasi-modal" class="btn w-100 bg-primary-color text-light btn-lg">
+                  Jadi Mentor
+                </button>
+              </div>
+            </div>
+            <h5 class="primary-color mt-2">Deskripsi materi </h5>
+            <div class="bg-primary-color mb-4" style="width: 25%; height: 4px;"></div>
+            <!-- Isi Deksripsi Materi -->
+            <p>
+              <%= currentKelas.deskripsi_materi  %>
+            </p>
+            <!-- Tangal Kelas -->
+            <div class="bg-primary-color rounded py-1">
+              <h5 style="text-align: center;" class="mt-1 text-light"><%=currentKelas.tanggal_kelas%>  <span>•22:22 WIB</span></h5>
+            </div>
+          </div>
+          <!-- Gambar yang berkaitan dengan program studi/jurusan -->
+          <div class="col-md-4 px-5 py-5">
+            <img class="img-fluid" src="/IMG/struktur-bangunan.jpg" alt="Struktur Bangunan" />
+          </div>
+        </div>
+        <div class="row px-5 py-2">
+          <div class="col-md-8 mb-5 py-2">
+            <!-- File Deskripsi Materi -->
+            <img src="IMG/blur.png" alt="" class="imf-fluid">
+            <!-- File Deskrpsip materi -> di lain tab -->
+            <form action="dummy-file/somefile.pdf" method="get">
+              <button type="submit" class="btn mt-3 text-light bg-primary-color w-100" style="margin-top: 3px;"><i class="fa fa-file"></i> Lihat atau Download File</button>
+            </form>
+          </div>
+          <div class="col py-2" style="text-align: center;">
+            <h5>Daftar Siswa</h5>
+            <center>
+              <div class="bg-primary-color mb-4" style="width: 35%; height: 4px;"></div>
+            </center>
+            <!-- List siswa *untuk mengubah list di pisahkan oleh row -->
+            <% for (let i = 0; i< peserta_kelas.length; i++) {%> 
+            <div class="row mt-1">
+              <div class="col-md-1 col-1 me-3">
+                <img src="dummy-file/ava-1.jpg" alt="" />
+              </div>
+              <div class="col-md-9 col-7" style="text-align: start;">
+                <h6><%= peserta_kelas[i].nama_lengkap %> </h6>
+              </div>
+              <div class="col" style="text-align: end;"><i class="fa fa-ellipsis-v"></i></div>
+            </div>
+            <% } %> 
+            
+            <div class="row mt-3">
+              <a href="/dashboard-mentor/<%=currentUser.mentor_id%> /detail-kelas/<%=currentKelas.course_id%>/daftar-siswa" class="btn primary-outline primary-color">Lihat Semua</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  Modal Konfirmasi Jadi Mentor -->
+    <div class="modal fade notif-modal" id="konfirmasi-modal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5 class="mb-1">Konfirmasi</h5>
+            <div class="bg-primary-color mb-4" style="width: 50%; height: 4px;"></div>
+            <h6 class=" fs-5 mb-4">Jadi mentor dari kelas ini?</h6>
+            <div class="row justify-content-end">
+              <div class="d-flex justify-content-end me-2">
+                <button type="button" class="btn btn-lg me-2 primary-color primary-outline" data-bs-dismiss="modal">
+                  Batal
+                </button>
+                <a class="btn btn-lg bg-primary-color text-light" href="info-kelas-mentor.html">Ya</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal; -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="navbar-mentor.js"></script>
+<script src="notif-mentor.js"></script>
+  </body>
+</html>
