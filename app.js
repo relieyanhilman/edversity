@@ -367,7 +367,7 @@ app.post(
 app.post(
   "/login-mentor",
   passport.authenticate("localMentor", {
-    successRedirect: "/dashboard-mentor/edpedia-comingsoon",
+    successRedirect: "/dashboard-mentor/",
     failureRedirect: "/login-mentor",
     failureFlash: true,
   })
@@ -444,9 +444,23 @@ app.get("/dashboard-mentor/:id", catchAsync(async(req, res) => {
 
   const currentUser = currentUserRaw.rows[0];
 
+  const currentUserCourseRaw = await pool.query(
+    `SELECT * FROM course WHERE mentor_id = $1 AND status = $2`, [id, 'open']
+  )
 
+  const currentUserCourse = currentUserCourseRaw.rows;
 
-  res.render('mentor/home-mentor', {currentUser});
+  // console.log({currentUser, currentUserCourse});
+  // console.log(currentUserCourse);
+
+  currentUserCourse.forEach(row => {
+    var options1 = {
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+    }
+    row.tanggal_kelas = row.tanggal_kelas.toLocaleString('id-ID', options1);
+  });
+
+  res.render('mentor/home-mentor', {currentUser, currentUserCourse});
 }));
 
 app.get("/dashboard-mentor", isLoggedInMentor, (req, res) => {
