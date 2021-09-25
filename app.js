@@ -51,7 +51,7 @@ initializePassportMentor(passport);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/public/uploads", express.static("public/uploads"));
@@ -106,7 +106,6 @@ function isLoggedInStudent(req, res, next) {
 //dashboard student
 app.get(
   "/dashboard-student",
-  isLoggedInStudent,
   catchAsync(async (req, res) => {
     //nanti isi routing isLoggedInStudent abis /dashboard-student
     console.log(req.user);
@@ -316,9 +315,9 @@ app.post(
         paket,
       ]
     );
-
+    
     req.flash("success", "berhasil upload kelas");
-    res.redirect("/dashboard-student");
+    res.redirect("/request-kelas"); //nanti ini dipindahin aja lagi routenya ke /dashboard-student
   })
 );
 
@@ -376,23 +375,66 @@ app.post(
 //dashboard mentor
 
 //role 2
-//get		detail-kelas			/dashboard-mentor/:id/detail-kelas/:kelasId
+//get		detail-kelas			/dashboard-mentor/:id/detail-kelas/:kelasId //DONE!!
 //post	daftar-mentor-kelas		/dashboard-mentor/:id/detail-kelas/:kelasId
 
 //get		render-edpedia-comingsoon	/edpedia-comingsoon/:id   DONE!!
 
-//get		render-pusat-bantuan		/dashboard-mentor/profile/:id/pusat-bantuan DONE
+//get		render-pusat-bantuan		/dashboard-mentor/profile/:id/pusat-bantuan DONE!!
 
 //get		logout				/logout-mentor
 //get		render-dashboard 		/dashboard-mentor/:id
 
 //////////////////////////////
 //detail kelas
-app.get("/dashboard-mentor/:id/detail-kelas/:kelasId", (req, res) => {
-  res.send("ini udah di detail-kelas");
+app.get("/dashboard-mentor/:id/detail-kelas/:kelasId", catchAsync(async(req, res) => {
+  const {id, kelasId} = req.params;
+  const currentUserRaw = await pool.query(
+    `SELECT * FROM mentor WHERE mentor_id = $1`, [id]
+  )
+  const currentKelasRaw = await pool.query(
+    `SELECT * FROM course WHERE course_id = $1`, [kelasId]
+  )
+  const currentUser = currentUserRaw.rows[0];
+  const currentKelas = currentKelasRaw.rows[0];
 
-  // res.render("");
-});
+
+  const peserta_kelasRaw = await pool.query(
+    `SELECT nama_lengkap FROM student_course JOIN student on student_course.student_id = student.student_id WHERE student_course.course_id = $1`, [kelasId]
+  );
+
+  const peserta_kelas = peserta_kelasRaw.rows;
+  
+  //formatting tanggal jadi tanggal nama bulan dan tahun
+    var options1 = {
+        year: 'numeric', month: 'long', day: 'numeric'
+    }
+    currentKelas.tanggal_kelas = currentKelas.tanggal_kelas.toLocaleString('id-ID', options1);
+  
+  res.render("mentor/info-kelas-mentor", {currentUser, currentKelas, peserta_kelas});
+}));
+
+app.get('/dashboard-mentor/:id/detail-kelas/:kelasId/daftar-siswa', catchAsync(async(req, res) => {
+  const {id, kelasId} = req.params;
+  const currentUserRaw = await pool.query(
+    `SELECT * FROM mentor WHERE mentor_id = $1`, [id]
+  )
+  const currentKelasRaw = await pool.query(
+    `SELECT * FROM course WHERE course_id = $1`, [kelasId]
+  )
+  const currentUser = currentUserRaw.rows[0];
+  const currentKelas = currentKelasRaw.rows[0];
+
+
+  const peserta_kelasRaw = await pool.query(
+    `SELECT nama_lengkap FROM student_course JOIN student on student_course.student_id = student.student_id WHERE student_course.course_id = $1`, [kelasId]
+  );
+
+  const peserta_kelas = peserta_kelasRaw.rows;
+
+
+  res.render('mentor/info-kelas_daftar-siswa', {currentUser, currentKelas, peserta_kelas});
+}))
 
 //daftar mentor kelas
 app.post("/dashboard-mentor/:id/detail-kelas/:kelasId", (req, res) => {
