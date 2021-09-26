@@ -11,7 +11,7 @@ navbar.forEach(navs=> {
         <a class="nav-link active" aria-current="page" href="/dashboard-student">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/edpedia-comingsoon">ed.pedia</a>
+        <a class="nav-link" href="/edpedia">ed.pedia</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/dashboard-student/edwallet" tabindex="-1">ed.wallet</a>

@@ -104,9 +104,13 @@ passport.deserializeUser((user, done) => {
       if (err) {
         throw err;
       }
+      loggedInUser = result.rows[0];
+      loggedInUser.role = user.role
+
       console.log('Deserializing...');
-      console.log(result.rows[0]);
-      return done(null, result.rows[0]);
+      console.log(loggedInUser);
+      
+      return done(null, loggedInUser);
     }
   );
 });

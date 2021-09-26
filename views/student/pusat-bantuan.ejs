@@ -93,7 +93,7 @@
         </ul>
         <button data-bs-toggle="modal" data-bs-target="#signout-modal" style="width: 100%"
           class="mt-4 btn bg-primary-color text-light">
-          Logout
+          Keluar
         </button>
       </div>
       <div class="col-md-9 col-12">
@@ -160,7 +160,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn bg-secondary-color text-light" data-bs-dismiss="modal">Batal</button>
-          <a href="/logout-student" type="button" class="btn bg-primary-color text-light">Ya</a>
+          <form action="/logout-student" method="post">
+            <button type="submit" class="btn bg-primary-color text-light">Ya</button>
+          </form>
         </div>
       </div>
     </div>

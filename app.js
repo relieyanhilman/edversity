@@ -75,12 +75,11 @@ app.use((req, res, next) => {
 
 //STUDENT
 
-
 //isLoggedIn? student
 function isLoggedInStudent(req, res, next) {
-  if (!req.isAuthenticated()) {
+  if (!req.isAuthenticated() || req.user.role != 'student') {
     // req.session.kembaliKe = req.originalUrl;
-    req.flash("error", "anda harus login dulu");
+    req.flash("error", "Anda harus login terlebih dahulu!");
     return res.redirect("/login-student");
   }
   next();
@@ -96,14 +95,18 @@ function isNotLoggedInStudent(req, res, next) {
 
 //halaman utama
 app.get("/", (req, res) => {
-  res.render("main-page");
+  if(!req.isAuthenticated()) res.render("main-page");
+  else{
+    if(req.user.role == 'student') res.redirect('/dashboard-student');
+    if(req.user.role == 'mentor') res.redirect('/dashboard-mentor');
+  }
 });
 
 //form register student
 app.get("/register-student",
   isNotLoggedInStudent,
   (req, res) => {
-    res.render("student/register-pelajar");
+    res.render("student/register");
   }
 );
 
@@ -111,7 +114,7 @@ app.get("/register-student",
 app.get("/login-student",
   isNotLoggedInStudent,
   (req, res) => {
-    res.render("student/login-pelajar");
+    res.render("student/login");
   }
 );
 
@@ -142,7 +145,6 @@ app.put(
   "/dashboard-student/profile/:id",
   isLoggedInStudent,
   catchAsync(async (req, res) => {
-    //nnti isiin middleware isLoggedInStudent
     // res.send(req.body);
     const id = req.user.student_id;
     const { nama_lengkap, username, no_handphone, email } = req.body;
@@ -190,7 +192,7 @@ app.post(
     );
 
     if (rowsSelect.rows.length > 0) {
-      req.flash("error", "email sudah digunakan");
+      req.flash("error", "E-mail sudah digunakan!");
       res.redirect("/register-student");
     } else {
       const rowsInsert = await pool.query(
@@ -230,7 +232,7 @@ app.post(
 // });
 
 //post logout student
-app.get("/logout-student",
+app.post("/logout-student",
   isLoggedInStudent,
   (req, res) => {
     req.logout();
@@ -241,7 +243,7 @@ app.get("/logout-student",
 
 //edpedia comingsoon
 app.get(
-  "/edpedia-comingsoon",
+  "/edpedia",
   isLoggedInStudent,
   catchAsync(async (req, res) => {
     res.render("student/edpedia");
@@ -252,13 +254,13 @@ app.get(
   "/buka-kelas",
   isLoggedInStudent,
   catchAsync(async (req, res) => {
-    res.render("student/bukakelas-pelajar", { currentUser: req.user });
+    res.render("student/buka-kelas", { currentUser: req.user });
   })
 );
 
 app.get("/request-kelas", (req, res) => {
   isLoggedInStudent,
-  res.render("student/requestkelas");
+  res.render("student/request-kelas");
 });
 
 app.post(
@@ -298,8 +300,34 @@ app.get("/kelas", (req, res) => {});
 
 //MENTOR
 
+
+// isLoggedIn? mentor
+function isLoggedInMentor(req, res, next) {
+  if (!req.isAuthenticated()) {
+    req.flash("error", "Anda harus login terlebih dahulu!");
+    return res.redirect("/login-mentor");
+  }
+  next();
+}
+
+// isNotLoggedIn? mentor
+function isNotLoggedInMentor(req, res, next) {
+  if (req.isAuthenticated() && req.user.role == 'mentor') {
+    return res.redirect("/dashboard-mentor");
+  } 
+  next();
+}
+
+// isNot? mentor
+function isMentor(req, res, next) {
+  if (req.isAuthenticated() && req.user.role != 'mentor') {
+    return res.status(404).redirect("/dashboard-student");
+  } 
+  next();
+}
+
 //form login mentor
-app.get("/login-mentor", (req, res) => {
+app.get("/login-mentor", isNotLoggedInMentor, isMentor, (req, res) => {
   res.render("mentor/login-mentor");
 });
 
@@ -319,7 +347,7 @@ app.post(
     );
 
     if (rowsSelect.rows.length > 0) {
-      req.flash("error", "email sudah digunakan");
+      req.flash("error", "E-mail sudah digunakan!");
       res.redirect("/"); //kalo harusnya direct ke '/registerMentor'
     } else {
       const rowsInsert = await pool.query(
@@ -339,13 +367,47 @@ app.post(
 app.post(
   "/login-mentor",
   passport.authenticate("localMentor", {
-    successRedirect: "/dashboard-mentor/",
+    successRedirect: "/dashboard-mentor",
     failureRedirect: "/login-mentor",
     failureFlash: true,
   })
 );
 
-//dashboard mentor
+// render dashboard
+
+app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
+
+  var currentUser = req.user;
+
+  const currentUserCourseRaw = await pool.query(
+    `SELECT * FROM course WHERE mentor_id = $1 AND status = $2`, 
+    [currentUser.mentor_id, 'open']
+  )
+
+  var currentUserCourse = currentUserCourseRaw.rows;
+
+  // console.log({currentUser, currentUserCourse});
+  // console.log(currentUserCourse);
+
+  currentUserCourse.forEach(row => {
+    row.tanggal_kelas = row.tanggal_kelas.toLocaleString('id-ID', {
+      weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+    });
+  });
+
+  res.render('mentor/home-mentor', {currentUser, currentUserCourse});
+});
+
+
+//page edpedia
+app.get("/edpedia-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, res) => {
+  res.render('mentor/edpedia-mentor', {currentUser: req.user});
+}));
+
+//page edpedia
+app.get("/edwallet-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, res) => {
+  res.render('mentor/edwallet-mentor', {currentUser: req.user});
+}));
 
 //role 2
 //get		detail-kelas			/dashboard-mentor/:id/detail-kelas/:kelasId //DONE!!
@@ -359,24 +421,19 @@ app.post(
 //get		render-dashboard 		/dashboard-mentor/:id
 
 //////////////////////////////
+
+
 //detail kelas
-app.get("/dashboard-mentor/:id/detail-kelas/:kelasId", catchAsync(async(req, res) => {
-  const {id, kelasId} = req.params;
-  const currentUserRaw = await pool.query(
-    `SELECT * FROM mentor WHERE mentor_id = $1`, [id]
-  )
+app.get("/dashboard-mentor/detail-kelas/:kelasId", isLoggedInMentor, isMentor, catchAsync(async(req, res) => {
+  const {kelasId} = req.params;
+
   const currentKelasRaw = await pool.query(
     `SELECT * FROM course WHERE course_id = $1`, [kelasId]
   )
-  const currentUser = currentUserRaw.rows[0];
-  const currentKelas = currentKelasRaw.rows[0];
-
 
   const peserta_kelasRaw = await pool.query(
     `SELECT nama_lengkap FROM student_course JOIN student on student_course.student_id = student.student_id WHERE student_course.course_id = $1`, [kelasId]
   );
-
-  const peserta_kelas = peserta_kelasRaw.rows;
   
   //formatting tanggal jadi tanggal nama bulan dan tahun
     var options1 = {
@@ -390,126 +447,86 @@ app.get("/dashboard-mentor/:id/detail-kelas/:kelasId", catchAsync(async(req, res
     
     
   
-  res.render("mentor/info-kelas-mentor", {currentUser, currentKelas, peserta_kelas, waktu_kelas});
+  res.render("mentor/info-kelas-mentor", {
+    currentUser: req.user, 
+    currentKelas: currentKelasRaw.rows[0], 
+    peserta_kelas: peserta_kelasRaw.rows, 
+    waktu_kelas
+  });
 }));
 
 
 //halaman khusus list siswa dalam kelas 
-app.get('/dashboard-mentor/:id/detail-kelas/:kelasId/daftar-siswa', catchAsync(async(req, res) => {
-  const {id, kelasId} = req.params;
-  const currentUserRaw = await pool.query(
-    `SELECT * FROM mentor WHERE mentor_id = $1`, [id]
-  )
-  const currentKelasRaw = await pool.query(
-    `SELECT * FROM course WHERE course_id = $1`, [kelasId]
-  )
-  const currentUser = currentUserRaw.rows[0];
-  const currentKelas = currentKelasRaw.rows[0];
+app.get('/dashboard-mentor/detail-kelas/:kelasId/daftar-siswa',
+  isLoggedInMentor,
+  isMentor,
+  catchAsync(async(req, res) => {
+    const {kelasId} = req.params;
 
+    const currentKelasRaw = await pool.query(
+      `SELECT * FROM course WHERE course_id = $1`, [kelasId]
+    )
 
-  const peserta_kelasRaw = await pool.query(
-    `SELECT nama_lengkap FROM student_course JOIN student on student_course.student_id = student.student_id WHERE student_course.course_id = $1`, [kelasId]
-  );
+    const peserta_kelasRaw = await pool.query(
+      `SELECT nama_lengkap FROM student_course JOIN student on student_course.student_id = student.student_id WHERE student_course.course_id = $1`, [kelasId]
+    );
 
-  const peserta_kelas = peserta_kelasRaw.rows;
-
-
-  res.render('mentor/info-kelas_daftar-siswa', {currentUser, currentKelas, peserta_kelas});
-}))
+    res.render('mentor/info-kelas_daftar-siswa', {
+      currentUser: req.user, 
+      currentKelas: currentKelasRaw.rows[0], 
+      peserta_kelas: peserta_kelasRaw.rows
+    });
+  }
+))
 
 //daftar mentor kelas
 app.post("/dashboard-mentor/:id/detail-kelas/:kelasId", (req, res) => {
   res.send("ini buat post detail-kelas");
 });
 
-//page edpedia
-app.get("/dashboard-mentor/:id/edpedia-comingsoon", catchAsync(async(req, res) => {
-  // res.send("ini buat render-edpedia-comingsoon");
-  const {id} = req.params;
 
-  const currentUserRaw = await pool.query(
-    `SELECT * FROM mentor WHERE mentor_id = $1`, [id]
-  )
+// page profile mentor
+app.get("/dashboard-mentor/profile",
+  isLoggedInMentor,
+  isMentor, 
+  (req, res) => {
+    res.render('mentor/option-mentor', {currentUser: req.user})
+  }
+);
 
-  const currentUser = currentUserRaw.rows[0];
+// update profile mentor
+app.put(
+  "/dashboard-mentor/profile/:id",
+  isLoggedInMentor,
+  catchAsync(async (req, res) => {
+    const id = req.user.mentor_id;
+    const { nama_lengkap, no_handphone, email } = req.body;
 
-  // const currentUser = req.user;
-  // console.log(currentUser);
-  res.render('mentor/edpedia-mentor', {currentUser});
-}));
+    const updatedProfile = await pool.query(
+      `UPDATE mentor SET nama_lengkap=$1, no_handphone=$2, email=$3 WHERE mentor_id=$4`,
+      [nama_lengkap, no_handphone, email, id]
+    );
 
-//page pusat bantuan
-app.get("/dashboard-mentor/profile/:id/pusat-bantuan", catchAsync(async(req, res) => {
-  const {id} = req.params;
+    // req.flash('success', 'Data profile berhasil di-update');
+    res.redirect(`/dashboard-mentor/profile`);
+  })
+);
 
-  const currentUserRaw = await pool.query(
-    `SELECT * FROM mentor WHERE mentor_id = $1`, [id]
-  )
-  const currentUser = currentUserRaw.rows[0];
-  
-  res.render('mentor/pusat-bantuan-mentor', {currentUser})
-
-  // res.send("ini buat render pusat bantuan");
-}));
+// page pusat bantuan
+app.get("/dashboard-mentor/profile/pusat-bantuan",
+  isLoggedInMentor,
+  isMentor, 
+  catchAsync(async(req, res) => {
+    res.render('mentor/pusat-bantuan-mentor', {currentUser: req.user})
+  }
+));
 
 //logout
-app.get("/logout-mentor", (req, res) => {
+app.post("/logout-mentor", (req, res) => {
+  isLoggedInMentor,
   req.logout();
   res.redirect('/');
 });
-
-//render dashboard
-
-app.get("/dashboard-mentor", isLoggedInMentor, async (req, res) => {
-
-  const currentUser = req.user;
-
-  const currentUserCourseRaw = await pool.query(
-    `SELECT * FROM course WHERE mentor_id = $1 AND status = $2`, [currentUser.mentor_id, 'open']
-  )
-
-  const currentUserCourse = currentUserCourseRaw.rows;
-
-  // console.log({currentUser, currentUserCourse});
-  // console.log(currentUserCourse);
-
-  currentUserCourse.forEach(row => {
-    var options1 = {
-        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
-    }
-    row.tanggal_kelas = row.tanggal_kelas.toLocaleString('id-ID', options1);
-  });
-
-  res.render('mentor/home-mentor', {currentUser, currentUserCourse});
-});
-
-app.get("/dashboard-mentor/:id", catchAsync(async(req, res) => {
-  const {id} = req.params;
-
-  const currentUserRaw = await pool.query(
-    `SELECT * FROM mentor WHERE mentor_id = $1`, [id]
-  )
-
-  const currentUser = currentUserRaw.rows[0];
-
-  const currentUserCourseRaw = await pool.query(
-    `SELECT * FROM course WHERE mentor_id = $1 AND status = $2`, [id, 'open']
-  )
-
-  const currentUserCourse = currentUserCourseRaw.rows;
-
-  // console.log({currentUser, currentUserCourse});
-  // console.log(currentUserCourse);
-
-  currentUserCourse.forEach(row => {
-    var options1 = {
-        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
-    }
-    row.tanggal_kelas = row.tanggal_kelas.toLocaleString('id-ID', options1);
-  });
-
-  res.render('mentor/home-mentor', {currentUser, currentUserCourse});
-}));
 
 app.all("*", (req, res, next) => {
   next(new ExpressError("Page tidak ditemukan", 404));
@@ -520,15 +537,6 @@ app.use((err, req, res, next) => {
   if (!err.message) err.message = "oh no, ada yang salah bro";
   res.status(statusCode).render("error", { err });
 });
-
-//Check authentikasi mentor
-function isLoggedInMentor(req, res, next) {
-  if (!req.isAuthenticated()) {
-    req.flash("error", "anda harus login dulu");
-    return res.redirect("/login-mentor");
-  }
-  next();
-}
 
 app.listen(3000, () => {
   console.log("server sudah berjalan di port 3000");

@@ -2,7 +2,7 @@ const navbar = document.querySelectorAll(".navbar")
 navbar.forEach(navs=> {
   navs.innerHTML = `
     <div class="container-fluid">
-      <a class="navbar-brand ms-3" href="home-mentor.html"><img src="IMG/logo.svg " alt="logo" /></a>
+      <a class="navbar-brand ms-3" href="/dashboard-mentor"><img src="/IMG/logo.svg " alt="logo" /></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -12,7 +12,7 @@ navbar.forEach(navs=> {
             <a class="nav-link active" aria-current="page" href="/dashboard-mentor">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="edpedia-mentor.html">ed.pedia</a>
+            <a class="nav-link" href="/edpedia-mentor">ed.pedia</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/edwallet-mentor" tabindex="-1">ed.wallet</a>
@@ -30,7 +30,7 @@ navbar.forEach(navs=> {
             <button type="submit" class="btn"><i class="fa fa-search text-light"> </i></button>
           </div>
 
-          <a href="/profile-mentor" class="nav-link">
+          <a href="/dashboard-mentor/profile" class="nav-link">
             <i style="font-size: 1.6rem;" class="fa fa-sliders text-light"></i>
           </a>
         </div>

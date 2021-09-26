@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ed.versity Buka Kelas</title>
+  <title>ed.versity - Profile</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
 
@@ -14,8 +14,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="shortcut icon" href="IMG/logo.png" />
-  <link rel="stylesheet" href="css/mentor/option-mentor.css" />
+  <link rel="shortcut icon" href="/IMG/logo.png" />
+  <link rel="stylesheet" href="/css/mentor/option-mentor.css" />
 </head>
 
 <body>
@@ -71,42 +71,7 @@
 
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-primary-color sticky-top ">
-    <!-- <div class="container-fluid">
-      <a class="navbar-brand ms-4" href="home-mentor.html"><img src="IMG/logo.svg " alt="logo"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="home-mentor.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="edpedia-mentor.html">ed.pedia</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="edwallet-mentor.html" tabindex="-1">ed.wallet</a>
-          </li>
-          
-        </ul>
-        <div class="d-flex">
-          <a href="#" class="nav-link" data-bs-toggle="modal"
-          data-bs-target="#inboxModal">
-            <i style="font-size: 1.4rem;" class="fa fa-bell text-light"></i>
-          </a>
-          <div class="input-search">
-            <input class="input-field" placeholder="Search">
-            <button type="submit" class="btn"><i class="fa fa-search text-light"> </i></button>
-          </div>
 
-          <a href="option.html" class="nav-link">
-            <i style="font-size: 1.6rem;" class="fa fa-sliders text-light"></i>
-          </a>  
-        </div>
-              
-      </div>
-    </div> -->
   </nav>
   <!-- Navbar ; -->
 
@@ -116,7 +81,8 @@
     <div class="row tab-container">
       <div class="col sidebar rounded ms-2 me-3">
         <h3 class="fs-5 text-dark mt-3 mb-3 ms-2">
-          <i class="fa fa-user-circle"></i> Micola Arighi D
+          <i class="fa fa-user-circle"></i>
+          <%= currentUser.nama_lengkap %>
         </h3>
         <hr />
         <!-- Nav tabs -->
@@ -134,7 +100,8 @@
           </li>
           <hr />
           <li class="nav-item">
-            <a class="nav-link" href="pusat-bantuan-mentor.html"><i class="fa fa-question-circle me-2"></i>Pusat
+            <a class="nav-link" href="/dashboard-mentor/profile/pusat-bantuan"><i
+                class="fa fa-question-circle me-2"></i>Pusat
               Bantuan</a>
           </li>
         </ul>
@@ -146,329 +113,349 @@
       <div class="col-md-9 col-12">
         <!-- Tab Content -->
         <!-- Edit Profil -->
-        <div class="tab-content">
-          <div id="edit-profil" class="tab-pane active">
-            <div class="form-section rounded">
-              <div class="row">
-                <div class="col-md-9 col-12">
-                  <h3 class="mb-2 mt-1">Informasi Akun</h3>
-                  <div class="row">
-                    <div class="col mb-2">
-                      <h5>Nama Lengkap</h5>
-                      <div class="input-group flex-nowrap">
-                        <input value="Micola Arighi D" type="text" class="form-control" />
+        <form form action='/dashboard-mentor/profile/<%=currentUser.mentor_id%>?_method=PUT' method="POST">
+          <div class="tab-content">
+            <div id="edit-profil" class="tab-pane active">
+              <div class="form-section rounded">
+                <div class="row">
+                  <div class="col-md-9 col-12">
+                    <h3 class="mb-2 mt-1">Informasi Akun</h3>
+                    <div class="row">
+                      <div class="col mb-2">
+                        <h5>Nama Lengkap</h5>
+                        <div class="input-group flex-nowrap">
+                          <input value="<%= currentUser.nama_lengkap %>" name="nama_lengkap" type="text"
+                            class="form-control" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row mt-4">
-                    <div class="col mb-2">
-                      <h5>Nomor Handphone</h5>
-                      <div class="input-group flex-nowrap">
-                        <input value="08xxxxxxxxx" type="text" class="form-control" />
+                    <div class="row mt-4">
+                      <div class="col mb-2">
+                        <h5>Nomor Handphone</h5>
+                        <div class="input-group flex-nowrap">
+                          <input value="<%= currentUser.no_handphone %>" name="no_handphone" type="text"
+                            class="form-control" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row mt-4">
-                    <div class="col mb-2">
-                      <h5>Email</h5>
-                      <div class="input-group flex-nowrap">
-                        <input value="some@gmail.com" type="text" class="form-control" />
+                    <div class="row mt-4">
+                      <div class="col mb-2">
+                        <h5>Email</h5>
+                        <div class="input-group flex-nowrap">
+                          <input value="<%= currentUser.email %>" name="email" type="text" class="form-control" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row mt-4">
-                    <div class="col mb-2">
-                      <h5>Kata Sandi</h5>
-                      <div class="input-group flex-nowrap">
-                        <input value="somepassword" type="password" class="form-control" />
+                    <div class="row mt-4">
+                      <div class="col mb-2">
+                        <h5>Kata Sandi Saat Ini</h5>
+                        <div class="input-group flex-nowrap">
+                          <input type="password" class="form-control" />
+                        </div>
                       </div>
                     </div>
+                    <div class="row mt-4">
+                      <div class="col mb-2">
+                        <h5>Kata Sandi Baru</h5>
+                        <div class="input-group flex-nowrap">
+                          <input type="password" class="form-control" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-4">
+                      <div class="col mb-2">
+                        <h5>Konfirmasi Kata Sandi Baru</h5>
+                        <div class="input-group flex-nowrap">
+                          <input type="password" class="form-control" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-4 px-2">
+                      <button class="btn text-white bg-primary-color" type="submit">
+                        Simpan
+                      </button>
+                    </div>
                   </div>
-                  <div class="row mt-4 px-2">
-                    <button class="btn text-white bg-primary-color" data-bs-toggle="modal"
-                      data-bs-target="#verification-modal">
-                      Simpan
-                    </button>
+
+                  <div class="col">
+                    <div>
+                      <div class="button-wrap upload-picture row mt-5">
+                        <i style="font-size: 4rem; text-align: center;" class="fa fa-user-circle text-secondary"></i>
+                        <label class="btn primary-outline btn-file mt-3">
+                          Unggah Gambar <input type="file" style="display: none" />
+                        </label>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-
-                <div class="col">
-                  <div>
-                    <div class="button-wrap upload-picture row mt-5">
-                      <i style="font-size: 4rem; text-align: center;" class="fa fa-user-circle text-secondary"></i>
-                      <label class="btn primary-outline btn-file mt-3">
-                        Unggah Gambar <input type="file" style="display: none" required />
-                      </label>
-                    </div>
+              </div>
+            </div>
+        </form>
+        <!-- Kelas Saya -->
+        <div id="kelas-saya" class="tab-pane fade rounded">
+          <div class="bg-light margin-top-5 rounded px-3 py-3">
+            <div class="row">
+              <div class="col">
+                <ul class="nav nav-tabs ms-4">
+                  <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#kelas-aktif" style="color: whitesmoke">Aktif</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#kelas-selesai" style="color: whitesmoke">Selesai</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-3 col-4">
+                <button class="btn btn-sm fs-6  mt-2 bg-primary-color text-light">
+                  Gabung Kelas <i class="fa fa-plus-circle"></i>
+                </button>
+              </div>
+            </div>
+            <div class="tab-content">
+              <div id="kelas-aktif" class="form-section tab-pane active">
+                <div class="row mt-3" style="line-height: 0.5;">
+                  <div class="col-2">
+                    <img src="/IMG/struktur-bangunan.png" alt="">
                   </div>
-
+                  <div class="col-10">
+                    <h4>Struktur Bangunan</h4>
+                    <p>by <strong>Micola Arighi D</strong> </p>
+                    <p class="text-secondary" style="font-size: smaller;">30 Mei 2020 • 23:59 WIB</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row mt-3" style="line-height: 0.5;">
+                  <div class="col-2">
+                    <img src="/IMG/struktur-bangunan.png" alt="">
+                  </div>
+                  <div class="col-10">
+                    <h4>Struktur Bangunan</h4>
+                    <p>by <strong>Micola Arighi D</strong> </p>
+                    <p class="text-secondary" style="font-size: smaller;">30 Mei 2020 • 23:59 WIB</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row mt-3" style="line-height: 0.5;">
+                  <div class="col-2">
+                    <img src="/IMG/struktur-bangunan.png" alt="">
+                  </div>
+                  <div class="col-10">
+                    <h4>Struktur Bangunan</h4>
+                    <p>by <strong>Micola Arighi D</strong> </p>
+                    <p class="text-secondary" style="font-size: smaller;">30 Mei 2020 • 23:59 WIB</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row mt-3" style="line-height: 0.5;">
+                  <div class="col-2">
+                    <img src="/IMG/struktur-bangunan.png" alt="">
+                  </div>
+                  <div class="col-10">
+                    <h4>Struktur Bangunan</h4>
+                    <p>by <strong>Micola Arighi D</strong> </p>
+                    <p class="text-secondary" style="font-size: smaller;">30 Mei 2020 • 23:59 WIB</p>
+                  </div>
+                </div>
+              </div>
+              <div id="kelas-selesai" class="container tab-pane fade">
+                <div class="d-flex justify-content-center">
+                  <img class="vector-kelas-kosong mb-5 mt-5" src="/IMG/kelas-notfound.svg" alt="" />
                 </div>
               </div>
             </div>
           </div>
-          <!-- Kelas Saya -->
-          <div id="kelas-saya" class="tab-pane fade rounded">
-            <div class="bg-light margin-top-5 rounded px-3 py-3">
-              <div class="row">
-                <div class="col">
-                  <ul class="nav nav-tabs ms-4">
-                    <li class="nav-item">
-                      <a class="nav-link active" data-toggle="tab" href="#kelas-aktif"
-                        style="color: whitesmoke">Aktif</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" data-toggle="tab" href="#kelas-selesai" style="color: whitesmoke">Selesai</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-md-3 col-4">
-                  <button class="btn btn-sm fs-6  mt-2 bg-primary-color text-light">
-                    Gabung Kelas <i class="fa fa-plus-circle"></i>
+        </div>
+        <!-- Daftar Tersimpan -->
+        <div id="daftar-tersimpan" class="tab-pane fade">
+          <div class="form-section rounded">
+            <div class="row">
+              <div class="col-md-9 col-5">
+                <a class="btn fs-5 fw-bold primary-color">Disimpan</a>
+              </div>
+              <div class="col">
+                <div class="">
+                  <button class="btn btn-sm fs-6 mt-2 outline-primary-color primary-color">
+                    Batal
+                  </button>
+                  <button class="btn btn-sm fs-6 ms-3 mt-2 bg-primary-color text-light">
+                    Hapus
                   </button>
                 </div>
               </div>
-              <div class="tab-content">
-                <div id="kelas-aktif" class="form-section tab-pane active">
-                  <div class="row mt-3" style="line-height: 0.5;">
-                    <div class="col-2">
-                      <img src="IMG/struktur-bangunan.png" alt="">
-                    </div>
-                    <div class="col-10">
-                      <h4>Struktur Bangunan</h4>
-                      <p>by <strong>Micola Arighi D</strong> </p>
-                      <p class="text-secondary" style="font-size: smaller;">30 Mei 2020 • 23:59 WIB</p>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row mt-3" style="line-height: 0.5;">
-                    <div class="col-2">
-                      <img src="IMG/struktur-bangunan.png" alt="">
-                    </div>
-                    <div class="col-10">
-                      <h4>Struktur Bangunan</h4>
-                      <p>by <strong>Micola Arighi D</strong> </p>
-                      <p class="text-secondary" style="font-size: smaller;">30 Mei 2020 • 23:59 WIB</p>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row mt-3" style="line-height: 0.5;">
-                    <div class="col-2">
-                      <img src="IMG/struktur-bangunan.png" alt="">
-                    </div>
-                    <div class="col-10">
-                      <h4>Struktur Bangunan</h4>
-                      <p>by <strong>Micola Arighi D</strong> </p>
-                      <p class="text-secondary" style="font-size: smaller;">30 Mei 2020 • 23:59 WIB</p>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row mt-3" style="line-height: 0.5;">
-                    <div class="col-2">
-                      <img src="IMG/struktur-bangunan.png" alt="">
-                    </div>
-                    <div class="col-10">
-                      <h4>Struktur Bangunan</h4>
-                      <p>by <strong>Micola Arighi D</strong> </p>
-                      <p class="text-secondary" style="font-size: smaller;">30 Mei 2020 • 23:59 WIB</p>
-                    </div>
-                  </div>
-                </div>
-                <div id="kelas-selesai" class="container tab-pane fade">
-                  <div class="d-flex justify-content-center">
-                    <img class="vector-kelas-kosong mb-5 mt-5" src="IMG/kelas-notfound.svg" alt="" />
-                  </div>
-                </div>
+            </div>
+            <div class="row mt-3 ms-1" style="line-height: 0.5">
+              <div class="col-2">
+                <img src="/IMG/struktur-bangunan.png" alt="" />
+              </div>
+              <div class="col-8 col-md-9">
+                <h4>Struktur Bangunan</h4>
+                <p>by <strong>Micola Arighi D</strong></p>
+                <p class="text-secondary" style="font-size: smaller">30 Mei 2020 • 23:59 WIB</p>
+              </div>
+              <div class="col">
+                <input class="checkbox" type="checkbox" />
+              </div>
+            </div>
+            <hr />
+            <div class="row mt-3 ms-1" style="line-height: 0.5">
+              <div class="col-2">
+                <img src="/IMG/struktur-bangunan.png" alt="" />
+              </div>
+              <div class="col-8 col-md-9">
+                <h4>Struktur Bangunan</h4>
+                <p>by <strong>Micola Arighi D</strong></p>
+                <p class="text-secondary" style="font-size: smaller">30 Mei 2020 • 23:59 WIB</p>
+              </div>
+              <div class="col">
+                <input class="checkbox" type="checkbox" />
+              </div>
+            </div>
+            <hr />
+            <div class="row mt-3 ms-1" style="line-height: 0.5">
+              <div class="col-2">
+                <img src="/IMG/struktur-bangunan.png" alt="" />
+              </div>
+              <div class="col-8 col-md-9">
+                <h4>Struktur Bangunan</h4>
+                <p>by <strong>Micola Arighi D</strong></p>
+                <p class="text-secondary" style="font-size: smaller">30 Mei 2020 • 23:59 WIB</p>
+              </div>
+              <div class="col">
+                <input class="checkbox" type="checkbox" />
+              </div>
+            </div>
+            <hr />
+            <div class="row mt-3 ms-1" style="line-height: 0.5">
+              <div class="col-2">
+                <img src="/IMG/struktur-bangunan.png" alt="" />
+              </div>
+              <div class="col-8 col-md-9">
+                <h4>Struktur Bangunan</h4>
+                <p>by <strong>Micola Arighi D</strong></p>
+                <p class="text-secondary" style="font-size: smaller">30 Mei 2020 • 23:59 WIB</p>
+              </div>
+              <div class="col">
+                <input class="checkbox" type="checkbox" />
               </div>
             </div>
           </div>
-          <!-- Daftar Tersimpan -->
-          <div id="daftar-tersimpan" class="tab-pane fade">
-            <div class="form-section rounded">
-              <div class="row">
-                <div class="col-md-9 col-5">
-                  <a class="btn fs-5 fw-bold primary-color">Disimpan</a>
-                </div>
-                <div class="col">
-                  <div class="">
-                    <button class="btn btn-sm fs-6 mt-2 outline-primary-color primary-color">
-                      Batal
-                    </button>
-                    <button class="btn btn-sm fs-6 ms-3 mt-2 bg-primary-color text-light">
-                      Hapus
-                    </button>
-                  </div>
-                </div>
+        </div>
+        <!-- Pusat Bantuan -->
+        <div id="pusat-bantuan" class="tab-pane fade">
+          <div class="form-section rounded">
+            <div class="row bg-vector" style="align-items: center">
+              <div class="col-md-4">
+                <img src="/IMG/call-center.svg" alt="" />
               </div>
-              <div class="row mt-3 ms-1" style="line-height: 0.5">
-                <div class="col-2">
-                  <img src="IMG/struktur-bangunan.png" alt="" />
-                </div>
-                <div class="col-8 col-md-9">
-                  <h4>Struktur Bangunan</h4>
-                  <p>by <strong>Micola Arighi D</strong></p>
-                  <p class="text-secondary" style="font-size: smaller">30 Mei 2020 • 23:59 WIB</p>
-                </div>
-                <div class="col">
-                  <input class="checkbox" type="checkbox" />
-                </div>
-              </div>
-              <hr />
-              <div class="row mt-3 ms-1" style="line-height: 0.5">
-                <div class="col-2">
-                  <img src="IMG/struktur-bangunan.png" alt="" />
-                </div>
-                <div class="col-8 col-md-9">
-                  <h4>Struktur Bangunan</h4>
-                  <p>by <strong>Micola Arighi D</strong></p>
-                  <p class="text-secondary" style="font-size: smaller">30 Mei 2020 • 23:59 WIB</p>
-                </div>
-                <div class="col">
-                  <input class="checkbox" type="checkbox" />
-                </div>
-              </div>
-              <hr />
-              <div class="row mt-3 ms-1" style="line-height: 0.5">
-                <div class="col-2">
-                  <img src="IMG/struktur-bangunan.png" alt="" />
-                </div>
-                <div class="col-8 col-md-9">
-                  <h4>Struktur Bangunan</h4>
-                  <p>by <strong>Micola Arighi D</strong></p>
-                  <p class="text-secondary" style="font-size: smaller">30 Mei 2020 • 23:59 WIB</p>
-                </div>
-                <div class="col">
-                  <input class="checkbox" type="checkbox" />
-                </div>
-              </div>
-              <hr />
-              <div class="row mt-3 ms-1" style="line-height: 0.5">
-                <div class="col-2">
-                  <img src="IMG/struktur-bangunan.png" alt="" />
-                </div>
-                <div class="col-8 col-md-9">
-                  <h4>Struktur Bangunan</h4>
-                  <p>by <strong>Micola Arighi D</strong></p>
-                  <p class="text-secondary" style="font-size: smaller">30 Mei 2020 • 23:59 WIB</p>
-                </div>
-                <div class="col">
-                  <input class="checkbox" type="checkbox" />
-                </div>
+              <div class="col mb-2">
+                <h3 class="fw-bold">Pusat Bantuan ed.versity</h3>
+                <h5>Apa yang bisa kami bantu?</h5>
+                <input placeholder="Ketik permasalahan anda" type="text" class="form-control help-input"
+                  style="width: 90%" />
               </div>
             </div>
-          </div>
-          <!-- Pusat Bantuan -->
-          <div id="pusat-bantuan" class="tab-pane fade">
-            <div class="form-section rounded">
-              <div class="row bg-vector" style="align-items: center">
-                <div class="col-md-4">
-                  <img src="IMG/call-center.svg" alt="" />
-                </div>
-                <div class="col mb-2">
-                  <h3 class="fw-bold">Pusat Bantuan ed.versity</h3>
-                  <h5>Apa yang bisa kami bantu?</h5>
-                  <input placeholder="Ketik permasalahan anda" type="text" class="form-control help-input"
-                    style="width: 90%" />
-                </div>
+            <div class="row px-4 py-1 mt-2" style="background-color: #ededed">
+              <h4 class="mt-1 fw-bold">Topik Populer</h4>
+            </div>
+            <div class="row px-4 mt-4">
+              <div class="col">
+                <h6>Bagaimana cara membuat kelas?</h6>
               </div>
-              <div class="row px-4 py-1 mt-2" style="background-color: #ededed">
-                <h4 class="mt-1 fw-bold">Topik Populer</h4>
+              <div class="col-1"><i class="fa fa-chevron-right primary-color"></i></div>
+            </div>
+            <hr />
+            <div class="row px-4">
+              <div class="col">
+                <h6>Bagaimana cara mengundang teman masuk kelas</h6>
               </div>
-              <div class="row px-4 mt-4">
-                <div class="col">
-                  <h6>Bagaimana cara membuat kelas?</h6>
-                </div>
-                <div class="col-1"><i class="fa fa-chevron-right primary-color"></i></div>
+              <div class="col-1"><i class="fa fa-chevron-right primary-color"></i></div>
+            </div>
+            <hr />
+            <div class="row px-4 mb-4">
+              <div class="col">
+                <h6>Bagaimana cara membatalkan kelas</h6>
               </div>
-              <hr />
-              <div class="row px-4">
-                <div class="col">
-                  <h6>Bagaimana cara mengundang teman masuk kelas</h6>
-                </div>
-                <div class="col-1"><i class="fa fa-chevron-right primary-color"></i></div>
+              <div class="col-1"><i class="fa fa-chevron-right primary-color"></i></div>
+            </div>
+            <div class="row px-4 py-1 mt-2" style="background-color: #ededed">
+              <h4 class="mt-1 fw-bold">Kontak Kami</h4>
+            </div>
+            <div class="row px-4 mt-4">
+              <div class="d-flex">
+                <i class="fa fa-envelope primary-color fs-5"></i>
+                <h6 class="ms-3">cs@edveersity.co.id</h6>
               </div>
-              <hr />
-              <div class="row px-4 mb-4">
-                <div class="col">
-                  <h6>Bagaimana cara membatalkan kelas</h6>
-                </div>
-                <div class="col-1"><i class="fa fa-chevron-right primary-color"></i></div>
-              </div>
-              <div class="row px-4 py-1 mt-2" style="background-color: #ededed">
-                <h4 class="mt-1 fw-bold">Kontak Kami</h4>
-              </div>
-              <div class="row px-4 mt-4">
-                <div class="d-flex">
-                  <i class="fa fa-envelope primary-color fs-5"></i>
-                  <h6 class="ms-3">cs@edveersity.co.id</h6>
-                </div>
-              </div>
-              <div class="row px-4 mt-2 mb-4">
-                <div class="d-flex">
-                  <i class="fa fa-phone-alt primary-color fs-5"></i>
-                  <h6 class="ms-3">14045</h6>
-                </div>
+            </div>
+            <div class="row px-4 mt-2 mb-4">
+              <div class="d-flex">
+                <i class="fa fa-phone-alt primary-color fs-5"></i>
+                <h6 class="ms-3">14045</h6>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- Modal -->
-      <div class="modal fade" id="signout-modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-body">
-              <h5 class="modal-title" id="modalLabel" style="color: black;">Apakah anda yakin ingin keluar?</h5>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn bg-secondary-color text-light" data-bs-dismiss="modal">Batal</button>
-              <a href="main-page.html" type="button" class="btn bg-primary-color text-light">Ya</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Modal ketika user ingin mengubah informasi akun -->
-      <div class="modal fade" id="verification-modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-body">
-              <h5 class="mb-1">Verifikasi Perubahan</h5>
-              <div class="bg-primary-color mb-4" style="width: 50%; height: 4px;"></div>
-              <h6 class=" fs-5 mb-4">Masukkan password untuk mengubah informasi akun</h6>
-              <div class="mb-3">
-                <label for="inputPassword1" class="inputPassword form-label">Kata Sandi</label>
-                <input placeholder="Masukkan Kata Sandi anda.." type="password" class="form-control" />
-              </div>
-              <div class="row justify-content-end">
-                <div class="d-flex justify-content-end">
-                  <a class="me-2 btn primary-outline primary-color btn-lg" data-bs-dismiss="modal">Batal</a>
-                  <a data-bs-toggle="modal" data-bs-target="#saved-modal"
-                    class="me-2 btn bg-primary-color text-light btn-lg" data-bs-dismiss="modal">Simpan Perubahan</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Saved Change Modal -->
-      <div class="modal fade" id="saved-modal" tabindex="-1" aria-labelledby="modalLabel aria-hidden=" true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-body">
-              <h5 class="modal-title" id="modalLabel" style="color: black;">Perubahan anda telah disimpan</h5>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-lg bg-primary-color text-light" data-bs-dismiss="modal">Ok</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- ; -->
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"></script>
-    <script src="javascript/navbar-mentor.js"></script>
-    <script src="javascript/notif-mentor.js"></script>
+    <!-- Modal -->
+    <div class="modal fade" id="signout-modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5 class="modal-title" id="modalLabel" style="color: black;">Apakah anda yakin ingin keluar?</h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn bg-secondary-color text-light" data-bs-dismiss="modal">Batal</button>
+            <form action="/logout-mentor" method="post">
+              <button type="submit" class="btn bg-primary-color text-light">Ya</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal ketika user ingin mengubah informasi akun -->
+    <!-- <div class="modal fade" id="verification-modal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5 class="mb-1">Verifikasi Perubahan</h5>
+            <div class="bg-primary-color mb-4" style="width: 50%; height: 4px;"></div>
+            <h6 class=" fs-5 mb-4">Masukkan password untuk mengubah informasi akun</h6>
+            <div class="mb-3">
+              <label for="inputPassword1" class="inputPassword form-label">Kata Sandi</label>
+              <input placeholder="Masukkan Kata Sandi anda.." type="password" class="form-control" />
+            </div>
+            <div class="row justify-content-end">
+              <div class="d-flex justify-content-end">
+                <a class="me-2 btn primary-outline primary-color btn-lg" data-bs-dismiss="modal">Batal</a>
+                <a data-bs-toggle="modal" data-bs-target="#saved-modal"
+                  class="me-2 btn bg-primary-color text-light btn-lg" data-bs-dismiss="modal">Simpan Perubahan</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- Saved Change Modal -->
+    <!-- <div class="modal fade" id="saved-modal" tabindex="-1" aria-labelledby="modalLabel aria-hidden=" true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5 class="modal-title" id="modalLabel" style="color: black;">Perubahan anda telah disimpan</h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-lg bg-primary-color text-light" data-bs-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- ; -->
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="/javascript/navbar-mentor.js"></script>
+  <script src="/javascript/notif-mentor.js"></script>
 </body>
 
 </html>
