@@ -57,7 +57,7 @@ app.use(methodOverride("_method"));
 app.use(
   session({
     secret: "secret",
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 60000 },
   })
