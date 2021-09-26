@@ -410,10 +410,18 @@ app.get("/dashboard-mentor/:id/detail-kelas/:kelasId", catchAsync(async(req, res
         year: 'numeric', month: 'long', day: 'numeric'
     }
     currentKelas.tanggal_kelas = currentKelas.tanggal_kelas.toLocaleString('id-ID', options1);
+
+    var time = currentKelas.waktu_kelas;
+    
+    let waktu_kelas = time[0]+''+time[1]+':'+time[3]+''+time[4];
+    
+    
   
-  res.render("mentor/info-kelas-mentor", {currentUser, currentKelas, peserta_kelas});
+  res.render("mentor/info-kelas-mentor", {currentUser, currentKelas, peserta_kelas, waktu_kelas});
 }));
 
+
+//halaman khusus list siswa dalam kelas 
 app.get('/dashboard-mentor/:id/detail-kelas/:kelasId/daftar-siswa', catchAsync(async(req, res) => {
   const {id, kelasId} = req.params;
   const currentUserRaw = await pool.query(
