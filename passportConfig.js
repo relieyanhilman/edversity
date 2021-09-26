@@ -1,13 +1,19 @@
 const LocalStrategy = require('passport-local').Strategy;
 const pool = require('./db');
 const bcrypt = require('bcrypt');
+const passport = require("passport");
 
 //FOR STUDENT
-function initializeStudent(passport) {
-  const authenticateUser = (email, password, done) => {
+
+passport.use('localStudent', new LocalStrategy(
+  {
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  function(username, password, done) {
     pool.query(
       `SELECT * FROM student WHERE email = $1`,
-      [email],
+      [username],
       (err, result) => {
         
         if (err) {
@@ -15,15 +21,16 @@ function initializeStudent(passport) {
         }
         
         if (result.rows.length > 0) {
-          const studentUser = result.rows[0];
+          const user = result.rows[0];
 
-          bcrypt.compare(password, studentUser.password, (err, isMatch) => {
+          bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) {
               throw err;
             }
 
             if (isMatch) {
-              return done(null, studentUser);
+              // console.log(user);
+              return done(null, user);
             } else {
               return done(null, false, {
                 message: 'Email atau password salah',
@@ -35,64 +42,36 @@ function initializeStudent(passport) {
         }
       }
     );
-  };
-
-  passport.use(
-    'localStudent',
-    new LocalStrategy(
-      {
-        usernameField: 'email',
-        passwordField: 'password',
-      },
-      authenticateUser
-      // (err, user, done) => {
-      //   if (err){
-      //     return done(err);
-      //   }
-      // }
-    )
-  );
-
-  passport.serializeUser((studentUser, done) =>
-    done(null, studentUser.student_id)
-  );
-
-  passport.deserializeUser((student_id, done) => {
-    pool.query(
-      `SELECT * FROM student WHERE student_id = $1`,
-      [student_id],
-      (err, result) => {
-        if (err) {
-          throw err;
-        }
-        return done(null, result.rows[0]);
-      }
-    );
-  });
-}
+  }
+));
 
 //FOR MENTOR
 
-function initializeMentor(passport) {
-  const authenticateUser = (email, password, done) => {
+passport.use('localMentor', new LocalStrategy(
+  {
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  function(username, password, done) {
     pool.query(
       `SELECT * FROM mentor WHERE email = $1`,
-      [email],
+      [username],
       (err, result) => {
         if (err) {
           throw err;
         }
 
         if (result.rows.length > 0) {
-          const mentorUser = result.rows[0];
+          const user = result.rows[0];
 
-          bcrypt.compare(password, mentorUser.password, (err, isMatch) => {
+          bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) {
               throw err;
             }
 
             if (isMatch) {
-              return done(null, mentorUser);
+              // console.log(user);
+              return done(null, user);
             } else {
               return done(null, false, {
                 message: 'Email atau password salah',
@@ -104,40 +83,30 @@ function initializeMentor(passport) {
         }
       }
     );
-  };
+  }
+));
 
-  passport.use(
-    'localMentor',
-    new LocalStrategy(
-      {
-        usernameField: 'email',
-        passwordField: 'password',
-      },
-      authenticateUser
-      // (err, user, done) => {
-      //   if (err){
-      //     return done(err);
-      //   }
-      // }
-    )
-  );
+passport.serializeUser((user, done) =>{
+    console.log('Serializing...');
+    console.log(user);
+    return done(null, {
+      id: (typeof user.is_active !== 'undefined') ? user.mentor_id : user.student_id,
+      role: (typeof user.is_active !== 'undefined') ? 'mentor' : 'student'
+    })
+});
 
-  passport.serializeUser((mentorUser, done) =>
-    done(null, mentorUser.mentor_id)
-  );
-
-  passport.deserializeUser((mentor_id, done) => {
-    pool.query(
-      `SELECT * FROM mentor WHERE mentor_id = $1`,
-      [mentor_id],
-      (err, result) => {
-        if (err) {
-          throw err;
-        }
-        return done(null, result.rows[0]);
+passport.deserializeUser((user, done) => {
+  console.log(user);
+  pool.query(
+    `SELECT * FROM ${user.role} WHERE ${user.role === 'mentor' ? 'mentor_id' : 'student_id'} = $1`,
+    [user.id],
+    (err, result) => {
+      if (err) {
+        throw err;
       }
-    );
-  });
-}
-
-module.exports = { initializeStudent, initializeMentor };
+      console.log('Deserializing...');
+      console.log(result.rows[0]);
+      return done(null, result.rows[0]);
+    }
+  );
+});

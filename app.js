@@ -40,14 +40,11 @@ const upload = multer({
   fileFilter: fileFilter,
 });
 
-const {
-  initializeStudent: initializePassportStudent,
-  initializeMentor: initializePassportMentor,
-} = require("./passportConfig");
+require("./passportConfig");
 const { query } = require("express");
 
-initializePassportStudent(passport);
-initializePassportMentor(passport);
+// initializePassportStudent(passport);
+// initializePassportMentor(passport);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -481,10 +478,35 @@ app.get("/dashboard-mentor/profile/:id/pusat-bantuan", catchAsync(async(req, res
 
 //logout
 app.get("/logout-mentor", (req, res) => {
-  res.send("ini buat logout");
+  req.logout();
+  res.redirect('/');
 });
 
 //render dashboard
+
+app.get("/dashboard-mentor", isLoggedInMentor, async (req, res) => {
+
+  const currentUser = req.user;
+
+  const currentUserCourseRaw = await pool.query(
+    `SELECT * FROM course WHERE mentor_id = $1 AND status = $2`, [currentUser.mentor_id, 'open']
+  )
+
+  const currentUserCourse = currentUserCourseRaw.rows;
+
+  // console.log({currentUser, currentUserCourse});
+  // console.log(currentUserCourse);
+
+  currentUserCourse.forEach(row => {
+    var options1 = {
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+    }
+    row.tanggal_kelas = row.tanggal_kelas.toLocaleString('id-ID', options1);
+  });
+
+  res.render('mentor/home-mentor', {currentUser, currentUserCourse});
+});
+
 app.get("/dashboard-mentor/:id", catchAsync(async(req, res) => {
   const {id} = req.params;
 
@@ -512,11 +534,6 @@ app.get("/dashboard-mentor/:id", catchAsync(async(req, res) => {
 
   res.render('mentor/home-mentor', {currentUser, currentUserCourse});
 }));
-
-app.get("/dashboard-mentor", isLoggedInMentor, (req, res) => {
-  console.log(req.user)
-  res.render("mentor/home-mentor");
-});
 
 app.all("*", (req, res, next) => {
   next(new ExpressError("Page tidak ditemukan", 404));
