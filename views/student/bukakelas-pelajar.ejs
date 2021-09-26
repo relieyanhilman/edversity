@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ed.versity - Buka Kelas</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-      crossorigin="anonymous"
-    />
 
-    <script src="https://kit.fontawesome.com/b7a74d837b.js" crossorigin="anonymous"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ed.versity - Buka Kelas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="shortcut icon" href="/IMG/logo.png" />
-    <link rel="stylesheet" href="/css/student/bukakelas-pelajar.css" />
-  </head>
-  <body>
-    <!-- Modal -->
-    <!-- Inbox/Notif -->
-    <div class="modal fade inboxModal" id="inboxModal" tabindex="-1" aria-hidden="true">
-      <!-- <div class="modal-dialog">
+  <script src="https://kit.fontawesome.com/b7a74d837b.js" crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="shortcut icon" href="/IMG/logo.png" />
+  <link rel="stylesheet" href="/css/student/bukakelas-pelajar.css" />
+</head>
+
+<body>
+  <!-- Modal -->
+  <!-- Inbox/Notif -->
+  <div class="modal fade inboxModal" id="inboxModal" tabindex="-1" aria-hidden="true">
+    <!-- <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body">
             <div class="row mt-1">
@@ -68,1523 +66,1059 @@
           </div>
         </div>
       </div> -->
-      
-    </div>
-    <!-- Modal; -->
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary-color sticky-top">
-      <div class="container-fluid">
-        <a class="navbar-brand ms-3" href="/dashboard-student"><img src="/IMG/logo.svg" /></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/dashboard-student">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/edpedia-comingsoon">ed.pedia</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/dashboard-student/edwallet/<%= currentUser.student_id %>" tabindex="-1">ed.wallet</a>
-            </li>
-            <li class="nav-item">
-              <a style="color: #fff100 !important" class="nav-link" href="/buka-kelas/<%= currentUser.student_id  %> ">
-                BUKA KELAS
-              </a>
-            </li>
-          </ul>
-          <div class="d-flex">
-            <!-- Notif -->
-            <!-- data-bs-toggle="modal" data-bs-target="#inboxModal" -->
-            <a href="edmessage.html" class="nav-link" >
-              <i style="font-size: 1.4rem;" class="fa fa-bell text-light"></i>
-            </a>
-            <div class="input-search">
-              <input class="input-field"  placeholder="Search" />
-              <button type="submit" class="btn"><i class="fa fa-search text-light"> </i></button>
-            </div>
-      
-            <a href="/dashboard-student/profile/<%=currentUser.student_id%>" class="nav-link">
-              <i style="font-size: 1.6rem;" class="fa fa-sliders text-light"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-      <!-- <div class="container-fluid">
-        <a class="navbar-brand ms-4" href="home.html"><img src="IMG/logo.svg " alt="logo" /></a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="home.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="edpedia.html">ed.pedia</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="edwallet.html" tabindex="-1">ed.wallet</a>
-            </li>
-            <li class="nav-item">
-              <a style="color: #fff100 !important" class="nav-link" href="bukakelas-pelajar.html">
-                BUKA KELAS
-              </a>
-            </li>
-          </ul>
-          <div class="d-flex">
-            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#inboxModal">
-              <i style="font-size: 1.4rem" class="fa fa-bell text-light"></i>
-            </a>
-            <div class="input-search">
-              <input class="input-field"  placeholder="Search" />
-              <button type="submit" class="btn"><i class="fa fa-search text-light"> </i></button>
-            </div>
+  </div>
+  <!-- Modal; -->
 
-            <a href="option.html" class="nav-link">
-              <i style="font-size: 1.6rem" class="fa fa-sliders text-light"></i>
-            </a>
-          </div>
-        </div>
-      </div> -->
-    </nav>
-    <!-- Navbar ; -->
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary-color sticky-top">
 
-    <!-- request kelas -->
-    <div class="container-fluid headContainer mt-5 mb-5 container rounded bg-light">
-      <div class="mt-5">
-        <center>
-          <img class="img-fluid" src="/IMG/logo-03.svg" alt="" />
-        </center>
-        <div class="requestContainer mb-5">
-          <a
-            href="/request-kelas"
-            class="req-btn primary-outline btn fw-bold primary-color"
-            id="requestBtn"
-            style="font-size: 2rem;">Buka Kelas</a
-          >
-        </div>
+  </nav>
+  <!-- Navbar ; -->
+
+  <!-- request kelas -->
+  <div class="container-fluid headContainer mt-5 mb-5 container rounded bg-light">
+    <div class="mt-5">
+      <center>
+        <img class="img-fluid" src="/IMG/logo-03.svg" alt="" />
+      </center>
+      <div class="requestContainer mb-5">
+        <a href="/request-kelas" class="req-btn primary-outline btn fw-bold primary-color" id="requestBtn"
+          style="font-size: 2rem;">Buka Kelas</a>
       </div>
     </div>
+  </div>
 
-    <div class="container">
-      <div class="row tab-container">
-        <div class="col list-prodi ms-2 rounded mb-5">
-          <h5 class="text-dark mt-3 mb-3 ms-2">Program Studi (12)</h5>
-          <!-- Nav tabs -->
-          <ul class="nav flex-column nav-tabs">
-            <li class="nav-item">
-              <a class="nav-link active" data-toggle="tab" href="#prodi1">Semua</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#prodi2">Akutansi</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#prodi3">Manajemen</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#prodi4">Teknik Industri</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#prodi5">Teknologi Pangan</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#prodi6">Kimia</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#prodi7">Farmasi</a>
-            </li>
-            
-          </ul>
-        </div>
-        <div class="col-md-9 col-12">
-          <!-- Tab Content -->
-          <!-- Prodi 1 -->
-          <div class="tab-content">
-            <div id="prodi1" class="container tab-pane active">
-              <div class="listKelasContainer">
-                <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
-                <!-- search box -->
-                <div class="row">
-                  <div class="col-md-9 col-12">
-                    <div style="width: 80%" class="input-group mb-3">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Cari Mata Kuliah.."
-                        aria-describedby="button-addon2"
-                      />
-                      <button class="btn btn-light search-class">
-                        <i class="fa primary-color fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-12 mb-4">
-                    <div class="dropdown">
-                      <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
-                      <button
-                        class="btn btn-light dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Terbaru
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Terbaru</a></li>
-                        <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+  <div class="container">
+    <div class="row tab-container">
+      <div class="col list-prodi ms-2 rounded mb-5">
+        <h5 class="text-dark mt-3 mb-3 ms-2">Program Studi (12)</h5>
+        <!-- Nav tabs -->
+        <ul class="nav flex-column nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#prodi1">Semua</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#prodi2">Akutansi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#prodi3">Manajemen</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#prodi4">Teknik Industri</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#prodi5">Teknologi Pangan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#prodi6">Kimia</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#prodi7">Farmasi</a>
+          </li>
 
-                <!-- LIST KELAS -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse3"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse3"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Struktur Bangunan</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse3">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse4"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse4"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Farmasi</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse4">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- baris kedua -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse1"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse1"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Kimia</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse1">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse2"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse2"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Struktur Bangunan</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse2">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Prodi 2 -->
-            <div id="prodi2" class="container tab-pane fade">
-              <div class="listKelasContainer">
-                <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
-                <!-- search box -->
-                <div class="row">
-                  <div class="col-md-9 col-12">
-                    <div style="width: 80%" class="input-group mb-3">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Cari Kelas"
-                        aria-describedby="button-addon2"
-                      />
-                      <button class="btn btn-light search-class">
-                        <i class="fa primary-color fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-12 mb-4">
-                    <div class="dropdown">
-                      <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
-                      <button
-                        class="btn btn-light dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Terbaru
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Terbaru</a></li>
-                        <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- list kelas -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse3"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse3"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Akutansi</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse3">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse4"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse4"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Akutansi</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse4">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- baris kedua -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse1"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse1"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Akutansi</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse1">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse2"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse2"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link"> Akutansi </button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse2">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Prodi 3 -->
-            <div id="prodi3" class="container tab-pane fade">
-              <div class="listKelasContainer">
-                <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
-                <!-- search box -->
-                <div class="row">
-                  <div class="col-md-9 col-12">
-                    <div style="width: 80%" class="input-group mb-3">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Cari Kelas"
-                        aria-describedby="button-addon2"
-                      />
-                      <button class="btn btn-light search-class">
-                        <i class="fa primary-color fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-12 mb-4">
-                    <div class="dropdown">
-                      <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
-                      <button
-                        class="btn btn-light dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Terbaru
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Terbaru</a></li>
-                        <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- list kelas -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse3"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse3"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Manajemen</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse3">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse4"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse4"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Manajemen</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse4">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- baris kedua -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse1"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse1"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Manajemen</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse1">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse2"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse2"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Manajemen</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse2">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Prodi 4 -->
-            <div id="prodi4" class="container tab-pane fade">
-              <div class="listKelasContainer">
-                <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
-                <!-- search box -->
-                <div class="row">
-                  <div class="col-md-9 col-12">
-                    <div style="width: 80%" class="input-group mb-3">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Cari Kelas"
-                        aria-describedby="button-addon2"
-                      />
-                      <button class="btn btn-light search-class">
-                        <i class="fa primary-color fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-12 mb-4">
-                    <div class="dropdown">
-                      <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
-                      <button
-                        class="btn btn-light dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Terbaru
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Terbaru</a></li>
-                        <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- list kelas -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse3"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse3"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Teknik Industri</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse3">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse4"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse4"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Teknik Industri</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse4">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- baris kedua -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse1"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse1"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Teknik Industri</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse1">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse2"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse2"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Teknik Industri</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse2">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Prodi 5 -->
-            <div id="prodi5" class="container tab-pane fade">
-              <div class="listKelasContainer">
-                <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
-                <!-- search box -->
-                <div class="row">
-                  <div class="col-md-9 col-12">
-                    <div style="width: 80%" class="input-group mb-3">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Cari Kelas"
-                        aria-describedby="button-addon2"
-                      />
-                      <button class="btn btn-light search-class"></button>
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-12 mb-4">
-                    <div class="dropdown">
-                      <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
-                      <button
-                        class="btn btn-light dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Terbaru
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Terbaru</a></li>
-                        <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- list kelas -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse3"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse3"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Teknologi Pangan</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse3">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse4"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse4"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Teknologi Pangan</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse4">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- baris kedua -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse1"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse1"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Teknologi Pangan</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse1">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse2"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse2"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Teknologi Pangan</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse2">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Prodi 6 -->
-            <div id="prodi6" class="container tab-pane fade">
-              <div class="listKelasContainer">
-                <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
-                <!-- search box -->
-                <div class="row">
-                  <div class="col-md-9 col-12">
-                    <div style="width: 80%" class="input-group mb-3">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Cari Kelas"
-                        aria-describedby="button-addon2"
-                      />
-                      <button class="btn btn-light search-class">
-                        <i class="fa primary-color fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-12 mb-4">
-                    <div class="dropdown">
-                      <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
-                      <button
-                        class="btn btn-light dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Terbaru
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Terbaru</a></li>
-                        <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- list kelas -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse3"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse3"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Kimia</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse3">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse4"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse4"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Kimia</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse4">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- baris kedua -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse1"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse1"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Kimia</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse1">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse2"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse2"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Kimia</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse2">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Prodi 7 -->
-            <div id="prodi7" class="container tab-pane fade">
-              <div class="listKelasContainer">
-                <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
-                <!-- search box -->
-                <div class="row">
-                  <div class="col-md-9 col-12">
-                    <div style="width: 80%" class="input-group mb-3">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Cari Kelas"
-                        aria-describedby="button-addon2"
-                      />
-                      <button class="btn btn-light search-class">
-                        <i class="fa primary-color fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-12 mb-4">
-                    <div class="dropdown">
-                      <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
-                      <button
-                        class="btn btn-light dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Terbaru
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Terbaru</a></li>
-                        <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- list kelas -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse3"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse3"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Farmasi</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse3">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse4"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse4"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Farmasi</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse4">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- baris kedua -->
-                <div class="row">
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse1"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse1"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="/IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Farmasi</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse1">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- divider -->
-                  <div class="col-md-6 col-12">
-                    <a
-                      style="width: 100%"
-                      class="btn btn-light mb-3"
-                      data-bs-toggle="collapse"
-                      href="#collapse2"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="collapse2"
-                    >
-                      <div class="row">
-                        <div class="col-3">
-                          <img
-                            class="foto-profil img-fluid"
-                            src="IMG/foto-profil.jpg"
-                            alt="profil"
-                          />
-                        </div>
-                        <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                          <button onclick="href()" class=" btn-link">Farmasi</button>
-                          <p>Iqbal Bin Yahya</p>
-                          <p class="text-secondary" style="font-size: 14px">
-                            30 Mei 2022 • 23 : 59 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    <div class="collapse" id="collapse2">
-                      <div class="card card-body mb-3">
-                        Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </ul>
       </div>
-      <div class="container berita-terbaru mb-5">
-        <div class="row mt-3">
-          <h3 class="text-light">Berita Terbaru</h3>
-          <div class="col-md-4 col-12">
-            <div class="card">
-              <img src="/IMG/no-image.svg" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the
-                  card's content.
-                </p>
+      <div class="col-md-9 col-12">
+        <!-- Tab Content -->
+        <!-- Prodi 1 -->
+        <div class="tab-content">
+          <div id="prodi1" class="container tab-pane active">
+            <div class="listKelasContainer">
+              <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
+              <!-- search box -->
+              <div class="row">
+                <div class="col-md-9 col-12">
+                  <div style="width: 80%" class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cari Mata Kuliah.."
+                      aria-describedby="button-addon2" />
+                    <button class="btn btn-light search-class">
+                      <i class="fa primary-color fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-3 col-12 mb-4">
+                  <div class="dropdown">
+                    <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Terbaru
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" href="#">Terbaru</a></li>
+                      <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LIST KELAS -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse3"
+                    role="button" aria-expanded="false" aria-controls="collapse3">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Struktur Bangunan</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse3">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse4"
+                    role="button" aria-expanded="false" aria-controls="collapse4">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Farmasi</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse4">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- baris kedua -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse1"
+                    role="button" aria-expanded="false" aria-controls="collapse1">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Kimia</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse1">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse2"
+                    role="button" aria-expanded="false" aria-controls="collapse2">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Struktur Bangunan</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse2">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4 col-12">
-            <div class="card">
-              <img src="/IMG/no-image.svg" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the
-                  card's content.
-                </p>
+          <!-- Prodi 2 -->
+          <div id="prodi2" class="container tab-pane fade">
+            <div class="listKelasContainer">
+              <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
+              <!-- search box -->
+              <div class="row">
+                <div class="col-md-9 col-12">
+                  <div style="width: 80%" class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cari Kelas" aria-describedby="button-addon2" />
+                    <button class="btn btn-light search-class">
+                      <i class="fa primary-color fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-3 col-12 mb-4">
+                  <div class="dropdown">
+                    <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Terbaru
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" href="#">Terbaru</a></li>
+                      <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- list kelas -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse3"
+                    role="button" aria-expanded="false" aria-controls="collapse3">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Akutansi</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse3">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse4"
+                    role="button" aria-expanded="false" aria-controls="collapse4">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Akutansi</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse4">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- baris kedua -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse1"
+                    role="button" aria-expanded="false" aria-controls="collapse1">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Akutansi</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse1">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse2"
+                    role="button" aria-expanded="false" aria-controls="collapse2">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link"> Akutansi </button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse2">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4 col-12">
-            <div class="card">
-              <img src="/IMG/no-image.svg" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the
-                  card's content.
-                </p>
-              </div> 
+          <!-- Prodi 3 -->
+          <div id="prodi3" class="container tab-pane fade">
+            <div class="listKelasContainer">
+              <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
+              <!-- search box -->
+              <div class="row">
+                <div class="col-md-9 col-12">
+                  <div style="width: 80%" class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cari Kelas" aria-describedby="button-addon2" />
+                    <button class="btn btn-light search-class">
+                      <i class="fa primary-color fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-3 col-12 mb-4">
+                  <div class="dropdown">
+                    <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Terbaru
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" href="#">Terbaru</a></li>
+                      <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- list kelas -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse3"
+                    role="button" aria-expanded="false" aria-controls="collapse3">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Manajemen</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse3">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse4"
+                    role="button" aria-expanded="false" aria-controls="collapse4">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Manajemen</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse4">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- baris kedua -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse1"
+                    role="button" aria-expanded="false" aria-controls="collapse1">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Manajemen</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse1">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse2"
+                    role="button" aria-expanded="false" aria-controls="collapse2">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Manajemen</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse2">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Prodi 4 -->
+          <div id="prodi4" class="container tab-pane fade">
+            <div class="listKelasContainer">
+              <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
+              <!-- search box -->
+              <div class="row">
+                <div class="col-md-9 col-12">
+                  <div style="width: 80%" class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cari Kelas" aria-describedby="button-addon2" />
+                    <button class="btn btn-light search-class">
+                      <i class="fa primary-color fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-3 col-12 mb-4">
+                  <div class="dropdown">
+                    <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Terbaru
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" href="#">Terbaru</a></li>
+                      <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- list kelas -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse3"
+                    role="button" aria-expanded="false" aria-controls="collapse3">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Teknik Industri</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse3">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse4"
+                    role="button" aria-expanded="false" aria-controls="collapse4">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Teknik Industri</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse4">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- baris kedua -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse1"
+                    role="button" aria-expanded="false" aria-controls="collapse1">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Teknik Industri</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse1">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse2"
+                    role="button" aria-expanded="false" aria-controls="collapse2">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Teknik Industri</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse2">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Prodi 5 -->
+          <div id="prodi5" class="container tab-pane fade">
+            <div class="listKelasContainer">
+              <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
+              <!-- search box -->
+              <div class="row">
+                <div class="col-md-9 col-12">
+                  <div style="width: 80%" class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cari Kelas" aria-describedby="button-addon2" />
+                    <button class="btn btn-light search-class"></button>
+                  </div>
+                </div>
+                <div class="col-md-3 col-12 mb-4">
+                  <div class="dropdown">
+                    <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Terbaru
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" href="#">Terbaru</a></li>
+                      <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- list kelas -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse3"
+                    role="button" aria-expanded="false" aria-controls="collapse3">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Teknologi Pangan</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse3">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse4"
+                    role="button" aria-expanded="false" aria-controls="collapse4">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Teknologi Pangan</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse4">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- baris kedua -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse1"
+                    role="button" aria-expanded="false" aria-controls="collapse1">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Teknologi Pangan</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse1">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse2"
+                    role="button" aria-expanded="false" aria-controls="collapse2">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Teknologi Pangan</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse2">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Prodi 6 -->
+          <div id="prodi6" class="container tab-pane fade">
+            <div class="listKelasContainer">
+              <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
+              <!-- search box -->
+              <div class="row">
+                <div class="col-md-9 col-12">
+                  <div style="width: 80%" class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cari Kelas" aria-describedby="button-addon2" />
+                    <button class="btn btn-light search-class">
+                      <i class="fa primary-color fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-3 col-12 mb-4">
+                  <div class="dropdown">
+                    <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Terbaru
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" href="#">Terbaru</a></li>
+                      <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- list kelas -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse3"
+                    role="button" aria-expanded="false" aria-controls="collapse3">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Kimia</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse3">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse4"
+                    role="button" aria-expanded="false" aria-controls="collapse4">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Kimia</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse4">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- baris kedua -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse1"
+                    role="button" aria-expanded="false" aria-controls="collapse1">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Kimia</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse1">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse2"
+                    role="button" aria-expanded="false" aria-controls="collapse2">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Kimia</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse2">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Prodi 7 -->
+          <div id="prodi7" class="container tab-pane fade">
+            <div class="listKelasContainer">
+              <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
+              <!-- search box -->
+              <div class="row">
+                <div class="col-md-9 col-12">
+                  <div style="width: 80%" class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cari Kelas" aria-describedby="button-addon2" />
+                    <button class="btn btn-light search-class">
+                      <i class="fa primary-color fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-3 col-12 mb-4">
+                  <div class="dropdown">
+                    <label for="dropdownMenuButton1" class="text-light">Urutkan</label>
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Terbaru
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" href="#">Terbaru</a></li>
+                      <li><a class="dropdown-item" href="#">Paling banyak diikuti</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- list kelas -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse3"
+                    role="button" aria-expanded="false" aria-controls="collapse3">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Farmasi</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse3">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse4"
+                    role="button" aria-expanded="false" aria-controls="collapse4">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Farmasi</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse4">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- baris kedua -->
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse1"
+                    role="button" aria-expanded="false" aria-controls="collapse1">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Farmasi</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse1">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="col-md-6 col-12">
+                  <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse2"
+                    role="button" aria-expanded="false" aria-controls="collapse2">
+                    <div class="row">
+                      <div class="col-3">
+                        <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                      </div>
+                      <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                        <button onclick="href()" class=" btn-link">Farmasi</button>
+                        <p>Iqbal Bin Yahya</p>
+                        <p class="text-secondary" style="font-size: 14px">
+                          30 Mei 2022 • 23 : 59 WIB
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="collapse" id="collapse2">
+                    <div class="card card-body mb-3">
+                      Informasi tambahan seputar kelas Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit.
+                      <a class="btn btn-dark mt-2" href="info-kelas.html">Cek Kelas</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <script>
-      function href () {
-        window.location.href = "info-kelas.html"
-      }
-    </script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
-    <!-- <script src="javascript/navbar.js"></script> --> <!-- langsung isi di file ini aja -->
-    <!-- <script src="javascript/notif.js"></script> -->
-  </body>
+    <div class="container berita-terbaru mb-5">
+      <div class="row mt-3">
+        <h3 class="text-light">Berita Terbaru</h3>
+        <div class="col-md-4 col-12">
+          <div class="card">
+            <img src="/IMG/no-image.svg" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <p class="card-text">
+                Some quick example text to build on the card title and make up the bulk of the
+                card's content.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-12">
+          <div class="card">
+            <img src="/IMG/no-image.svg" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <p class="card-text">
+                Some quick example text to build on the card title and make up the bulk of the
+                card's content.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-12">
+          <div class="card">
+            <img src="/IMG/no-image.svg" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <p class="card-text">
+                Some quick example text to build on the card title and make up the bulk of the
+                card's content.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function href() {
+      window.location.href = "info-kelas.html"
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="/javascript/navbar.js"></script>
+  <!-- langsung isi di file ini aja -->
+  <!-- <script src="javascript/notif.js"></script> -->
+</body>
+
 </html>
