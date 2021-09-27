@@ -118,16 +118,26 @@ app.get("/login-student",
   }
 );
 
-
 //dashboard student
 app.get(
   "/dashboard-student",
   isLoggedInStudent,
   catchAsync(async (req, res) => {
 
-    const courseInfoRaw = await pool.query(`SELECT * FROM course`);
+    const courseInfoRaw = await pool.query(`SELECT * FROM course WHERE status = 'open'`);
+    var courseInfo = courseInfoRaw.rows;
 
-    res.render("student/home", { currentUser: req.user, courseInfo: courseInfoRaw.rows });
+    for await (let course of courseInfo) {
+      course.tanggal_kelas = course.tanggal_kelas.toLocaleString('id-ID', {
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+      });
+      course.waktu_kelas = course.waktu_kelas[0]+''+course.waktu_kelas[1]+':'+course.waktu_kelas[3]+''+course.waktu_kelas[4];
+
+      var mentor = await pool.query(`SELECT nama_lengkap FROM mentor WHERE mentor_id = $1`, [course.mentor_id]);
+      course.nama_mentor = mentor.rows[0].nama_lengkap;
+    }
+
+    res.render("student/home", { currentUser: req.user, courseInfo });
   })
 );
 
@@ -202,7 +212,7 @@ app.post(
         [nama_lengkap, email, hashedPassword, asal_sekolah, angkatan, jenjang]
       );
       // console.log(rowsInsert.rows[0]);
-      req.flash("success", "kamu sudah terdaftar, silakan login");
+      req.flash("success", "Anda sudah terdaftar, silakan login");
       res.redirect("/login-student");
     }
   })
@@ -404,7 +414,7 @@ app.get("/edpedia-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, res
   res.render('mentor/edpedia-mentor', {currentUser: req.user});
 }));
 
-//page edpedia
+//page edwallet
 app.get("/edwallet-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, res) => {
   res.render('mentor/edwallet-mentor', {currentUser: req.user});
 }));
