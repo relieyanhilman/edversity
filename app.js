@@ -507,9 +507,19 @@ app.get('/dashboard-mentor/detail-kelas/:kelasId/daftar-siswa',
 ))
 
 //daftar mentor kelas
-app.post("/dashboard-mentor/:id/detail-kelas/:kelasId", (req, res) => {
-  res.send("ini buat post detail-kelas");
-});
+app.post("/dashboard-mentor/:id/detail-kelas/:kelasId", catchAsync(async(req, res) => {
+  try{
+    const {id, kelasId} = req.params; 
+    console.log('sampe sini?')
+    const updateMentorKelas = await pool.query(
+      `UPDATE course SET mentor_id = $1 WHERE course_id = $2`, [id, kelasId])
+    // return updateMentorKelas.rows;
+  }catch (error){
+    console.log(error);
+  }
+
+  res.redirect('/dashboard-mentor')
+}));
 
 
 // page profile mentor
