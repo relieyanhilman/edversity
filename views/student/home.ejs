@@ -128,65 +128,71 @@
           <h4 class="mb-3 text-light">Kelas yang sudah dibuka</h4>
         </div>
         <div class="col-6 text-right">
-          <a class="btn btn-dark mb-3 mr-1" href="#carouselControls1" role="button" data-slide="prev">
+          <a class="btn btn-dark mb-3 mr-1" href="#daftarKelasCarousel" role="button" data-slide="prev">
             <i class="fa fa-arrow-left"></i>
           </a>
-          <a class="btn btn-dark mb-3" href="#carouselControls1" role="button" data-slide="next">
+          <a class="btn btn-dark mb-3" href="#daftarKelasCarousel" role="button" data-slide="next">
             <i class="fa fa-arrow-right"></i>
           </a>
         </div>
 
         <div class="col-12">
-          <div id="carouselControls1" class="carousel slide" data-ride="carousel">
+          <div id="daftarKelasCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner kelas-dibuka">
-              <div class="row">
-                <!-- card -->
-                <% courseInfo.forEach(course=> { %>
-                  <div class="col-md-4 mb-3">
-                    <a class="card-kelas" href="info-kelas.html">
-                      <div class="card">
-                        <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
-                        <div class="card-body bg-light">
+              <% for( let index=0; index < courseInfo.length; index+=3 ) { %>
+                <% if (index < 3 ) { %>
+                  <div class="carousel-item active">
+                    <% } else { %>
+                      <div class="carousel-item">
+                        <% } %>
                           <div class="row">
-                            <div class="col-md-3">
-                              <!-- foto profil -->
-                              <img class="foto-profil" src="/IMG/foto-profil.jpg" alt="foto-profil" />
-                            </div>
-                            <div class="col ms-3">
-                              <h6 class="mb-0">
-                                <%= course.program_studi %>
-                              </h6>
-                              <h5 class="mb-3">
-                                <%= course.mata_kuliah %>
-                              </h5>
-                              <div style="line-height: 0.3">
-                                <p class="card-text">
-                                  <%= course.nama_mentor %>
-                                </p>
-                                <p>
-                                  <%= course.tanggal_kelas %>
-                                </p>
-                                <p>
-                                  <%= course.waktu_kelas %> WIB
-                                </p>
-                              </div>
-                            </div>
+                            <% for( let i=index; i < index+3 && i < courseInfo.length; i++ ) { %>
+                              <% if (courseInfo[i]) { %>
+                                <div class="col-md-4 mb-3">
+                                  <a href="info-kelas.html" class="card-kelas">
+                                    <div class="card">
+                                      <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
+                                      <div class="card-body bg-light">
+                                        <div class="row">
+                                          <div class="col-md-3">
+                                            <!-- foto profil -->
+                                            <img class="foto-profil" src="/IMG/foto-profil.jpg" alt="foto-profil" />
+                                          </div>
+                                          <div class="col ms-3">
+                                            <h6 class="mb-0">
+                                              <%= courseInfo[i].program_studi %>
+                                            </h6>
+                                            <h5 class="mb-3">
+                                              <%= courseInfo[i].mata_kuliah %>
+                                            </h5>
+                                            <div style="line-height: 0.3">
+                                              <p class="card-text">
+                                                <%= courseInfo[i].nama_mentor %>
+                                              </p>
+                                              <p>
+                                                <%= courseInfo[i].tanggal_kelas %>
+                                              </p>
+                                              <p>
+                                                <%= courseInfo[i].waktu_kelas %>
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </a>
+                                </div>
+                                <% } %>
+                                  <% } %>
                           </div>
-                        </div>
                       </div>
-                    </a>
+                      <% } %>
                   </div>
-                  <% }) %>
-                    <!-- card end -->
-              </div>
-
             </div>
           </div>
-          <!-- Kelas yang sudah di buka - Slide 2 -->
 
         </div>
       </div>
-    </div>
     </div>
     </div>
   </section>
@@ -285,6 +291,7 @@
                   </div>
                 </div>
               </div>
+
 
             </div>
           </div>
