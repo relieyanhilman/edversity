@@ -136,7 +136,7 @@ app.get(
       var mentor = await pool.query(`SELECT nama_lengkap FROM mentor WHERE mentor_id = $1`, [course.mentor_id]);
       course.nama_mentor = mentor.rows[0].nama_lengkap;
     }
-    
+
     res.render("student/home", { currentUser: req.user, courseInfo });
   })
 );
@@ -268,8 +268,7 @@ app.get(
   })
 );
 
-app.get("/request-kelas", (req, res) => {
-  isLoggedInStudent,
+app.get("/request-kelas", isLoggedInStudent, (req, res) => {
   res.render("student/request-kelas");
 });
 
@@ -306,7 +305,25 @@ app.post(
   })
 );
 
-app.get("/kelas", (req, res) => {});
+app.get("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
+  const { id } = req.params;
+
+  const currentKelasRaw = await pool.query(
+    `SELECT * FROM course WHERE course_id = $1`, [id]
+  )
+  currentKelas = currentKelasRaw.rows[0];
+  
+  currentKelas.tanggal_kelas = currentKelas.tanggal_kelas.toLocaleString('id-ID', {
+    year: 'numeric', month: 'long', day: 'numeric'
+  });
+
+  var time = currentKelas.waktu_kelas;
+  
+  currentKelas.waktu_kelas = time[0]+''+time[1]+':'+time[3]+''+time[4];
+
+  res.render("student/info-kelas", { currentUser: req.user, currentKelas });
+}));
+
 
 //MENTOR
 

@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins;
+}
+
+body {
+  background-color: #1a1a1a;
+  font-weight: 500;
+  background-image: url(IMG/bg-pattern.png);
+
+  background-attachment: fixed;
+}
+
+button:focus {
+  box-shadow: none !important;
+}
+
+.btn:hover {
+  box-shadow: 5px 5px #1a1a1a;
+}
+
+a {
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  .input-search input {
+    width: 80%;
+  }
+  .d-flex {
+    justify-content: center;
+  }
+  .navbar-nav {
+    font-size: larger;
+    text-align: center !important;
+  }
+
+  .input-search .btn {
+    display: none;
+  }
+
+  #inboxModal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0px;
+    left: 0;
+    z-index: 10040;
+  }
+
+  .modal-body label {
+    line-height: 1;
+  }
+
+  .inbox-label {
+    font-size: 12px;
+  }
+
+  .container h4 {
+    font-size: large;
+  }
+}
+
+.container {
+  margin-top: 24px;
+}
+
+.inboxModal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0px;
+  left: 4%;
+  z-index: 10040;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.input-search input {
+  color: white;
+  border: none;
+  background: none;
+  border-bottom: 1px solid white;
+  padding: 5px 10px;
+  outline: none;
+}
+
+.input-search input::placeholder {
+  color: white;
+}
+
+.input-search .btn {
+  position: absolute;
+  right: 6%;
+}
+
+[placeholder]:focus::-webkit-input-placeholder {
+  color: white;
+  transition: text-indent 0.4s 0.4s ease;
+  text-indent: -100%;
+  opacity: 1;
+}
+
+.navbar-nav {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.nav-link {
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  color: white !important;
+}
+
+.search-btn {
+  background-color: white;
+}
+
+.primary-color {
+  color: #078874;
+}
+
+.primary-outline {
+  border: solid 0.5px #078874;
+  color: #078874;
+}
+
+.bg-primary-color {
+  background-color: #078874;
+}
+
+.secondary-color {
+  color: #022721;
+}
+
+.bg-secondary-color {
+  background-color: #022721;
+}
+
+.bg-dark-color {
+  background-color: rgb(20, 20, 20);
+}
+
+.dark-color {
+  color: rgb(20, 20, 20);
+}
