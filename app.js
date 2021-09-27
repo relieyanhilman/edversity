@@ -136,7 +136,7 @@ app.get(
       var mentor = await pool.query(`SELECT nama_lengkap FROM mentor WHERE mentor_id = $1`, [course.mentor_id]);
       course.nama_mentor = mentor.rows[0].nama_lengkap;
     }
-
+    
     res.render("student/home", { currentUser: req.user, courseInfo });
   })
 );
