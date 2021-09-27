@@ -124,7 +124,7 @@ app.get(
   isLoggedInStudent,
   catchAsync(async (req, res) => {
 
-    const courseInfoRaw = await pool.query(`SELECT * FROM course WHERE status = 'open'`);
+    const courseInfoRaw = await pool.query(`SELECT * FROM course WHERE status = 'open' AND tipe_kelas = 'public'`);
     var courseInfo = courseInfoRaw.rows;
 
     for await (let course of courseInfo) {
