@@ -358,6 +358,7 @@ app.get("/login-mentor", isNotLoggedInMentor, isMentor, (req, res) => {
   res.render("mentor/login-mentor");
 });
 
+
 //post register mentor
 app.post(
   "/register-mentor",
@@ -434,6 +435,28 @@ app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
 
   res.render('mentor/home-mentor', {currentUser, currentUserCourse});
 });
+
+//render page buka-kelas
+app.get("/dashboard-mentor/buka-kelas", isLoggedInMentor, isMentor, async(req, res)=> {
+  const currentUser = req.user;
+  res.render('mentor/requestKelas-mentor', {currentUser});
+})
+
+app.post('/dashboard-mentor/:id/buka-kelas', upload.single('file_materi'),catchAsync(async(req, res) => {
+  const {id} = req.params;
+
+  const {program_studi, 
+    mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, file_materi} = req.body;
+  const bukaKelas = await pool.query(
+    `INSERT INTO course(mentor_id, program_studi, 
+      mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, file_materi,status
+      ) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`, [id, program_studi, 
+        mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, req.file.path, 'open']
+    );
+  
+    const bukaKelas_id =  bukaKelas.rows[0].course_id;
+  res.redirect(`/dashboard-mentor/detail-kelas/${bukaKelas_id}`)
+}));
 
 
 //page edpedia

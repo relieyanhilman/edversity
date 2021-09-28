@@ -9,7 +9,7 @@
 body {
   background-color: #022721;
   font-weight: 500;
-  background-image: url(IMG/bg-pattern.png);
+  background-image: url(../../IMG/bg-pattern.png);
   background-attachment: fixed;
 }
 
