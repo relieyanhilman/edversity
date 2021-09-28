@@ -405,7 +405,7 @@ app.post(
 app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
 
   var currentUser = req.user;
-
+  console.log(currentUser);
   const currentUserCourseRaw = await pool.query(
     `SELECT * FROM course WHERE mentor_id = $1 AND status = $2`, 
     [currentUser.mentor_id, 'open']
@@ -421,6 +421,10 @@ app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
       weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
     });
   });
+  
+  currentUserCourse.forEach(row => {
+    row.waktu_kelas = row.waktu_kelas[0]+''+row.waktu_kelas[1]+':'+row.waktu_kelas[3]+''+row.waktu_kelas[4];
+  })
 
   res.render('mentor/home-mentor', {currentUser, currentUserCourse});
 });
@@ -451,9 +455,9 @@ app.get("/edwallet-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, re
 
 
 //detail kelas
-app.get("/dashboard-mentor/detail-kelas/:kelasId", isLoggedInMentor, isMentor, catchAsync(async(req, res) => {
+app.get("/dashboard-mentor/detail-kelas/:kelasId", isLoggedInMentor, isMentor, catchAsync(async(req, res) => {  //nanti tambahin ini isLoggedInMentor, isMentor,
   const {kelasId} = req.params;
-
+  
   const currentKelasRaw = await pool.query(
     `SELECT * FROM course WHERE course_id = $1`, [kelasId]
   )
@@ -462,29 +466,32 @@ app.get("/dashboard-mentor/detail-kelas/:kelasId", isLoggedInMentor, isMentor, c
     `SELECT nama_lengkap FROM student_course JOIN student on student_course.student_id = student.student_id WHERE student_course.course_id = $1`, [kelasId]
   );
   
+  const currentKelas = currentKelasRaw.rows[0];
   //formatting tanggal jadi tanggal nama bulan dan tahun
     var options1 = {
         year: 'numeric', month: 'long', day: 'numeric'
     }
     currentKelas.tanggal_kelas = currentKelas.tanggal_kelas.toLocaleString('id-ID', options1);
+    
+
 
     var time = currentKelas.waktu_kelas;
     
-    let waktu_kelas = time[0]+''+time[1]+':'+time[3]+''+time[4];
+    
+    currentKelas.waktu_kelas = time[0]+''+time[1]+':'+time[3]+''+time[4];
     
     
   
   res.render("mentor/info-kelas-mentor", {
     currentUser: req.user, 
-    currentKelas: currentKelasRaw.rows[0], 
-    peserta_kelas: peserta_kelasRaw.rows, 
-    waktu_kelas
+    currentKelas, 
+    peserta_kelas: peserta_kelasRaw.rows,
   });
 }));
 
 
 //halaman khusus list siswa dalam kelas 
-app.get('/dashboard-mentor/detail-kelas/:kelasId/daftar-siswa',
+app.get('/dashboard-mentor/detail-kelas/:kelasId/daftar-siswa', 
   isLoggedInMentor,
   isMentor,
   catchAsync(async(req, res) => {

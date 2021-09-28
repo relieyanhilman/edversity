@@ -225,7 +225,7 @@
                             <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
                           </div>
                           <div class="col pt-2" style="text-align: start; line-height: 0.6;">
-                            <button onclick="href()" class="btn-link">
+                            <button onClick="location.href='/dashboard-mentor/detail-kelas/<%=currentUserCourse[index].course_id%> '" class="btn-link">
                               <%= currentUserCourse[index].mata_kuliah %>
                             </button>
                             <p>
@@ -233,7 +233,7 @@
                             </p>
                             <p class="text-secondary" style="font-size: 14px;">
                               <%= currentUserCourse[index].tanggal_kelas %> • <%= currentUserCourse[index].waktu_kelas
-                                  %>
+                                  %> WIB
                             </p>
                           </div>
                         </div>
@@ -241,7 +241,7 @@
                       <div class="collapse" id="collapse3">
                         <div class="card card-body mb-3">
                           <%= currentUserCourse[index].deskripsi_materi %>
-                            <a class="btn btn-dark mt-2" href="info-kelas-mentor.html">Cek Kelas</a>
+                            <a class="btn btn-dark mt-2" href="/dashboard-mentor/detail-kelas/<%=currentUserCourse[index].course_id%>">Cek Kelas</a>
                         </div>
                       </div>
                     </div>
@@ -263,7 +263,7 @@
                                 </p>
                                 <p class="text-secondary" style="font-size: 14px;">
                                   <%= currentUserCourse[index+1].tanggal_kelas %> • <%=
-                                      currentUserCourse[index+1].waktu_kelas %>
+                                      currentUserCourse[index+1].waktu_kelas %> WIB
                                 </p>
                               </div>
                             </div>
