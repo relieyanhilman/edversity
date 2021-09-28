@@ -87,8 +87,8 @@ passport.use('localMentor', new LocalStrategy(
 ));
 
 passport.serializeUser((user, done) =>{
-    console.log('Serializing...');
-    console.log(user);
+    // console.log('Serializing...');
+    // console.log(user);
     return done(null, {
       id: (typeof user.is_active !== 'undefined') ? user.mentor_id : user.student_id,
       role: (typeof user.is_active !== 'undefined') ? 'mentor' : 'student'
@@ -96,7 +96,7 @@ passport.serializeUser((user, done) =>{
 });
 
 passport.deserializeUser((user, done) => {
-  console.log(user);
+  // console.log(user);
   pool.query(
     `SELECT * FROM ${user.role} WHERE ${user.role === 'mentor' ? 'mentor_id' : 'student_id'} = $1`,
     [user.id],
@@ -107,8 +107,8 @@ passport.deserializeUser((user, done) => {
       loggedInUser = result.rows[0];
       loggedInUser.role = user.role
 
-      console.log('Deserializing...');
-      console.log(loggedInUser);
+      // console.log('Deserializing...');
+      // console.log(loggedInUser);
       
       return done(null, loggedInUser);
     }

@@ -218,60 +218,85 @@
                 <div class="row listKelasContainer">
                   <% if (currentUserCourse[index]) { %>
                     <div class="col-md-6 col-12">
-                      <a style="width: 100%;" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse<%=currentUserCourse[index].course_id%>"
-                        role="button" aria-expanded="false" aria-controls="collapse<%=currentUserCourse[index].course_id%>">
+                      <a style="width: 100%;" class="btn btn-light mb-3" data-bs-toggle="collapse"
+                        href="#collapse<%=currentUserCourse[index].course_id%>" role="button" aria-expanded="false"
+                        aria-controls="collapse<%=currentUserCourse[index].course_id%>">
                         <div class="row">
                           <div class="col-3">
                             <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
                           </div>
                           <div class="col pt-2" style="text-align: start; line-height: 0.6;">
-                            <button onClick="location.href='/dashboard-mentor/detail-kelas/<%=currentUserCourse[index].course_id%> '" class="btn-link">
+                            <p class="mb-0">
+                              <%= currentUserCourse[index].program_studi %>
+                            </p>
+                            <button
+                              onClick="location.href='/dashboard-mentor/detail-kelas/<%=currentUserCourse[index].course_id%>'"
+                              class="btn-link">
                               <%= currentUserCourse[index].mata_kuliah %>
                             </button>
-                            <p>
-                              <%= currentUser.nama_lengkap %>
-                            </p>
-                            <p class="text-secondary" style="font-size: 14px;">
-                              <%= currentUserCourse[index].tanggal_kelas %> • <%= currentUserCourse[index].waktu_kelas
-                                  %> WIB
-                            </p>
+                            <% if (currentUserCourse[index].tipe_kelas=='private' ) { %> <i class="fa fa-lock fs-6"></i>
+                              <% } %>
+                                <p class="text-secondary" style="font-size: 14px;">
+                                  <%= currentUserCourse[index].tanggal_kelas %> • <%=
+                                      currentUserCourse[index].waktu_kelas %> WIB
+                                </p>
+                                <% if ((currentUserCourse[index].mentor_id==currentUser.mentor_id) &&
+                                  currentUserCourse[index].status=='pending' &&
+                                  currentUserCourse[index].tipe_kelas=='private' ) { %>
+                                  <span class="badge bg-warning text-dark">Menunggu persetujuan</span>
+                                  <% } %>
                           </div>
                         </div>
                       </a>
                       <div class="collapse" id="collapse<%=currentUserCourse[index].course_id%>">
                         <div class="card card-body mb-3">
                           <%= currentUserCourse[index].deskripsi_materi %>
-                            <a class="btn btn-dark mt-2" href="/dashboard-mentor/detail-kelas/<%=currentUserCourse[index].course_id%>">Cek Kelas</a>
+                            <a class="btn btn-dark mt-2"
+                              href="/dashboard-mentor/detail-kelas/<%=currentUserCourse[index].course_id%>">Cek
+                              Kelas</a>
                         </div>
                       </div>
                     </div>
                     <% } %>
                       <% if (currentUserCourse[index+1]) { %>
                         <div class="col-md-6 col-12">
-                          <a style="width: 100%;" class="btn btn-light mb-3" data-bs-toggle="collapse" href="#collapse<%=currentUserCourse[index+1].course_id%>"
-                            role="button" aria-expanded="false" aria-controls="collapse<%=currentUserCourse[index+1].course_id%>">
+                          <a style="width: 100%;" class="btn btn-light mb-3" data-bs-toggle="collapse"
+                            href="#collapse<%=currentUserCourse[index+1].course_id%>" role="button"
+                            aria-expanded="false" aria-controls="collapse<%=currentUserCourse[index+1].course_id%>">
                             <div class="row">
                               <div class="col-3">
                                 <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
                               </div>
                               <div class="col pt-2" style="text-align: start; line-height: 0.6;">
-                                <button onClick="location.href='/dashboard-mentor/detail-kelas/<%=currentUserCourse[index+1].course_id%>'" class="btn-link">
+                                <p class="mb-0">
+                                  <%= currentUserCourse[index+1].program_studi %>
+                                </p>
+                                <button
+                                  onClick="location.href='/dashboard-mentor/detail-kelas/<%=currentUserCourse[index+1].course_id%>'"
+                                  class="btn-link">
                                   <%= currentUserCourse[index+1].mata_kuliah %>
                                 </button>
-                                <p>
-                                  <%= currentUser.nama_lengkap %>
-                                </p>
-                                <p class="text-secondary" style="font-size: 14px;">
-                                  <%= currentUserCourse[index+1].tanggal_kelas %> • <%=
-                                      currentUserCourse[index+1].waktu_kelas %> WIB
-                                </p>
+                                <% if (currentUserCourse[index+1].tipe_kelas=='private' ) { %> <i
+                                    class="fa fa-lock fs-6"></i>
+                                  <% } %>
+                                    <p class="text-secondary" style="font-size: 14px;">
+                                      <%= currentUserCourse[index+1].tanggal_kelas %> • <%=
+                                          currentUserCourse[index+1].waktu_kelas %> WIB
+                                    </p>
+                                    <% if ((currentUserCourse[index+1].mentor_id==currentUser.mentor_id) &&
+                                      currentUserCourse[index+1].status=='pending' &&
+                                      currentUserCourse[index+1].tipe_kelas=='private' ) { %>
+                                      <span class="badge bg-warning text-dark">Menunggu persetujuan</span>
+                                      <% } %>
                               </div>
                             </div>
                           </a>
                           <div class="collapse" id="collapse<%=currentUserCourse[index+1].course_id%>">
                             <div class="card card-body mb-3">
                               <%= currentUserCourse[index+1].deskripsi_materi %>
-                                <a class="btn btn-dark mt-2" href="/dashboard-mentor/detail-kelas/<%=currentUserCourse[index+1].course_id%>">Cek Kelas</a>
+                                <a class="btn btn-dark mt-2"
+                                  href="/dashboard-mentor/detail-kelas/<%=currentUserCourse[index+1].course_id%>">Cek
+                                  Kelas</a>
                             </div>
                           </div>
                         </div>

@@ -18,16 +18,17 @@
     <div class="login-form-container">
       <div class="row mt-1 mb-1">
         <div class="col-md-6 col-12 login-side">
-          <img src="../../IMG/logo-login_register.png" alt="ed.versity" />
+          <img src="/IMG/logo-login_register.png" alt="ed.versity" />
 
-          <img class="login-side-image" src="../../IMG/req-kelas.svg" style="margin-top: 100px;" />
+          <img class="login-side-image" src="/IMG/req-kelas.svg" style="margin-top: 100px;" />
         </div>
         <div class="col-md-6 col-12 login-form mt-4">
           <h4 class="" style="text-align: center;">Buka Kelas</h4>
           <center>
             <div class="bg-primary-color mb-4" style="width: 30%; height: 4px;"></div>
           </center>
-          <form action="/dashboard-mentor/<%=currentUser.mentor_id%>/buka-kelas" method="POST" enctype="multipart/form-data">
+          <form action="/dashboard-mentor/<%=currentUser.mentor_id%>/buka-kelas" method="POST"
+            enctype="multipart/form-data">
             <div class="mb-3">
               <label for="program_studi" class="form-label">Program Studi</label>
               <input placeholder="Contoh: Teknik Sipil" type="text" id="program_studi" name="program_studi"

@@ -108,12 +108,14 @@
     <div class="mt-4 d-flex justify-content-center text-light">
       <div class="row align-items-center">
         <div class="col-md-7 col-12 align-items-center">
-          <h3>Jumlah saldo kamu :</h3>
+          <h4>Jumlah saldo kamu:</h4>
         </div>
         <div class="col-md-5 col-12">
           <div class="row">
             <div class="col-md-6 col-6 text-end">
-              <h1 style="font-size: 6rem;">50</h1>
+              <h1 style="font-size: 6rem;">
+                <%= currentUser.saldo %>
+              </h1>
             </div>
             <div class="col-md-6 col-6">
               <img src="/IMG/ed.coin.svg" alt="" />

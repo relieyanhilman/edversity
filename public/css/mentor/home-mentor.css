@@ -11,7 +11,7 @@
 
 body {
   background-color: #1a1a1a;
-  background-image: url(../../IMG/bg-pattern.png);
+  background-image: url(/IMG/bg-pattern.png);
   background-attachment: fixed;
 }
 

@@ -22,7 +22,7 @@ button:focus {
 body {
   background-color: #033f37;
   font-weight: 500;
-  background-image: url(IMG/bg-pattern.png);
+  background-image: url(/IMG/bg-pattern.png);
   background-attachment: fixed;
 }
 
@@ -32,7 +32,7 @@ button:focus{
 
 .container {
   background: #022721;
-  background-image: url(IMG/bg-pattern.png);
+  background-image: url(/IMG/bg-pattern.png);
   background-attachment: fixed;
 }
 

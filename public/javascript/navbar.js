@@ -14,7 +14,7 @@ navbar.forEach(navs=> {
         <a class="nav-link" href="/edpedia">ed.pedia</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/dashboard-student/edwallet" tabindex="-1">ed.wallet</a>
+        <a class="nav-link" href="/edwallet" tabindex="-1">ed.wallet</a>
       </li>
       <li class="nav-item">
         <a style="color: #fff100 !important" class="nav-link" href="/buka-kelas">
@@ -25,7 +25,7 @@ navbar.forEach(navs=> {
     <div class="d-flex">
       <!-- Notif -->
       <!-- data-bs-toggle="modal" data-bs-target="#inboxModal" -->
-      <a href="edmessage.html" class="nav-link" >
+      <a href="/edmessage" class="nav-link" >
         <i style="font-size: 1.4rem;" class="fa fa-bell text-light"></i>
       </a>
       <div class="input-search">
