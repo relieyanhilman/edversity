@@ -407,9 +407,15 @@ app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
   var currentUser = req.user;
   console.log(currentUser);
   const currentUserCourseRaw = await pool.query(
-    `SELECT * FROM course WHERE mentor_id = $1 AND status = $2`, 
-    [currentUser.mentor_id, 'open']
+    `SELECT * FROM course WHERE status = $1`, 
+    ['open']
   )
+
+  // const currentUserCourseRaw = await pool.query(
+  //   `SELECT * FROM course WHERE mentor_id = $1 AND status = $2`, 
+  //   [currentUser.mentor_id, 'open']
+  // ) ini artinya kelas yang udah didaftar mentor dong, dan statusnya open. harusnya di dashboard itu kan cuma kelas yang open aja
+// jadi fungsi yang dicomment ini bakal dipake di profile bagian informasi 'kelas saya'
 
   var currentUserCourse = currentUserCourseRaw.rows;
 
