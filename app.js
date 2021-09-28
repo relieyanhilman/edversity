@@ -10,6 +10,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
+const fs = require('fs');
 
 const multer = require("multer");
 
@@ -518,6 +519,33 @@ app.get("/dashboard-mentor/detail-kelas/:kelasId", isLoggedInMentor, isMentor, c
   });
 }));
 
+app.get('/dashboard-mentor/detail-kelas/:kelasId/:file-path', async(req, res, next) => {
+      try{
+      const {kelasId, file_path} = req.params;
+
+
+      console.log('fileController.download: started')
+
+      const file_materi = await pool.query(`
+        SELECT file_materi FROM course WHERE course_id = $1`, [kelasId]
+      )
+
+      const path = file_materi.rows[0].file_materi;
+      console.log('sampe sini kah?');
+      console.log(path);
+      const file = fs.createReadStream(path)
+      console.log(file);
+      const filename = (new Date()).toISOString()
+      res.setHeader('Content-Disposition', 'attachment: filename="' + path + '"')
+      file.pipe(res)
+      }catch(err) {
+        console.log(err);
+      }
+      
+   
+})
+
+
 
 //halaman khusus list siswa dalam kelas 
 app.get('/dashboard-mentor/detail-kelas/:kelasId/daftar-siswa', 
@@ -525,7 +553,7 @@ app.get('/dashboard-mentor/detail-kelas/:kelasId/daftar-siswa',
   isMentor,
   catchAsync(async(req, res) => {
     const {kelasId} = req.params;
-
+  
     const currentKelasRaw = await pool.query(
       `SELECT * FROM course WHERE course_id = $1`, [kelasId]
     )
