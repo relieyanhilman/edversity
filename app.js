@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
     cb(null, "public/uploads");
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    cb(null, path.parse(file.originalname).name + '-' + Date.now() + path.parse(file.originalname).ext);
   },
 });
 
@@ -170,26 +170,38 @@ app.get(
 );
 
 app.get(
-  "/edwallet/gopay",
+  "/edwallet/:method",
   isLoggedInStudent,
   catchAsync(async (req, res) => {
-    res.render("student/edwallet-gopay", {currentUser: req.user});
+    const {method} = req.params;
+    if(method == 'gopay' || method == 'ovo' || method == 'transfer')
+    res.render(`student/edwallet-${method}`, {currentUser: req.user});
   })
 );
 
-app.get(
-  "/edwallet/ovo",
+app.post(
+  "/edwallet/:method",
+  upload.single("bukti_transfer"),
   isLoggedInStudent,
   catchAsync(async (req, res) => {
-    res.render("student/edwallet-ovo", {currentUser: req.user});
-  })
-);
+    
+    const {method} = req.params;
+    const {jumlah_koin} = req.body
 
-app.get(
-  "/edwallet/transfer",
-  isLoggedInStudent,
-  catchAsync(async (req, res) => {
-    res.render("student/edwallet-transfer", {currentUser: req.user});
+    if(method == 'gopay' || method == 'ovo' || method == 'transfer'){
+      try {
+        const rowsInsert = await pool.query(
+          `INSERT INTO transaction_topup(student_id, metode, jumlah_koin, nominal, is_verified, verified_by, bukti_transfer, created_at)
+          VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
+          [req.user.student_id, method, jumlah_koin, jumlah_koin * 1100, 0, null, req.file.path, new Date().toISOString().split('.')[0]+"Z"]
+        );
+      } catch (error){
+        console.log(error);
+      }
+
+      req.flash("success", "Data top-up berhasil terkirim. Mohon tunggu proses verifikasi oleh tim ed.versity.");
+      res.redirect("/dashboard-student");
+    }
   })
 );
 
@@ -666,11 +678,7 @@ app.get("/dashboard-mentor/detail-kelas/:kelasId", isLoggedInMentor, isMentor, c
   });
 }));
 
-<<<<<<< HEAD
 app.get('/dashboard-mentor/detail-kelas/:kelasId/sourceFile', async(req, res, next) => {
-=======
-app.get('/dashboard-mentor/detail-kelas/:kelasId/:file_path', async(req, res, next) => {
->>>>>>> 68f1fa4a9cdb41540a28653414dd618aaddc4c00
       try{
       const {kelasId, fileMateri} = req.params;
 

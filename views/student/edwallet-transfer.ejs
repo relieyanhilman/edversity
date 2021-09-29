@@ -72,41 +72,37 @@
   <div class="container rounded px-5 py-5">
     <div class="row rounded">
       <div class="col-md-5 mt-2 rounded-3 bg-light px-4 py-4 ">
-        <h4 class=" text-dark">
-          No Rekening (BCA) <br><span class="fw-bold"> M. Iqbal Bin Yahya : 123456789</span>
-        </h4>
-        <div class="mb-3">
-          <h4>Jumlah koin:</h4>
-          <input type="number" name="jumlah_koin" id="jumlah_koin">
-        </div>
-        <div class="mb-3">
-          <h4>Nominal transfer:</h4>
-          <h2 id="nominal_transfer"></h2>
-        </div>
-        <h2></h2>
-        <div class="mb-3 mt-4">
-          <label for="inputUsername" class="form-label fs-5">Username</label>
-          <input placeholder="Masukkan username anda" type="email" class="inputUsername form-control"
-            aria-describedby="emailHelp" />
-          <div id="help" class="form-text">Username bisa di lihat di <span class="fw-bold text-dark">Menu Setting</span>
+        <form action="/edwallet/transfer" method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+            <h4>Jumlah koin:</h4>
+            <input type="number" name="jumlah_koin" id="jumlah_koin">
           </div>
-        </div>
-        <div class="mb-3">
-          <label for="inputNominal" class="form-label fs-5">Nominal</label>
-          <input placeholder="Masukkan nominal" type="email" class="inputNominal form-control"
-            aria-describedby="emailHelp" />
-        </div>
-        <div class="row mt-4">
-          <div class="col-md-12 ">
-            <label class="btn text-dark w-100 btn-file btn-lg mt-3 primary-outline" style="text-align: center;"> Upload
-              Bukti Pembayaran <input type="file" style="display: none;" required /> </label>
+          <div class="mb-3">
+            <h4>Nominal transfer:</h4>
+            <h2 id="nominal_transfer"></h2>
           </div>
-        </div>
-        <div class="row mt-3 mb-5">
-          <div class="col-md-12 ">
-            <button class="w-100 btn text-light bg-primary-color btn-lg">Kirim</button>
+          <h5>Transfer ke:</h5>
+          <h4 class=" text-dark">
+            Bank: <span class="fw-bold">BCA</span><br></span>
+            Nomor Rekening: <span class="fw-bold">0123456789</span><br></span>
+            Atas Nama: <span class="fw-bold">M. Iqbal Bin Yahya</span><br></span>
+          </h4>
+          <div class="row mt-4">
+            <div class="col-md-12 ">
+              <label class="btn text-dark w-100 btn-file btn-lg my-3 primary-outline" style="text-align: center;">
+                Upload
+                Bukti Pembayaran <input accept=".png, .jpg, .jpeg" type="file" style="display: none;"
+                  name="bukti_transfer" id="bukti_transfer" required /> </label>
+              <p class="fs-6">File harus bertipe .jpg, .jpeg, atau .png, dan berukuran maksimal 3MB</p>
+              <img id="buktitransferimg" src="" class="w-100" />
+            </div>
           </div>
-        </div>
+          <div class="row my-3">
+            <div class="col-md-12 ">
+              <button type="submit" class="w-100 btn text-light bg-primary-color btn-lg">Kirim</button>
+            </div>
+          </div>
+        </form>
       </div>
       <div class="col text-light">
         <h3 class="mt-4">Prosedur Transfer (BCA):</h3>
@@ -165,7 +161,13 @@
     }
 
     source.addEventListener('input', inputHandler);
-    source.addEventListener('propertychange', inputHandler)
+    source.addEventListener('propertychange', inputHandler);
+    bukti_transfer.onchange = evt => {
+      const [file] = bukti_transfer.files
+      if (file) {
+        buktitransferimg.src = URL.createObjectURL(file)
+      }
+    }
   </script>
 </body>
 
