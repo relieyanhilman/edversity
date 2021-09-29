@@ -329,10 +329,10 @@ app.post(
       res.redirect("/register-student");
     } else {
       const rowsInsert = await pool.query(
-        `INSERT INTO student(nama_lengkap, email, password, asal_sekolah, angkatan, jenjang)
-        VALUES($1, $2, $3, $4, $5, $6)
+        `INSERT INTO student(nama_lengkap, email, password, asal_sekolah, angkatan, jenjang, saldo)
+        VALUES($1, $2, $3, $4, $5, $6, $7)
         RETURNING email, password`,
-        [nama_lengkap, email, hashedPassword, asal_sekolah, angkatan, jenjang]
+        [nama_lengkap, email, hashedPassword, asal_sekolah, angkatan, jenjang, 0]
       );
       // console.log(rowsInsert.rows[0]);
       req.flash("success", "Anda sudah terdaftar, silakan login");
