@@ -421,8 +421,6 @@ app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
 
   var currentUserCourse = currentUserCourseRaw.rows;
 
-  // console.log({currentUser, currentUserCourse});
-  // console.log(currentUserCourse);
 
   currentUserCourse.forEach(row => {
     row.tanggal_kelas = row.tanggal_kelas.toLocaleString('id-ID', {
@@ -519,9 +517,9 @@ app.get("/dashboard-mentor/detail-kelas/:kelasId", isLoggedInMentor, isMentor, c
   });
 }));
 
-app.get('/dashboard-mentor/detail-kelas/:kelasId/:file-path', async(req, res, next) => {
+app.get('/dashboard-mentor/detail-kelas/:kelasId/sourceFile', async(req, res, next) => {
       try{
-      const {kelasId, file_path} = req.params;
+      const {kelasId, fileMateri} = req.params;
 
 
       console.log('fileController.download: started')
@@ -532,11 +530,11 @@ app.get('/dashboard-mentor/detail-kelas/:kelasId/:file-path', async(req, res, ne
 
       const path = file_materi.rows[0].file_materi;
       console.log('sampe sini kah?');
-      console.log(path);
+      
       const file = fs.createReadStream(path)
-      console.log(file);
+      
       const filename = (new Date()).toISOString()
-      res.setHeader('Content-Disposition', 'attachment: filename="' + path + '"')
+      res.setHeader('Content-Disposition', 'attachment: filename="' + filename + '"')
       file.pipe(res)
       }catch(err) {
         console.log(err);
@@ -590,8 +588,45 @@ app.post("/dashboard-mentor/:id/detail-kelas/:kelasId", catchAsync(async(req, re
 app.get("/dashboard-mentor/profile",
   isLoggedInMentor,
   isMentor, 
-  (req, res) => {
-    res.render('mentor/option-mentor', {currentUser: req.user})
+  async (req, res) => {
+try{
+    const user = req.user;
+    const userCourseRaw = await pool.query(
+      `SELECT * FROM course WHERE mentor_id=$1 AND status=$2`, [user.mentor_id, 'open']
+    );
+
+    let userCourse = userCourseRaw.rows;
+
+    const userCourseDoneRaw = await pool.query(`SELECT * FROM course WHERE mentor_id=$1 AND status=$2`, [user.mentor_id, 'done'])
+    
+    let userCourseDone = userCourseDoneRaw.rows;
+
+  userCourse.forEach(row => {
+    row.tanggal_kelas = row.tanggal_kelas.toLocaleString('id-ID', {
+      weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+    });
+  });
+
+  userCourseDone.forEach(row => {
+    row.tanggal_kelas = row.tanggal_kelas.toLocaleString('id-ID', {
+      weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+    });
+  });
+  
+  userCourse.forEach(row => {
+    row.waktu_kelas = row.waktu_kelas[0]+''+row.waktu_kelas[1]+':'+row.waktu_kelas[3]+''+row.waktu_kelas[4];
+  })
+
+  userCourseDone.forEach(row => {
+    row.waktu_kelas = row.waktu_kelas[0]+''+row.waktu_kelas[1]+':'+row.waktu_kelas[3]+''+row.waktu_kelas[4];
+  })
+    
+
+    res.render('mentor/option-mentor', {currentUser: user, userCourse, userCourseDone})
+
+}catch(err){
+  console.log(err);
+}
   }
 );
 

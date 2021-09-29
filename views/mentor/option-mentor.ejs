@@ -207,61 +207,42 @@
                 </ul>
               </div>
               <div class="col-md-3 col-4">
-                <button class="btn btn-sm fs-6  mt-2 bg-primary-color text-light">
+                <button onClick="" class="btn btn-sm fs-6  mt-2 bg-primary-color text-light">
                   Gabung Kelas <i class="fa fa-plus-circle"></i>
                 </button>
               </div>
             </div>
             <div class="tab-content">
               <div id="kelas-aktif" class="form-section tab-pane active">
-                <div class="row mt-3" style="line-height: 0.5;">
+
+                <% for (let i =0; i< userCourse.length; i++){%> 
+                  <div class="row mt-3" style="line-height: 0.5;"> 
                   <div class="col-2">
                     <img src="/IMG/struktur-bangunan.png" alt="">
                   </div>
                   <div class="col-10">
-                    <h4>Struktur Bangunan</h4>
-                    <p>by <strong>Micola Arighi D</strong> </p>
-                    <p class="text-secondary" style="font-size: smaller;">30 Mei 2020 • 23:59 WIB</p>
+                    <h4><%=userCourse[i].mata_kuliah %> </h4>
+                    <p>by <strong><%=currentUser.nama_lengkap %> </strong> </p>
+                    <p class="text-secondary" style="font-size: smaller;"><%=userCourse[i].tanggal_kelas%> • <%=userCourse[i].waktu_kelas%> WIB</p>
                   </div>
-                </div>
-                <hr>
-                <div class="row mt-3" style="line-height: 0.5;">
-                  <div class="col-2">
-                    <img src="/IMG/struktur-bangunan.png" alt="">
-                  </div>
-                  <div class="col-10">
-                    <h4>Struktur Bangunan</h4>
-                    <p>by <strong>Micola Arighi D</strong> </p>
-                    <p class="text-secondary" style="font-size: smaller;">30 Mei 2020 • 23:59 WIB</p>
-                  </div>
-                </div>
-                <hr>
-                <div class="row mt-3" style="line-height: 0.5;">
-                  <div class="col-2">
-                    <img src="/IMG/struktur-bangunan.png" alt="">
-                  </div>
-                  <div class="col-10">
-                    <h4>Struktur Bangunan</h4>
-                    <p>by <strong>Micola Arighi D</strong> </p>
-                    <p class="text-secondary" style="font-size: smaller;">30 Mei 2020 • 23:59 WIB</p>
-                  </div>
-                </div>
-                <hr>
-                <div class="row mt-3" style="line-height: 0.5;">
-                  <div class="col-2">
-                    <img src="/IMG/struktur-bangunan.png" alt="">
-                  </div>
-                  <div class="col-10">
-                    <h4>Struktur Bangunan</h4>
-                    <p>by <strong>Micola Arighi D</strong> </p>
-                    <p class="text-secondary" style="font-size: smaller;">30 Mei 2020 • 23:59 WIB</p>
-                  </div>
-                </div>
+                </div>    
+                <hr> 
+              <% } %> 
               </div>
               <div id="kelas-selesai" class="container tab-pane fade">
-                <div class="d-flex justify-content-center">
-                  <img class="vector-kelas-kosong mb-5 mt-5" src="/IMG/kelas-notfound.svg" alt="" />
-                </div>
+                <% for (let i =0; i< userCourseDone.length; i++){%> 
+                  <div class="row mt-3" style="line-height: 0.5;"> 
+                  <div class="col-2">
+                    <img src="/IMG/struktur-bangunan.png" alt="">
+                  </div>
+                  <div class="col-10">
+                    <h4><%=userCourseDone[i].mata_kuliah %> </h4>
+                    <p>by <strong><%=currentUser.nama_lengkap %> </strong> </p>
+                    <p class="text-secondary" style="font-size: smaller;"><%=userCourseDone[i].tanggal_kelas%> • <%=userCourseDone[i].waktu_kelas%> WIB</p>
+                  </div>
+                </div>    
+                <hr> 
+              <% } %> 
               </div>
             </div>
           </div>
