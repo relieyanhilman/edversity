@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+  <script src="https://kit.fontawesome.com/b7a74d837b.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/css/student/edwallet-payment.css" />
+  <link rel="shortcut icon" href="/IMG/logo.png" />
+  <title>ed.wallet - GoPay</title>
+</head>
+
+<body>
+  <!-- Modal -->
+  <!-- Inbox/Notif -->
+  <div class="modal fade inboxModal" id="inboxModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <!-- <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="row mt-1">
+              <div class="col-1">
+                <i class="fa mt-1 fs-3 fa-bell primary-color me-2"></i>
+              </div>
+              <div class="col" style="line-height: 0.4;">
+                <h5>Request kelas telah disetujui</h5>
+                <label class="inbox-label">Cek selengkapnya untuk memilih mentor</label>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-1">
+                <i class="fa mt-1 fs-3 fa-tag primary-color me-2"></i>
+              </div>
+              <div class="col" style="line-height: 0.4;">
+                <h5>Promo Kelas</h5>
+                <label class="inbox-label">Cek selengkapnya untuk memilih mentor</label>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-1">
+                <i class="fa mt-1 fs-3 fa-tag primary-color me-2"></i>
+              </div>
+              <div class="col" style="line-height: 0.4;">
+                <h5>Request Kelas telah di tolak</h5>
+                <label class="inbox-label">Cek selengkapnya untuk memilih mentor</label>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-1">
+                <i class="fa mt-1 fs-3 fa-check primary-color me-2"></i>
+              </div>
+              <div class="col" style="line-height: 0.4;">
+                <h5>Verifikasi Akun Anda</h5>
+                <label class="inbox-label">Cek selengkapnya untuk memilih mentor</label>
+              </div>
+            </div>
+
+            <a class="btn primary-outline w-100 mt-4" href="edmessage.html">Lihat Semua</a>
+          </div>
+        </div>
+      </div> -->
+  </div>
+  <!-- Modal; -->
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary-color sticky-top">
+    <!-- <div class="container-fluid">
+        <a class="navbar-brand ms-3" href="home.html"><img src="IMG/logo.svg " alt="" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="edpedia.html">ed.pedia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="edwallet.html" tabindex="-1">ed.wallet</a>
+            </li>
+            <li class="nav-item">
+              <a style="color: #fff100 !important" class="nav-link" href="bukakelas-pelajar.html">
+                BUKA KELAS
+              </a>
+            </li>
+          </ul>
+          <div class="d-flex">
+            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#inboxModal">
+              <i style="font-size: 1.4rem;" class="fa fa-bell text-light"></i>
+            </a>
+            <div class="input-search">
+              <input class="input-field"  placeholder="Search" />
+              <button type="submit" class="btn"><i class="fa fa-search text-light"> </i></button>
+            </div>
+
+            <a href="option.html" class="nav-link">
+              <i style="font-size: 1.6rem;" class="fa fa-sliders text-light"></i>
+            </a>
+          </div>
+        </div>
+      </div> -->
+  </nav>
+  <!-- Navbar ; -->
+  <div class="container rounded px-5 py-5">
+    <div class="row">
+      <div class="col-md-4 bg-light pb-5 rounded">
+        <center>
+          <div class="m-3">
+            <h4>Jumlah koin:</h4>
+            <input type="number" name="jumlah_koin" id="jumlah_koin">
+          </div>
+          <div class="m-3">
+            <h4>Nominal transfer:</h4>
+            <h2 id="nominal_transfer"></h2>
+          </div>
+          <h2></h2>
+          <img class="img-fluid" src="/IMG/GoPay.png" width="200px" alt="" />
+          <img class="img-fluid" src="/dummy-file/qr_code.jpg" alt="" />
+          <h1>12345678</h1>
+        </center>
+      </div>
+      <div class="col text-light">
+        <h3 class="mt-4">Prosedur Pembayaran GoPay:</h3>
+        <hr />
+        <ol class="fs-5">
+          <li>Buka Aplikasi Gojek</li>
+          <li>Klik “pay/bayar”</li>
+          <li>Scan kode QR di samping</li>
+          <li>Masukkan jumlah uang sesuai keiginan</li>
+          <li>Masukkan username akun ed.versity pada kolom pesan</li>
+          <li>Klik Konfirmasi & Bayar</li>
+          <li>Upload Bukti pembayaran di halaman website</li>
+          <li>
+            Crosscheck Kembali penulisan nama akun karena coin tidak akan terkirim apabila username yang diinput di
+            kolom keterangan tidak sesuai dengan username ed.versity
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="row text-light mt-4">
+      <h3>Penting!!</h3>
+      <ol class="ms-2">
+        <li>Pastikan username yang diinput sama dengan username akun ed.versity</li>
+        <li>
+          Jika terjadi kesalahan dalam penginputan username, ed.coin akan kami tahan selama 1 jam, dan akan hangus jika
+          melebihi batas waktu yang sudah ditentukan.
+        </li>
+        <li>Uang yang sudah di transfer tidak bisa dikembalikan dalam bentuk apapun</li>
+        <li>
+          Segala bentuk kendala dalam proses top-up dapat dikonsultasikan melalui
+          <a class="primary-color" style="color: #fff100 !important; text-decoration: underline;"
+            href="/dashboard-student/profile/pusat-bantuan">Pusat Bantuan</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <!-- Call center Modal ; -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="/javascript/navbar.js"></script>
+  <script src="/javascript/notif.js"></script>
+  <script>
+    const source = document.getElementById('jumlah_koin');
+    const result = document.getElementById('nominal_transfer');
+
+    const inputHandler = function (e) {
+      result.innerHTML = new Intl.NumberFormat('id-ID', {
+        style: 'currency', currency: 'IDR', maximumFractionDigits: 0
+      }).format(1100 * e.target.value);
+    }
+
+    source.addEventListener('input', inputHandler);
+    source.addEventListener('propertychange', inputHandler)
+  </script>
+</body>
+
+</html>
