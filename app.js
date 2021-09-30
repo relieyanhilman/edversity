@@ -145,18 +145,23 @@ app.get(
 //student mengubah profile
 app.put(
   "/dashboard-student/profile/:id",
+  upload.single("foto_profil"),
   isLoggedInStudent,
   catchAsync(async (req, res) => {
-    // res.send(req.body);
-    const id = req.user.student_id;
-    const { nama_lengkap, username, no_handphone, email } = req.body;
+    try {
+      // res.send(req.body);
+      const id = req.user.student_id;
+      const { nama_lengkap, username, no_handphone, email } = req.body;
+  
+      const updatedProfile = await pool.query(
+        `UPDATE student SET nama_lengkap=$1, username=$2, no_handphone=$3, email=$4, foto_profil=$5 WHERE student_id=$6`,
+        [nama_lengkap, username, no_handphone, email, req.file.path, id]
+      );
+    } catch (error) {
+      console.log(error)
+    }
 
-    const updatedProfile = await pool.query(
-      `UPDATE student SET nama_lengkap=$1, username=$2, no_handphone=$3, email=$4 WHERE student_id=$5`,
-      [nama_lengkap, username, no_handphone, email, id]
-    );
-
-    // req.flash('success', 'Data profile berhasil di-update');
+    req.flash('success', 'Data profil berhasil diperbarui!');
     res.redirect(`/dashboard-student/profile`);
   })
 );
@@ -806,20 +811,24 @@ try{
 // update profile mentor
 app.put(
   "/dashboard-mentor/profile/:id",
+  upload.single("foto_profil"),
   isLoggedInMentor,
   catchAsync(async (req, res) => {
-    const id = req.user.mentor_id;
-    const { nama_lengkap, no_handphone, email } = req.body;
+    try {
+      // res.send(req.body); 
+      const id = req.user.mentor_id;
+      const { nama_lengkap, no_handphone, email } = req.body;
 
-    const updatedProfile = await pool.query(
-      `UPDATE mentor SET nama_lengkap=$1, no_handphone=$2, email=$3 WHERE mentor_id=$4`,
-      [nama_lengkap, no_handphone, email, id]
-    );
-
-    // req.flash('success', 'Data profile berhasil di-update');
-    res.redirect(`/dashboard-mentor/profile`);
-  })
-);
+      const updatedProfile = await pool.query(
+        `UPDATE mentor SET nama_lengkap=$1, no_handphone=$2, email=$3, foto_profil=$4 WHERE mentor_id=$5`,
+        [nama_lengkap, no_handphone, email, req.file.path, id]
+      );
+    } catch (error) {
+      console.log(error)
+    }
+  req.flash('success', 'Data profil berhasil diperbarui!');
+  res.redirect(`/dashboard-mentor/profile`);
+}));
 
 // page pusat bantuan
 app.get("/dashboard-mentor/profile/pusat-bantuan",

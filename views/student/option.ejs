@@ -112,26 +112,25 @@
       <div class="col-md-9 col-12">
         <!-- Tab Content -->
         <!-- Edit Profil -->
-        <form action='/dashboard-student/profile/<%=profileData.student_id%>?_method=PUT' method="POST">
-
-          <div class="tab-content">
-            <div id="edit-profil" class="tab-pane active">
-              <div class="form-section rounded">
-                <div class="row">
-                  <div class="col-md-9 col-12">
-                    <% if (success && success.length) { %>
-                      <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <%= success %>
-                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                      </div>
-                      <% } %>
-                        <% if (error && error.length) { %>
-                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <%= error %>
-                              <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                          </div>
-                          <% } %>
+        <form action='/dashboard-student/profile/<%=profileData.student_id%>?_method=PUT' method="POST"
+          enctype="multipart/form-data">
+          <% if (success && success.length) { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <%= success %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <% } %>
+              <% if (error && error.length) { %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <%= error %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% } %>
+                  <div class="tab-content">
+                    <div id="edit-profil" class="tab-pane active">
+                      <div class="form-section rounded">
+                        <div class="row">
+                          <div class="col-md-9 col-12">
                             <h3 class="mb-2 mt-1">Informasi Akun</h3>
                             <div class="row">
                               <div class="col mb-3">
@@ -168,30 +167,39 @@
                                 </div>
                               </div>
                             </div>
+                          </div>
 
-                            <div class="row mt-4 px-2">
-                              <button class="btn text-white bg-primary-color" type="submit">
-                                Simpan
-                              </button>
+
+                          <div class="col mx-4">
+                            <div>
+                              <div class="button-wrap upload-picture row mt-5">
+                                <% if (profileData.foto_profil==null) { %>
+                                  <i style="font-size: 4rem; text-align: center;"
+                                    class="fa fa-user-circle text-secondary mb-3"></i>
+                                  <% } else { %>
+                                    <img src="/<%= profileData.foto_profil %>" alt=""
+                                      style="height: 100px; width: 100px;" class="mx-auto d-block p-0">
+                                    <% } %>
+                                      <img id="fotoprofilimg" src="" class="w-100 mt-3" />
+                                      <label class="btn primary-outline btn-file mt-3">
+                                        Unggah Gambar <input accept=".png, .jpg, .jpeg" type="file"
+                                          style="display: none;" name="foto_profil" id="foto_profil" /> </label>
+                              </div>
                             </div>
-                  </div>
+                          </div>
+
+                        </div>
+
+                        <div class="row mt-4 px-2">
+                          <button class="btn text-white bg-primary-color" type="submit">
+                            Simpan
+                          </button>
+                        </div>
 
 
-                  <div class="col">
-                    <div>
-                      <div class="button-wrap upload-picture row mt-5">
-                        <i style="font-size: 4rem; text-align: center;" class="fa fa-user-circle text-secondary"></i>
-                        <label class="btn primary-outline btn-file mt-3">
-                          Unggah Gambar <input type="file" style="display: none" />
-                          <!--harusnya ini required-->
-                        </label>
                       </div>
                     </div>
-
                   </div>
-                </div>
-              </div>
-            </div>
         </form>
 
         <!-- Kelas Saya -->
@@ -412,6 +420,13 @@
     $(function () {
       $('input#search').val('');
     });
+
+    foto_profil.onchange = evt => {
+      const [file] = foto_profil.files
+      if (file) {
+        fotoprofilimg.src = URL.createObjectURL(file)
+      }
+    }
   </script>
 
 </body>
