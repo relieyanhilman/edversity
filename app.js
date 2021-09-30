@@ -596,6 +596,12 @@ app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
     });
     row.waktu_kelas = row.waktu_kelas[0]+''+row.waktu_kelas[1]+':'+row.waktu_kelas[3]+''+row.waktu_kelas[4];
   });
+
+  const userCourseRaw = await pool.query(
+    `SELECT * FROM course WHERE status = $1 AND mentor_id = $2 ORDER BY tanggal_kelas`, 
+    ['open', req.user.mentor_id]
+  )
+
   //kelas yang sedang diajar
   let userCourse = userCourseRaw.rows;
   userCourse.forEach(row => {
