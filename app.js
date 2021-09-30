@@ -219,22 +219,19 @@ app.get(
   
       const coursesRaw = await pool.query(`
         SELECT * FROM course c
-        JOIN student_course sc
-        ON c.course_id = sc.course_id
         WHERE 
         ((c.status = $1 AND c.tipe_kelas = $2)
         OR
         (c.status = $3 AND c.tipe_kelas = $4))
         AND c.mentor_id IS NOT NULL 
-        AND sc.student_id = $5
-        AND sc.role = $6
+        AND c.student_id = $5
         AND c.tanggal_kelas >= CURRENT_DATE
         ORDER BY c.tanggal_kelas 
         `,
         [
           'pending', 'private',
           'open', 'public',
-          id, '1',
+          id,
         ]
       );
       var courses = coursesRaw.rows;
@@ -442,8 +439,13 @@ app.post(
     } = req.body;
 
     const uploadKelas = await pool.query(
-      `INSERT INTO course(program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, deskripsi_materi,tipe_kelas, file_materi, paket, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING course_id`,
+      `INSERT INTO course
+      (student_id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, deskripsi_materi,tipe_kelas, file_materi, paket, status)
+      VALUES
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      RETURNING course_id`,
       [
+        req.user.student_id,
         program_studi,
         mata_kuliah,
         tanggal_kelas,
@@ -459,11 +461,10 @@ app.post(
     const kelasID = uploadKelas.rows[0].course_id
 
     const insertPembuatKelas = await pool.query(
-      `INSERT INTO student_course VALUES ($1, $2, $3, $4, $5) RETURNING course_id`,
+      `INSERT INTO student_course VALUES ($1, $2, $3, $4) RETURNING course_id`,
       [
         req.user.student_id,
         kelasID,
-        1,
         null,
         null
       ]
@@ -614,9 +615,6 @@ app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
     row.waktu_kelas = row.waktu_kelas[0]+''+row.waktu_kelas[1]+':'+row.waktu_kelas[3]+''+row.waktu_kelas[4];
   })
 
-  
-
-  
   res.render('mentor/home-mentor', {currentUser, currentUserCourse, userCourse});
 });
 
@@ -627,19 +625,22 @@ app.get("/dashboard-mentor/buka-kelas", isLoggedInMentor, isMentor, (req, res)=>
   // console.log("OK");
 })
 
-app.post('/dashboard-mentor/:id/buka-kelas', upload.single('file_materi'),catchAsync(async(req, res) => {
-  const {id} = req.params;
+app.post('/dashboard-mentor/buka-kelas', upload.single('file_materi'),catchAsync(async(req, res) => {
+  const id = req.user.mentor_id;
 
-  const {program_studi, 
-    mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, file_materi} = req.body;
+  const {program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, file_materi} = req.body;
   const bukaKelas = await pool.query(
-    `INSERT INTO course(mentor_id, program_studi, 
-      mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, file_materi,status
-      ) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`, [id, program_studi, 
-        mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, req.file.path, 'open']
+    `INSERT INTO course
+    (mentor_id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, file_materi, status, tipe_kelas)
+    VALUES
+    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    RETURNING *`,
+
+    [id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, req.file.path, 'open', 'public']
     );
-  
-    const bukaKelas_id =  bukaKelas.rows[0].course_id;
+
+    
+  const bukaKelas_id =  bukaKelas.rows[0].course_id;
   res.redirect(`/dashboard-mentor/detail-kelas/${bukaKelas_id}`)
 }));
 
@@ -651,7 +652,24 @@ app.get("/edpedia-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, res
 
 //page edwallet
 app.get("/edwallet-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, res) => {
-  res.render('mentor/edwallet-mentor', {currentUser: req.user});
+  const banksRaw = await pool.query(`SELECT nama_bank FROM banks`);
+  const banks = banksRaw.rows;
+
+  res.render('mentor/edwallet-mentor', {currentUser: req.user, banks});
+}));
+
+app.post("/edwallet-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, res) => {
+  const {nomor_rekening, nama_pemilik_rekening, bank, jumlah_koin} = req.body;
+
+
+  const cashoutInsert = await pool.query(
+    `INSERT INTO cashouts(mentor_id, nomor_rekening, nama_pemilik_rekening, bank, jumlah_koin, is_verified, verified_by, created_at)
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
+    [req.user.mentor_id, nomor_rekening, nama_pemilik_rekening, bank, parseInt(jumlah_koin), 0, null, new Date().toISOString().split('.')[0]+"Z"]
+  );
+
+  req.flash('success', 'Pengajuan tarik koin berhasil');
+  res.redirect('/dashboard-mentor');
 }));
 
 //role 2
@@ -686,16 +704,10 @@ app.get("/dashboard-mentor/detail-kelas/:kelasId", isLoggedInMentor, isMentor, c
         year: 'numeric', month: 'long', day: 'numeric'
     }
     currentKelas.tanggal_kelas = currentKelas.tanggal_kelas.toLocaleString('id-ID', options1);
-    
-
 
     var time = currentKelas.waktu_kelas;
-    
-    
     currentKelas.waktu_kelas = time[0]+''+time[1]+':'+time[3]+''+time[4];
     
-    
-  
   res.render("mentor/info-kelas-mentor", {
     currentUser: req.user, 
     currentKelas, 
@@ -704,29 +716,27 @@ app.get("/dashboard-mentor/detail-kelas/:kelasId", isLoggedInMentor, isMentor, c
 }));
 
 app.get('/dashboard-mentor/detail-kelas/:kelasId/sourceFile', async(req, res, next) => {
-      try{
-      const {kelasId, fileMateri} = req.params;
+  try{
+    const {kelasId, fileMateri} = req.params;
 
 
-      console.log('fileController.download: started')
+    console.log('fileController.download: started')
 
-      const file_materi = await pool.query(`
-        SELECT file_materi FROM course WHERE course_id = $1`, [kelasId]
-      )
+    const file_materi = await pool.query(`
+      SELECT file_materi FROM course WHERE course_id = $1`, [kelasId]
+    )
 
-      const path = file_materi.rows[0].file_materi;
-      console.log('sampe sini kah?');
-      
-      const file = fs.createReadStream(path)
-      
-      const filename = (new Date()).toISOString()
-      res.setHeader('Content-Disposition', 'attachment: filename="' + filename + '"')
-      file.pipe(res)
-      }catch(err) {
-        console.log(err);
-      }
-      
-   
+    const path = file_materi.rows[0].file_materi;
+    console.log('sampe sini kah?');
+    
+    const file = fs.createReadStream(path)
+    
+    const filename = (new Date()).toISOString()
+    res.setHeader('Content-Disposition', 'attachment: filename="' + filename + '"')
+    file.pipe(res)
+  } catch(err) {
+    console.log(err);
+  }
 })
 
 //halaman khusus list siswa dalam kelas 

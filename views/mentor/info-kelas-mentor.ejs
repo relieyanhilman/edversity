@@ -73,10 +73,12 @@
   <!-- Navbar ; -->
 
   <div class="container">
+
     <div class="row">
       <a href="javascript:history.back()" class="text-light"><i
           class="pe-2 text-light fa fa-chevron-left"></i>Kembali</a>
     </div>
+
     <div class="inner-container rounded bg-light">
       <div class="row mt-4">
         <% if (success && success.length) { %>
@@ -84,91 +86,69 @@
             <%= success %>
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-          <% } %>
-            <% if (error && error.length) { %>
-              <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <%= error %>
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
+        <% } else if (error && error.length) {%>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= error %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% } %>
+        <div class="col-md-8 detail-kelas px-5 py-5">
+
+          <div class="row">
+            <div class="col-md-6">
+              <!-- Program Studi -->
+              <h4 class="fw-bold">
+                <%= currentKelas.mata_kuliah %>
+                <% if (currentKelas.tipe_kelas=='private' ) { %> <i class="fa fa-lock fs-5"></i><% } %>
+              </h4>
+              <!-- Mata Kuliah -->
+              <p class="text-secondary"> <%= currentKelas.program_studi %> </p>
+            </div>
+            <div class="col-md-6 col-12 mt-1">
+              <% if (currentKelas.mentor_id===null) { %>
+                <button style="float: right;" data-bs-toggle="modal" data-bs-target="#konfirmasi-modal"
+                  class="btn w-100 bg-primary-color text-light btn-lg">
+                  Jadi Mentor
+                </button>
+              <% } else if ((currentKelas.mentor_id==currentUser.mentor_id) && currentKelas.status=='pending' && currentKelas.tipe_kelas=='private' ) { %>
+                <span class="badge bg-warning text-dark">Anda sudah mengajukan diri sebagai mentor kelas
+                  ini.<br>
+                  Harap tunggu persetujuan siswa.</span>
+              <% } else if ((currentKelas.mentor_id==currentUser.mentor_id) && currentKelas.status=='open' && currentKelas.tipe_kelas=='public' ) { %>
+                  <span class="badge bg-success text-light">Anda adalah mentor kelas ini.</span>
               <% } %>
-                <div class="col-md-8 detail-kelas px-5 py-5">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <!-- Program Studi -->
-                      <h4 class="fw-bold">
-                        <%= currentKelas.mata_kuliah %>
-                          <% if (currentKelas.tipe_kelas=='private' ) { %> <i class="fa fa-lock fs-5"></i>
-                            <% } %>
-                      </h4>
-                      <!-- Mata Kuliah -->
-                      <p class="text-secondary">
-                        <%= currentKelas.program_studi %>
-                      </p>
-                    </div>
-                    <div class="col-md-6 col-12 mt-1">
-                      <% if (currentKelas.mentor_id===null) { %>
-                        <button style="float: right;" data-bs-toggle="modal" data-bs-target="#konfirmasi-modal"
-                          class="btn w-100 bg-primary-color text-light btn-lg">
-                          Jadi Mentor
-                        </button>
-                        <% } else if ((currentKelas.mentor_id==currentUser.mentor_id) && currentKelas.status=='pending'
-                          && currentKelas.tipe_kelas=='private' ) { %>
-                          <span class="badge bg-warning text-dark">Anda sudah mengajukan diri sebagai mentor kelas
-                            ini.<br>
-                            Harap tunggu persetujuan siswa.</span>
-                          <% } else if ((currentKelas.mentor_id==currentUser.mentor_id) && currentKelas.status=='open'
-                            && currentKelas.tipe_kelas=='public' ) { %>
-                            <span class="badge bg-success text-dark">Anda adalah mentor kelas ini.</span>
-                            <% } %>
-                    </div>
-                  </div>
-                  <h5 class="primary-color mt-2">Deskripsi materi </h5>
-                  <div class="bg-primary-color mb-4" style="width: 25%; height: 4px;"></div>
-                  <!-- Isi Deksripsi Materi -->
-                  <p>
-                    <%= currentKelas.deskripsi_materi %>
-                  </p>
-                  <!-- Tangal Kelas -->
-                  <div class="bg-primary-color rounded py-1">
-                    <h5 style="text-align: center;" class="mt-1 text-light">
-                      <%=currentKelas.tanggal_kelas%> <span>• <%=currentKelas.waktu_kelas%> WIB</span>
-                    </h5>
-                  </div>
-                </div>
-                <!-- Gambar yang berkaitan dengan program studi/jurusan -->
-                <div class="col-md-4 px-5 py-5">
-                  <img class="img-fluid" src="/IMG/struktur-bangunan.jpg" alt="Struktur Bangunan" />
-                </div>
+            </div>
+          </div>
+
+          <h5 class="primary-color mt-2">Deskripsi materi </h5>
+          <div class="bg-primary-color mb-4" style="width: 25%; height: 4px;"></div>
+          <p><%= currentKelas.deskripsi_materi %></p>
+          <div class="bg-primary-color rounded py-1">
+            <h5 style="text-align: center;" class="mt-1 text-light">
+              <%=currentKelas.tanggal_kelas%> <span> • <%=currentKelas.waktu_kelas%> WIB</span>
+            </h5>
+          </div>
+        </div>
+
+        <div class="col-md-4 px-5 py-5">
+          <img class="img-fluid" src="/IMG/struktur-bangunan.jpg" alt="Struktur Bangunan" />
+        </div>
       </div>
+
       <div class="row px-5 py-2">
+
         <div class="col-md-8 mb-5 py-2">
           <!-- File Deskripsi Materi -->
-          <img class="img-fluid w-100" src="/IMG/blur.png" alt="File Materi">
+          <img class="img-fluid w-100" src="/<%= currentKelas.file_materi %>" alt="File Materi">
           <!-- File Deskrpsip materi -> di lain tab -->
-          <form action="/dashboard-mentor/detail-kelas/<%=currentKelas.course_id%>/<%=currentKelas.file_materi%>"
-            method="get">
-            <button type="submit" class="btn mt-3 text-light bg-primary-color w-100" style="margin-top: 3px;"><i
-                class="fa fa-file"></i> Lihat atau Download File</button>
+          <form action="/dashboard-mentor/detail-kelas/<%=currentKelas.course_id%>/<%=currentKelas.file_materi%>" method="get">
+            <button type="submit" class="btn mt-3 text-light bg-primary-color w-100" style="margin-top: 3px;">
+              <i class="fa fa-file"></i> 
+              Lihat atau Download File
+            </button>
           </form>
         </div>
-<<<<<<< HEAD
-        <div class="row px-5 py-2">
-          <div class="col-md-8 mb-5 py-2">
-            <!-- File Deskripsi Materi -->
-            <img src="IMG/blur.png" alt="" class="imf-fluid">
-            <!-- File Deskrpsip materi -> di lain tab -->
-            <form action="/dashboard-mentor/detail-kelas/<%=currentKelas.course_id%>/sourceFile" method="GET">
-              <button type="submit" class="btn mt-3 text-light bg-primary-color w-100" style="margin-top: 3px;"><i class="fa fa-file"></i> Lihat atau Download File</button>
-            </form>
-          </div>
-          <div class="col py-2" style="text-align: center;">
-            <h5>Daftar Siswa</h5>
-            <center>
-              <div class="bg-primary-color mb-4" style="width: 35%; height: 4px;"></div>
-            </center>
-            <!-- List siswa *untuk mengubah list di pisahkan oleh row -->
-            <% for (let i = 0; i< peserta_kelas.length; i++) {%> 
-=======
+
         <div class="col py-2" style="text-align: center;">
           <h5>Daftar Siswa</h5>
           <center>
@@ -176,28 +156,32 @@
           </center>
           <!-- List siswa *untuk mengubah list di pisahkan oleh row -->
           <% for (let i=0; i< peserta_kelas.length; i++) {%>
->>>>>>> 68f1fa4a9cdb41540a28653414dd618aaddc4c00
             <div class="row mt-1">
+
               <div class="col-md-1 col-1 me-3">
                 <img src="dummy-file/ava-1.jpg" alt="" />
               </div>
+
               <div class="col-md-9 col-7" style="text-align: start;">
                 <h6>
                   <%= peserta_kelas[i].nama_lengkap %>
                 </h6>
               </div>
-              <div class="col" style="text-align: end;"><i class="fa fa-ellipsis-v"></i></div>
-            </div>
-            <% } %>
 
-              <div class="row mt-3">
-                <a href="/dashboard-mentor/detail-kelas/<%=currentKelas.course_id%>/daftar-siswa"
-                  class="btn primary-outline primary-color">Lihat Semua</a>
-              </div>
+              <div class="col" style="text-align: end;"><i class="fa fa-ellipsis-v"></i></div>
+
+            </div>
+          <% } %>
+          <div class="row mt-3">
+            <a href="/dashboard-mentor/detail-kelas/<%=currentKelas.course_id%>/daftar-siswa"
+              class="btn primary-outline primary-color">Lihat Semua</a>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
+
   <!--  Modal Konfirmasi Jadi Mentor -->
   <div class="modal fade notif-modal" id="konfirmasi-modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -223,6 +207,7 @@
     </div>
   </div>
   <!-- Modal; -->
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>

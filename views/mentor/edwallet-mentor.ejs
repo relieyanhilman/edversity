@@ -107,20 +107,13 @@
     </section>
     <div class="mt-4 d-flex justify-content-center text-light">
       <div class="row align-items-center">
-        <div class="col-md-7 col-12 align-items-center">
-          <h4>Jumlah saldo kamu:</h4>
+        <div class="col-md-6 col-12 align-items-center">
+          <h4 style="text-align: right;">Jumlah saldo kamu:</h4>
         </div>
-        <div class="col-md-5 col-12">
-          <div class="row">
-            <div class="col-md-6 col-6 text-end">
-              <h1 style="font-size: 6rem;">
-                <%= currentUser.saldo %>
-              </h1>
-            </div>
-            <div class="col-md-6 col-6">
-              <img src="/IMG/ed.coin.svg" alt="" />
-            </div>
-          </div>
+        <div class="col-md-6 col-12">
+          <h1 class="m-0" style="font-size: 4rem;">
+            <%= currentUser.saldo %>&nbsp;<span><img src="/IMG/ed.coin.svg" alt=""/></span>
+          </h1>
         </div>
       </div>
     </div>
@@ -142,32 +135,42 @@
           <h5 class="modal-title" id="modalLabel">Formulir Tarik Uang</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="nomor-rekening" class="form-label">Nomor Rekening</label>
-            <input class="form-control" id="nomor-rekening" placeholder="Masukkan nomor rekening anda" />
+        <form action="/edwallet-mentor" method="post">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="nomor_rekening" class="form-label">Nomor Rekening</label>
+              <input type="number" class="form-control" name="nomor_rekening" id="nomor_rekening" placeholder="Masukkan nomor rekening Anda" />
+            </div>
+            <div class="mb-3">
+              <label for="nama_pemilik_rekening" class="form-label">Nama Pemilik Rekening</label>
+              <input class="form-control" name="nama_pemilik_rekening" id="nama_pemilik_rekening" placeholder="Masukkan nama pemilik rekening" />
+            </div>
+            <div class="mb-3">
+              <label for="bank" class="form-label">Bank</label>
+              <br>
+              <select name="bank" id="bank">
+                <option selected disabled hidden>Pilih nama bank</option>
+                <% banks.forEach(bank => { %>
+                  <option value="<%= bank.nama_bank %>"><%= bank.nama_bank %></option>
+                <% }) %>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="jumlah_koin" class="form-label">Jumlah penarikan ed.coin</label>
+              <input type="number" class="form-control" name="jumlah_koin" id="jumlah_koin" placeholder="Minimal 10 ed.coin"  min="10" max="<%= currentUser.saldo %>" />
+            </div>
+            <div class="mb-3">
+              <p>
+                Catatan: Proses konversi koin akan selesai paling lambat 3 x 24 jam. Jika terjadi kendala, harap hubungi
+                call center.
+              </p>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="nama-terkait" class="form-label">Nama Pemilik Rekening</label>
-            <input class="form-control" id="nama-terkait" placeholder="Masukkan nama rekening terkait anda" />
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" class="btn bg-primary-color text-light">Tarik Uang</button>
           </div>
-          <div class="mb-3">
-            <label for="jumlah-penarikan" class="form-label">Jumlah penarikan ed.coin</label>
-            <input class="form-control" id="jumlah-penarikan" placeholder="Min : 10 ed.coin" />
-          </div>
-          <div class="mb-3">
-            <p>
-              Catatan: Proses konversi koin akan selesai paling lambat 3 x 24 jam. Jika terjadi kendala, harap hubungi
-              call center.
-            </p>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-            Batal
-          </button>
-          <button type="button" class="btn bg-primary-color text-light">Tarik Uang</button>
-        </div>
+        </form>
       </div>
     </div>
   </div>

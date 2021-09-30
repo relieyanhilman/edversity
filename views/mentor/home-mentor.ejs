@@ -128,8 +128,9 @@
                     <div id="collapse<%=userCourse[i].course_id%>" class="collapse" aria-labelledby="heading<%=userCourse[i].course_id%>"
                       data-parent="#accordionMentor">
                       <div class="card-body">
-                        <p><%= userCourse[i].deskripsi_materi %> </p>
-                        <a href="info-kelas-mentor.html" class="btn mb-2 w-100 bg-primary-color text-white">
+                        <h4><%= userCourse[i].mata_kuliah %></h4>
+                        <p><%= userCourse[i].deskripsi_materi %></p>
+                        <a href="/dashboard-mentor/detail-kelas/<%= userCourse[i].course_id %>" class="btn mb-2 w-100 bg-primary-color text-white">
                           Cek Kelas
                         </a>
                         <button data-bs-toggle="modal" data-bs-target="#tandai-selesai"
@@ -147,6 +148,18 @@
         </div>
       </div>
       <div class="col-md-8 col-12">
+        <% if (success && success.length) { %>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= success %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% } %>
+        <% if (error && error.length) { %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= error %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% } %>
         <!-- Tab panes -->
         <div class="tab-content">
           <div id="prodi1" class="container tab-pane active">
