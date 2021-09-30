@@ -579,8 +579,22 @@ app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
     });
     row.waktu_kelas = row.waktu_kelas[0]+''+row.waktu_kelas[1]+':'+row.waktu_kelas[3]+''+row.waktu_kelas[4];
   });
+  //kelas yang sedang diajar
+  let userCourse = userCourseRaw.rows;
+  userCourse.forEach(row => {
+    row.tanggal_kelas = row.tanggal_kelas.toLocaleString('id-ID', {
+      weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+    });
+  });
+
+  userCourse.forEach(row => {
+    row.waktu_kelas = row.waktu_kelas[0]+''+row.waktu_kelas[1]+':'+row.waktu_kelas[3]+''+row.waktu_kelas[4];
+  })
+
   
-  res.render('mentor/home-mentor', {currentUser, currentUserCourse});
+
+  
+  res.render('mentor/home-mentor', {currentUser, currentUserCourse, userCourse});
 });
 
 //render page buka-kelas
