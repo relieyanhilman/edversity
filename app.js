@@ -141,7 +141,40 @@ app.get(
   "/dashboard-student/profile",
   isLoggedInStudent,
   catchAsync(async (req, res) => {
-    res.render("student/option", { profileData: req.user });
+
+    const kelasAktifRaw = await pool.query(
+      `SELECT * FROM course JOIN student_course ON course.course_id = student_course.course_id WHERE student_course.student_id = $1 AND course.status = $2 AND course.bukti_selesai IS NULL`, [req.user.student_id, 'open']
+    )
+
+    const kelasSelesaiRaw = await pool.query(
+      `SELECT * FROM course JOIN student_course ON course.course_id = student_course.course_id WHERE student_course.student_id = $1 AND course.status = $2 AND course.bukti_selesai IS NOT NULL`, [req.user.student_id, 'done']
+    )
+
+    const kelasAktif = kelasAktifRaw.rows;
+    const kelasSelesai = kelasSelesaiRaw.rows;
+    
+    for await (let kelas of kelasAktif) {
+      kelas.tanggal_kelas = kelas.tanggal_kelas.toLocaleString('id-ID', {
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+      });
+      kelas.waktu_kelas = kelas.waktu_kelas[0]+''+kelas.waktu_kelas[1]+':'+kelas.waktu_kelas[3]+''+kelas.waktu_kelas[4];
+
+      var mentor = await pool.query(`SELECT nama_lengkap FROM mentor WHERE mentor_id = $1`, [kelas.mentor_id]);
+      kelas.nama_mentor = mentor.rows[0].nama_lengkap;
+    }
+
+    for await (let kelas of kelasSelesai) {
+      kelas.tanggal_kelas = kelas.tanggal_kelas.toLocaleString('id-ID', {
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+      });
+      kelas.waktu_kelas = kelas.waktu_kelas[0]+''+kelas.waktu_kelas[1]+':'+kelas.waktu_kelas[3]+''+kelas.waktu_kelas[4];
+
+      var mentor = await pool.query(`SELECT nama_lengkap FROM mentor WHERE mentor_id = $1`, [kelas.mentor_id]);
+      kelas.nama_mentor = mentor.rows[0].nama_lengkap;
+    }
+
+    
+    res.render("student/option", { profileData: req.user, kelasAktif, kelasSelesai});
   })
 );
 
@@ -160,6 +193,8 @@ app.put(
         `UPDATE student SET nama_lengkap=$1, username=$2, no_handphone=$3, email=$4, foto_profil=$5 WHERE student_id=$6`,
         [nama_lengkap, username, no_handphone, email, req.file.path, id]
       );
+
+      
     } catch (error) {
       console.log(error)
     }
