@@ -118,17 +118,20 @@ app.get(
 
     const courseInfoRaw = await pool.query(`SELECT * FROM course WHERE status = 'open' AND tipe_kelas = 'public' AND bukti_selesai IS NULL`);
     var courseInfo = courseInfoRaw.rows;
-
+    
     for await (let course of courseInfo) {
       course.tanggal_kelas = course.tanggal_kelas.toLocaleString('id-ID', {
         weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
       });
       course.waktu_kelas = course.waktu_kelas[0]+''+course.waktu_kelas[1]+':'+course.waktu_kelas[3]+''+course.waktu_kelas[4];
-
+      
       var mentor = await pool.query(`SELECT nama_lengkap FROM mentor WHERE mentor_id = $1`, [course.mentor_id]);
+      
       course.nama_mentor = mentor.rows[0].nama_lengkap;
+      console.log(mentor.rows[0])
+      
     }
-
+    
     res.render("student/home", { currentUser: req.user, courseInfo });
   })
 );
@@ -392,7 +395,7 @@ app.get(
   catchAsync(async (req, res) => {
 
     const coursesRaw = await pool.query(
-      `SELECT * FROM course WHERE status = $1 AND bukti_selesai IS NULL tanggal_kelas >= CURRENT_DATE`,
+      `SELECT * FROM course WHERE status = $1 AND bukti_selesai IS NULL AND tanggal_kelas >= CURRENT_DATE`,
       ['open']
     )
 
