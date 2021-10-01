@@ -446,11 +446,19 @@ app.get(
       course.nama_mentor = mentor.rows[0].nama_lengkap;
     }
 
-    console.log(courses);
+    const prodiRaw = await pool.query(
+      `SELECT DISTINCT program_studi FROM course WHERE status = $1 AND bukti_selesai IS NULL AND tanggal_kelas >= CURRENT_DATE`,
+      ['open']
+    )
+    var prodi = prodiRaw.rows;
+    var jumlahProdi = prodiRaw.rowCount;
+    
     try {
       res.render("student/buka-kelas", {
         currentUser: req.user,
-        courses
+        courses,
+        prodi,
+        jumlahProdi
       });
       
     } catch (error) {

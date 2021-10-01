@@ -25,13 +25,13 @@ navbar.forEach(navs=> {
     <div class="d-flex">
       <!-- Notif -->
       <!-- data-bs-toggle="modal" data-bs-target="#inboxModal" -->
-      <a href="/edmessage" class="nav-link" >
+      <!-- <a href="/edmessage" class="nav-link" >
         <i style="font-size: 1.4rem;" class="fa fa-bell text-light"></i>
       </a>
       <div class="input-search">
         <input class="input-field" name="search" id="search" placeholder="Search" />
         <button type="submit" class="btn"><i class="fa fa-search text-light"> </i></button>
-      </div>
+      </div> -->
 
       <a href="/dashboard-student/profile/" class="nav-link">
         <i style="font-size: 1.6rem;" class="fa fa-sliders text-light"></i>
