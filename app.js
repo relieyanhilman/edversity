@@ -116,7 +116,7 @@ app.get(
   isLoggedInStudent,
   catchAsync(async (req, res) => {
 
-    const courseInfoRaw = await pool.query(`SELECT * FROM course WHERE status = 'open' AND tipe_kelas = 'public'`);
+    const courseInfoRaw = await pool.query(`SELECT * FROM course WHERE status = 'open' AND tipe_kelas = 'public' AND bukti_selesai IS NULL`);
     var courseInfo = courseInfoRaw.rows;
 
     for await (let course of courseInfo) {
@@ -224,6 +224,7 @@ app.get(
         OR
         (c.status = $3 AND c.tipe_kelas = $4))
         AND c.mentor_id IS NOT NULL 
+        AND c.bukti_selesai IS NULL
         AND c.student_id = $5
         AND c.tanggal_kelas >= CURRENT_DATE
         ORDER BY c.tanggal_kelas 
@@ -391,7 +392,7 @@ app.get(
   catchAsync(async (req, res) => {
 
     const coursesRaw = await pool.query(
-      `SELECT * FROM course WHERE status = $1 AND tanggal_kelas >= CURRENT_DATE`,
+      `SELECT * FROM course WHERE status = $1 AND bukti_selesai IS NULL tanggal_kelas >= CURRENT_DATE`,
       ['open']
     )
 
@@ -599,7 +600,7 @@ app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
   });
 
   const userCourseRaw = await pool.query(
-    `SELECT * FROM course WHERE status = $1 AND mentor_id = $2 ORDER BY tanggal_kelas`, 
+    `SELECT * FROM course WHERE status = $1 AND mentor_id = $2 AND bukti_selesai IS NULL ORDER BY tanggal_kelas`, 
     ['open', req.user.mentor_id]
   )
 
@@ -631,12 +632,12 @@ app.post('/dashboard-mentor/buka-kelas', upload.single('file_materi'),catchAsync
   const {program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, file_materi} = req.body;
   const bukaKelas = await pool.query(
     `INSERT INTO course
-    (mentor_id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, file_materi, status, tipe_kelas)
+    (mentor_id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, file_materi, status, tipe_kelas, bukti_selesai)
     VALUES
-    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     RETURNING *`,
 
-    [id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, req.file.path, 'open', 'public']
+    [id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, paket, deskripsi_materi, req.file.path, 'open', 'public', null]
     );
 
     
@@ -671,20 +672,6 @@ app.post("/edwallet-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, r
   req.flash('success', 'Pengajuan tarik koin berhasil');
   res.redirect('/dashboard-mentor');
 }));
-
-//role 2
-//get		detail-kelas			/dashboard-mentor/:id/detail-kelas/:kelasId //DONE!!
-//post	daftar-mentor-kelas		/dashboard-mentor/:id/detail-kelas/:kelasId
-
-//get		render-edpedia-comingsoon	/edpedia-comingsoon/:id   DONE!!
-
-//get		render-pusat-bantuan		/dashboard-mentor/profile/:id/pusat-bantuan DONE!!
-
-//get		logout				/logout-mentor
-//get		render-dashboard 		/dashboard-mentor/:id
-
-//////////////////////////////
-
 
 //detail kelas
 app.get("/dashboard-mentor/detail-kelas/:kelasId", isLoggedInMentor, isMentor, catchAsync(async(req, res) => {  //nanti tambahin ini isLoggedInMentor, isMentor,
@@ -763,6 +750,28 @@ app.get('/dashboard-mentor/detail-kelas/:kelasId/daftar-siswa',
 ))
 
 app.put(
+  "/dashboard-mentor/kelas-selesai/:id",
+  isLoggedInMentor,
+  upload.single('bukti_selesai'),
+  catchAsync(async (req, res) => {
+    try{
+      const course_id = req.params.id;
+  
+      const updateKelas = await pool.query(
+        `UPDATE course SET bukti_selesai = $1 WHERE course_id = $2 AND mentor_id = $3`, 
+        [req.file.path, course_id, req.user.mentor_id]
+      );
+  
+    } catch (error){
+      console.log(error);
+    }
+
+    req.flash('success', 'Kelas berhasil ditandai sebagai selesai. Mohon tunggu verifikasi dari tim ed.versity.');
+    res.redirect('/dashboard-mentor');
+  })
+);
+
+app.put(
   "/dashboard-mentor/detail-kelas",
   isLoggedInMentor,
   catchAsync(async (req, res) => {
@@ -800,7 +809,7 @@ app.get("/dashboard-mentor/profile",
 try{
     const user = req.user;
     const userCourseRaw = await pool.query(
-      `SELECT * FROM course WHERE mentor_id=$1 AND status=$2`, [user.mentor_id, 'open']
+      `SELECT * FROM course WHERE mentor_id=$1 AND status=$2 AND bukti_selesai IS NULL`, [user.mentor_id, 'open']
     );
 
     let userCourse = userCourseRaw.rows;
