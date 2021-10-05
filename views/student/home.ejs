@@ -157,341 +157,146 @@
               <% for( let index=0; index < courseInfo.length; index+=3 ) { %>
                 <% if (index < 3 ) { %>
                   <div class="carousel-item active">
-                    <% } else { %>
-                      <div class="carousel-item">
-                        <% } %>
-                          <div class="row">
-                            <% for( let i=index; i < index+3 && i < courseInfo.length; i++ ) { %>
-                              <% if (courseInfo[i]) { %>
-                                <div class="col-md-4 mb-3">
-                                  <a href="/kelas/<%= courseInfo[i].course_id %> " class="card-kelas">
-                                    <div class="card">
-                                      <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
-                                      <div class="card-body bg-light">
-                                        <div class="row">
-                                          <div class="col-md-3">
-                                            <!-- foto profil -->
-                                            <% if (courseInfo[i].foto_profil_mentor) { %>
-                                              <img class="foto-profil" src="/<%= courseInfo[i].foto_profil_mentor %> " alt="foto-profil" width="90px" height="90px"/>
-                                            <% } else { %>
-                                                <img class="foto-profil" src="/IMG/foto-profl-placeholder.png" alt="foto-profil" width="90px"/>
-                                            <% } %>
-                                          </div>
-                                          <div class="col ms-3">
-                                            <h6 class="mb-0">
-                                              <%= courseInfo[i].program_studi %>
-                                            </h6>
-                                            <h5 class="mb-0">
-                                              <%= courseInfo[i].mata_kuliah %>
-                                            </h5>
-                                            <p class="mb-3 p-0">
-                                              <%= courseInfo[i].nama_mentor %>
-                                            </p>
-                                            <div style="line-height: 0.3">
-                                              <p>
-                                                <%= courseInfo[i].tanggal_kelas %>
-                                              </p>
-                                              <p>
-                                                <%= courseInfo[i].waktu_kelas %> WIB
-                                              </p>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
+                <% } else { %>
+                  <div class="carousel-item">
+                <% } %>
+                  <div class="row">
+                    <% for( let i=index; i < index+3 && i < courseInfo.length; i++ ) { %>
+                      <% if (courseInfo[i]) { %>
+                        <div class="col-md-4 mb-3">
+                          <a href="/kelas/<%= courseInfo[i].course_id %> " class="card-kelas">
+                            <div class="card">
+                              <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
+                              <div class="card-body bg-light">
+                                <div class="row">
+                                  <div class="col-md-3">
+                                    <!-- foto profil -->
+                                    <% if (courseInfo[i].foto_profil_mentor) { %>
+                                      <img class="foto-profil" src="/<%= courseInfo[i].foto_profil_mentor %> " alt="foto-profil" width="90px" height="90px"/>
+                                    <% } else { %>
+                                        <img class="foto-profil" src="/IMG/foto-profl-placeholder.png" alt="foto-profil" width="90px"/>
+                                    <% } %>
+                                  </div>
+                                  <div class="col ms-3">
+                                    <h6 class="mb-0">
+                                      <%= courseInfo[i].program_studi %>
+                                    </h6>
+                                    <h5 class="mb-0">
+                                      <%= courseInfo[i].mata_kuliah %>
+                                    </h5>
+                                    <p class="mb-3 p-0">
+                                      <%= courseInfo[i].nama_mentor %>
+                                    </p>
+                                    <div style="line-height: 0.3">
+                                      <p>
+                                        <%= courseInfo[i].tanggal_kelas %>
+                                      </p>
+                                      <p>
+                                        <%= courseInfo[i].waktu_kelas %> WIB
+                                      </p>
                                     </div>
-                                  </a>
+                                  </div>
                                 </div>
-                                <% } %>
-                                  <% } %>
-                          </div>
-                      </div>
+                              </div>
+                            </div>
+                          </a>
+                        </div>
                       <% } %>
+                    <% } %>
                   </div>
+                </div>
+              <% } %>
             </div>
           </div>
-
         </div>
+
       </div>
     </div>
-    </div>
   </section>
-
-
 
   <!-- Kelas yang sudah di buka (berdasarkan fakultas) -->
   <!-- Fakultas A -->
-  <section class="pt-2 pb-2">
-    <div class="container">
-      <div class="row">
-        <div class="col-6">
-          <h4 class="mb-3 text-light">Mata Kuliah Program Studi A</h4>
-        </div>
-        <div class="col-6 text-right">
-          <a class="btn btn-dark mb-3 mr-1" href="#carouselControls2" role="button" data-slide="prev">
-            <i class="fa fa-arrow-left"></i>
-          </a>
-          <a class="btn btn-dark mb-3" href="#carouselControls2" role="button" data-slide="next">
-            <i class="fa fa-arrow-right"></i>
-          </a>
-        </div>
-        <div class="col-12">
-          <div id="carouselControls2" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner programA">
-              <div class="carousel-item active">
-                <div class="row">
-                  <div class="col-md-4 mb-3">
-                    <a href="info-kelas.html" class="card-kelas">
-                      <div class="card">
-                        <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
-                        <div class="card-body bg-light">
-                          <div class="row">
-                            <div class="col-md-3">
-                              <!-- foto profil -->
-                              <img class="foto-profil" src="/IMG/foto-profil.jpg" alt="foto-profil" />
-                            </div>
-                            <div class="col ms-3">
-                              <h5 class="mb-3">Struktur Bangunan</h5>
-                              <div style="line-height: 0.3">
-                                <p class="card-text">Iqbal Bin Yahya</p>
-                                <p>30 Mei 2022</p>
-                                <p>23:59 WIB</p>
+  <% mostPopularProdi.forEach((prodi, index) => { %>
+    <section class="pt-2 pb-2">
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <h4 class="mb-3 text-light">Mata Kuliah Program Studi <%= prodi.program_studi %> </h4>
+          </div>
+          <div class="col-6 text-right">
+            <a class="btn btn-dark mb-3 mr-1" href="#carouselControls<%= index %>" role="button" data-slide="prev">
+              <i class="fa fa-arrow-left"></i>
+            </a>
+            <a class="btn btn-dark mb-3" href="#carouselControls<%= index %>" role="button" data-slide="next">
+              <i class="fa fa-arrow-right"></i>
+            </a>
+          </div>
+          <div class="col-12">
+            <div id="carouselControls<%= index %>" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner programA">
+                
+                <% for( let idx=0; idx < prodiCourses[index].length; idx+=3 ) { %>
+                  <% if (idx < 3 ) { %>
+                    <div class="carousel-item active">
+                  <% } else { %>
+                    <div class="carousel-item">
+                  <% } %>
+                    <div class="row">
+                      <% for( let i=idx; i < idx+3 && i < prodiCourses[index].length; i++ ) { %>
+                        <% if (prodiCourses[index][i]) { %>
+                          <div class="col-md-4 mb-3">
+                            <a href="/kelas/<%= prodiCourses[index][i].course_id %> " class="card-kelas">
+                              <div class="card">
+                                <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
+                                <div class="card-body bg-light">
+                                  <div class="row">
+                                    <div class="col-md-3">
+                                      <!-- foto profil -->
+                                      <% if (prodiCourses[index][i].foto_profil_mentor) { %>
+                                        <img class="foto-profil" src="/<%= prodiCourses[index][i].foto_profil_mentor %> " alt="foto-profil" width="90px" height="90px"/>
+                                      <% } else { %>
+                                          <img class="foto-profil" src="/IMG/foto-profl-placeholder.png" alt="foto-profil" width="90px"/>
+                                      <% } %>
+                                    </div>
+                                    <div class="col ms-3">
+                                      <h6 class="mb-0">
+                                        <%= prodiCourses[index][i].program_studi %>
+                                      </h6>
+                                      <h5 class="mb-0">
+                                        <%= prodiCourses[index][i].mata_kuliah %>
+                                      </h5>
+                                      <p class="mb-3 p-0">
+                                        <%= prodiCourses[index][i].nama_mentor %>
+                                      </p>
+                                      <div style="line-height: 0.3">
+                                        <p>
+                                          <%= prodiCourses[index][i].tanggal_kelas %>
+                                        </p>
+                                        <p>
+                                          <%= prodiCourses[index][i].waktu_kelas %> WIB
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
+                            </a>
                           </div>
-                        </div>
-                      </div>
-                    </a>
+                        <% } %>
+                      <% } %>
+                    </div>
                   </div>
-                  <div class="col-md-4 mb-3">
-                    <a href="info-kelas.html" class="card-kelas">
-                      <div class="card">
-                        <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
-                        <div class="card-body bg-light">
-                          <div class="row">
-                            <div class="col-md-3">
-                              <!-- foto profil -->
-                              <img class="foto-profil" src="/IMG/foto-profil.jpg" alt="foto-profil" />
-                            </div>
-                            <div class="col ms-3">
-                              <h5 class="mb-3">Struktur Bangunan</h5>
-                              <div style="line-height: 0.3">
-                                <p class="card-text">Iqbal Bin Yahya</p>
-                                <p>30 Mei 2022</p>
-                                <p>23:59 WIB</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <a href="info-kelas.html" class="card-kelas">
-                      <div class="card">
-                        <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
-                        <div class="card-body bg-light">
-                          <div class="row">
-                            <div class="col-md-3">
-                              <!-- foto profil -->
-                              <img class="foto-profil" src="/IMG/foto-profil.jpg" alt="foto-profil" />
-                            </div>
-                            <div class="col ms-3">
-                              <h5 class="mb-3">Struktur Bangunan</h5>
-                              <div style="line-height: 0.3">
-                                <p class="card-text">Iqbal Bin Yahya</p>
-                                <p>30 Mei 2022</p>
-                                <p>23:59 WIB</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
+                <% } %>
+  
+  
               </div>
-
-
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  <% }) %>
   <!-- Fakultas A ; -->
-
-  <!-- Fakultas B -->
-  <section class="pt-2 pb-2">
-    <div class="container">
-      <div class="row">
-        <div class="col-6">
-          <h4 class="mb-3 text-light">Mata Kuliah Program Studi B</h4>
-        </div>
-        <div class="col-6 text-right">
-          <a class="btn btn-dark mb-3 mr-1" href="#carouselControls3" role="button" data-slide="prev">
-            <i class="fa fa-arrow-left"></i>
-          </a>
-          <a class="btn btn-dark mb-3" href="#carouselControls3" role="button" data-slide="next">
-            <i class="fa fa-arrow-right"></i>
-          </a>
-        </div>
-        <div class="col-12">
-          <div id="carouselControls3" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner programB">
-              <div class="carousel-item active">
-                <div class="row">
-                  <div class="col-md-4 mb-3">
-                    <a href="info-kelas.html" class="card-kelas">
-                      <div class="card">
-                        <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
-                        <div class="card-body bg-light">
-                          <div class="row">
-                            <div class="col-md-3">
-                              <!-- foto profil -->
-                              <img class="foto-profil" src="/IMG/foto-profil.jpg" alt="foto-profil" />
-                            </div>
-                            <div class="col ms-3">
-                              <h5 class="mb-3">Struktur Bangunan</h5>
-                              <div style="line-height: 0.3">
-                                <p class="card-text">Iqbal Bin Yahya</p>
-                                <p>30 Mei 2022</p>
-                                <p>23:59 WIB</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <a href="info-kelas.html" class="card-kelas">
-                      <div class="card">
-                        <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
-                        <div class="card-body bg-light">
-                          <div class="row">
-                            <div class="col-md-3">
-                              <!-- foto profil -->
-                              <img class="foto-profil" src="/IMG/foto-profil.jpg" alt="foto-profil" />
-                            </div>
-                            <div class="col ms-3">
-                              <h5 class="mb-3">Struktur Bangunan</h5>
-                              <div style="line-height: 0.3">
-                                <p class="card-text">Iqbal Bin Yahya</p>
-                                <p>30 Mei 2022</p>
-                                <p>23:59 WIB</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <a href="info-kelas.html" class="card-kelas">
-                      <div class="card">
-                        <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
-                        <div class="card-body bg-light">
-                          <div class="row">
-                            <div class="col-md-3">
-                              <!-- foto profil -->
-                              <img class="foto-profil" src="/IMG/foto-profil.jpg" alt="foto-profil" />
-                            </div>
-                            <div class="col ms-3">
-                              <h5 class="mb-3">Struktur Bangunan</h5>
-                              <div style="line-height: 0.3">
-                                <p class="card-text">Iqbal Bin Yahya</p>
-                                <p>30 Mei 2022</p>
-                                <p>23:59 WIB</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <!-- slide 2 -->
-              <div class="carousel-item">
-                <div class="row">
-                  <div class="col-md-4 mb-3">
-                    <a href="info-kelas.html" class="card-kelas">
-                      <div class="card">
-                        <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
-                        <div class="card-body bg-light">
-                          <div class="row">
-                            <div class="col-md-3">
-                              <!-- foto profil -->
-                              <img class="foto-profil" src="/IMG/foto-profil.jpg" alt="foto-profil" />
-                            </div>
-                            <div class="col ms-3">
-                              <h5 class="mb-3">Struktur Bangunan</h5>
-                              <div style="line-height: 0.3">
-                                <p class="card-text">Iqbal Bin Yahya</p>
-                                <p>30 Mei 2022</p>
-                                <p>23:59 WIB</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <a href="info-kelas.html" class="card-kelas">
-                      <div class="card">
-                        <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
-                        <div class="card-body bg-light">
-                          <div class="row">
-                            <div class="col-md-3">
-                              <!-- foto profil -->
-                              <img class="foto-profil" src="/IMG/foto-profil.jpg" alt="foto-profil" />
-                            </div>
-                            <div class="col ms-3">
-                              <h5 class="mb-3">Struktur Bangunan</h5>
-                              <div style="line-height: 0.3">
-                                <p class="card-text">Iqbal Bin Yahya</p>
-                                <p>30 Mei 2022</p>
-                                <p>23:59 WIB</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <a href="info-kelas.html" class="card-kelas">
-                      <div class="card">
-                        <img class="img-fluid" alt="100%x280" src="/IMG/bg-buka_kelas.jpg" />
-                        <div class="card-body bg-light">
-                          <div class="row">
-                            <div class="col-md-3">
-                              <!-- foto profil -->
-                              <img class="foto-profil" src="/IMG/foto-profil.jpg" alt="foto-profil" />
-                            </div>
-                            <div class="col ms-3">
-                              <h5 class="mb-3">Struktur Bangunan</h5>
-                              <div style="line-height: 0.3">
-                                <p class="card-text">Iqbal Bin Yahya</p>
-                                <p>30 Mei 2022</p>
-                                <p>23:59 WIB</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Fakultas B; -->
 
   <!-- Bootstrap bundle -->
 
