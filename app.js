@@ -125,11 +125,11 @@ app.get(
       });
       course.waktu_kelas = course.waktu_kelas[0]+''+course.waktu_kelas[1]+':'+course.waktu_kelas[3]+''+course.waktu_kelas[4];
       
-      var mentor = await pool.query(`SELECT nama_lengkap FROM mentor WHERE mentor_id = $1`, [course.mentor_id]);
+      var mentor = await pool.query(`SELECT * FROM mentor WHERE mentor_id = $1`, [course.mentor_id]);
       
       course.nama_mentor = mentor.rows[0].nama_lengkap;
-      console.log(mentor.rows[0])
-      
+      course.foto_profil_mentor = mentor.rows[0].foto_profil;
+      // console.log(mentor.rows[0])
     }
     
     res.render("student/home", { currentUser: req.user, courseInfo });
@@ -442,8 +442,9 @@ app.get(
       });
       course.waktu_kelas = course.waktu_kelas[0]+''+course.waktu_kelas[1]+':'+course.waktu_kelas[3]+''+course.waktu_kelas[4];
 
-      var mentor = await pool.query(`SELECT nama_lengkap FROM mentor WHERE mentor_id = $1`, [course.mentor_id]);
+      var mentor = await pool.query(`SELECT * FROM mentor WHERE mentor_id = $1`, [course.mentor_id]);
       course.nama_mentor = mentor.rows[0].nama_lengkap;
+      course.foto_profil_mentor = mentor.rows[0].foto_profil;
     }
 
     const prodiRaw = await pool.query(

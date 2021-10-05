@@ -150,7 +150,11 @@
                           aria-controls="collapse<%= courses[j].course_id %>">
                           <div class="row">
                             <div class="col-3">
-                              <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                              <% if (courses[j].foto_profil_mentor) { %>
+                                <img class="foto-profil" src="/<%= courses[j].foto_profil_mentor %> " alt="foto-profil" width="90px" height="90px"/>
+                              <% } else { %>
+                                  <img class="foto-profil" src="/IMG/foto-profl-placeholder.png" alt="foto-profil" width="90px"/>
+                              <% } %>
                             </div>
                             <div class="col pt-2" style="text-align: start; line-height: 0.6">
                               <h6 class="mb-0">
@@ -223,7 +227,11 @@
                             aria-controls="collapse<%= courses[j].course_id %>">
                             <div class="row">
                               <div class="col-3">
-                                <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                                <% if (courses[j].foto_profil_mentor) { %>
+                                  <img class="foto-profil" src="/<%= courses[j].foto_profil_mentor %> " alt="foto-profil" width="90px" height="90px"/>
+                                <% } else { %>
+                                    <img class="foto-profil" src="/IMG/foto-profl-placeholder.png" alt="foto-profil" width="90px"/>
+                                <% } %>
                               </div>
                               <div class="col pt-2" style="text-align: start; line-height: 0.6">
                                 <button onclick="href(<%= courses[j].course_id %>)" class="btn-link">
