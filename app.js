@@ -131,29 +131,34 @@ app.get(
       course.foto_profil_mentor = mentor.rows[0].foto_profil;
       // console.log(mentor.rows[0])
     }
-
+    
     const mostPopularProdiRaw = await pool.query(`SELECT program_studi FROM course WHERE tipe_kelas = 'public' AND bukti_selesai IS NULL GROUP BY program_studi ORDER BY COUNT(program_studi) DESC LIMIT 2`);
     
     var mostPopularProdi = mostPopularProdiRaw.rows;
     var prodiCourses = [];
 
     for await (let prodi of mostPopularProdi) {
-      var prodiCoursesRaw = await pool.query(`SELECT * FROM course WHERE program_studi = $1`, [prodi.program_studi]);
+      // console.log(prodi);
+      var prodiCoursesRaw = await pool.query(`SELECT * FROM course WHERE program_studi = $1 AND status=$2`, [prodi.program_studi, 'open']);
       var courses = prodiCoursesRaw.rows;
+      // console.log(courses);
       
       for await (let course of courses) {
+        
         course.tanggal_kelas = course.tanggal_kelas.toLocaleString('id-ID', {
           weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
         });
-
-        course.waktu_kelas = course.waktu_kelas[0]+''+course.waktu_kelas[1]+':'+course.waktu_kelas[3]+''+course.waktu_kelas[4];
         
+        course.waktu_kelas = course.waktu_kelas[0]+''+course.waktu_kelas[1]+':'+course.waktu_kelas[3]+''+course.waktu_kelas[4];
+        console.log(course.waktu_kelas);
         var mentor = await pool.query(`SELECT * FROM mentor WHERE mentor_id = $1`, [course.mentor_id]);
-
+        
         course.nama_mentor = mentor.rows[0].nama_lengkap;
+        
         course.foto_profil_mentor = mentor.rows[0].foto_profil;
+        console.log('sampai sini');
       };
-
+      
       prodiCourses.push(courses);
     }
     console.log(prodiCourses);
