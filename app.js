@@ -150,19 +150,15 @@ app.get(
         });
         
         course.waktu_kelas = course.waktu_kelas[0]+''+course.waktu_kelas[1]+':'+course.waktu_kelas[3]+''+course.waktu_kelas[4];
-        console.log(course.waktu_kelas);
         var mentor = await pool.query(`SELECT * FROM mentor WHERE mentor_id = $1`, [course.mentor_id]);
         
         course.nama_mentor = mentor.rows[0].nama_lengkap;
         
         course.foto_profil_mentor = mentor.rows[0].foto_profil;
-        console.log('sampai sini');
       };
       
       prodiCourses.push(courses);
-    }
-    console.log(prodiCourses);
-    
+    } 
     res.render("student/home", { currentUser: req.user, courseInfo, mostPopularProdi, prodiCourses });
   })
 );
@@ -507,52 +503,77 @@ app.post(
   "/request-kelas",
   upload.single("file_materi"),
   catchAsync(async (req, res) => {
-    const {
-      program_studi,
-      mata_kuliah,
-      tanggal_kelas,
-      waktu_kelas,
-      deskripsi_materi,
-      tipe_kelas,
-      paket,
-    } = req.body;
+    try{
+        const {
+          program_studi,
+          mata_kuliah,
+          tanggal_kelas,
+          waktu_kelas,
+          deskripsi_materi,
+          tipe_kelas,
+          paket,
+        } = req.body;
 
-    const uploadKelas = await pool.query(
-      `INSERT INTO course
-      (student_id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, deskripsi_materi,tipe_kelas, file_materi, paket, status)
-      VALUES
-      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-      RETURNING course_id`,
-      [
-        req.user.student_id,
-        program_studi,
-        mata_kuliah,
-        tanggal_kelas,
-        waktu_kelas,
-        deskripsi_materi,
-        tipe_kelas,
-        req.file.path,
-        paket,
-        'pending',
-      ]
-    );
 
-    const kelasID = uploadKelas.rows[0].course_id
 
-    const insertPembuatKelas = await pool.query(
-      `INSERT INTO student_course VALUES ($1, $2, $3, $4) RETURNING course_id`,
-      [
-        req.user.student_id,
-        kelasID,
-        null,
-        null
-      ]
-    );
-    
-    req.flash("success", "Request kelas berhasil!");
-    res.redirect("/dashboard-student");
-  })
-);
+        const hargaKelasRaw = await pool.query
+        (
+          `SELECT harga FROM detail_tipe_kelas WHERE paket_kelas = 'sarjana' AND tipe_kelas = 'public' AND role='participant'`
+        )
+        console.log(hargaKelasRaw.rows)
+        console.log('sampai sini1')
+        const hargaKelas = hargaKelasRaw.rows[0].harga;
+        console.log('sampai sini2')
+        console.log(hargaKelas)
+        if ((req.user.saldo) >= hargaKelas) {
+          const saldoAkhir = req.user.saldo - hargaKelas
+          console.log(saldoAkhir)
+          const updateSaldo = await pool.query(
+            `UPDATE student SET saldo = $1 WHERE student_id= $2`, [saldoAkhir, req.user.student_id]
+          )
+          console.log('sampai sini3')
+          const uploadKelas = await pool.query(
+            `INSERT INTO course
+            (student_id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, deskripsi_materi,tipe_kelas, file_materi, paket, status)
+            VALUES
+            ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            RETURNING course_id`,
+            [
+              req.user.student_id,
+              program_studi,
+              mata_kuliah,
+              tanggal_kelas,
+              waktu_kelas,
+              deskripsi_materi,
+              tipe_kelas,
+              req.file.path,
+              paket,
+              'pending',
+            ]
+          );
+          console.log('sampai sini4')
+          const kelasID = uploadKelas.rows[0].course_id
+          const insertPembuatKelas = await pool.query(
+            `INSERT INTO student_course VALUES ($1, $2, $3, $4) RETURNING course_id`,
+            [
+              req.user.student_id,
+              kelasID,
+              null,
+              null
+            ]
+          );
+          console.log('sampai sini5')
+          req.flash('success', 'kelas berhasil ditambahkan')
+          return res.redirect('/dashboard-student')
+        } else{
+          req.flash('error', 'koin anda tidak cukup untuk membuka kelas')
+          return res.redirect('/dashboard-student');
+        }
+
+  }catch(err) {
+          console.log(err);
+  }
+   }));
 
 app.get("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
   const { id } = req.params;
