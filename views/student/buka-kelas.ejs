@@ -153,7 +153,7 @@
                               <% if (courses[j].foto_profil_mentor) { %>
                                 <img class="foto-profil" src="/<%= courses[j].foto_profil_mentor %> " alt="foto-profil" width="90px" height="90px"/>
                               <% } else { %>
-                                  <img class="foto-profil" src="/IMG/foto-profl-placeholder.png" alt="foto-profil" width="90px"/>
+                                  <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil" width="90px"/>
                               <% } %>
                             </div>
                             <div class="col pt-2" style="text-align: start; line-height: 0.6">
@@ -163,6 +163,9 @@
                               <button onclick="href(<%= courses[j].course_id %>)" class="btn-link">
                                 <%= courses[j].mata_kuliah %>
                               </button>
+                              <% if (courses[j].tipe_kelas=='private' ) { %>
+                                <i class="fa fa-lock fs-6"></i>
+                              <% } %>
                               <p>
                                 <%= courses[j].nama_mentor %>
                               </p>
@@ -230,13 +233,16 @@
                                 <% if (courses[j].foto_profil_mentor) { %>
                                   <img class="foto-profil" src="/<%= courses[j].foto_profil_mentor %> " alt="foto-profil" width="90px" height="90px"/>
                                 <% } else { %>
-                                    <img class="foto-profil" src="/IMG/foto-profl-placeholder.png" alt="foto-profil" width="90px"/>
+                                    <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil" width="90px"/>
                                 <% } %>
                               </div>
                               <div class="col pt-2" style="text-align: start; line-height: 0.6">
                                 <button onclick="href(<%= courses[j].course_id %>)" class="btn-link">
                                   <%= courses[j].mata_kuliah %>
                                 </button>
+                                <% if (courses[j].tipe_kelas=='private' ) { %>
+                                  <i class="fa fa-lock fs-6"></i>
+                                <% } %>
                                 <p>
                                   <%= courses[j].nama_mentor %>
                                 </p>

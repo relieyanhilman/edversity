@@ -504,76 +504,91 @@ app.post(
   upload.single("file_materi"),
   catchAsync(async (req, res) => {
     try{
-        const {
-          program_studi,
-          mata_kuliah,
-          tanggal_kelas,
-          waktu_kelas,
-          deskripsi_materi,
-          tipe_kelas,
-          paket,
-        } = req.body;
+      const {
+        program_studi,
+        mata_kuliah,
+        tanggal_kelas,
+        waktu_kelas,
+        deskripsi_materi,
+        tipe_kelas,
+        paket,
+      } = req.body;
 
+      var harga = 0;
 
+      if(paket === 'sarjana' && tipe_kelas === 'public'){
+        harga = 10;
+      }
+      if(paket === 'cumlaude' && tipe_kelas === 'public'){
+        harga = 15;
+      }
+      if(paket === 'mawapres' && tipe_kelas === 'public'){
+        harga = 20;
+      }
 
-        const hargaKelasRaw = await pool.query
-        (
-          `SELECT harga FROM detail_tipe_kelas WHERE paket_kelas = 'sarjana' AND tipe_kelas = 'public' AND role='participant'`
+      if(paket === 'sarjana' && tipe_kelas === 'private'){
+        harga = 30;
+      }
+      if(paket === 'cumlaude' && tipe_kelas === 'private'){
+        harga = 40;
+      }
+      if(paket === 'mawapres' && tipe_kelas === 'private'){
+        harga = 50;
+      }
+      console.log(harga);
+
+      if ((req.user.saldo) >= harga) {
+        const saldoAkhir = req.user.saldo - harga
+        console.log(saldoAkhir)
+
+        const updateSaldo = await pool.query(
+          `UPDATE student SET saldo = $1 WHERE student_id= $2`, [saldoAkhir, req.user.student_id]
         )
-        console.log(hargaKelasRaw.rows)
-        console.log('sampai sini1')
-        const hargaKelas = hargaKelasRaw.rows[0].harga;
-        console.log('sampai sini2')
-        console.log(hargaKelas)
-        if ((req.user.saldo) >= hargaKelas) {
-          const saldoAkhir = req.user.saldo - hargaKelas
-          console.log(saldoAkhir)
-          const updateSaldo = await pool.query(
-            `UPDATE student SET saldo = $1 WHERE student_id= $2`, [saldoAkhir, req.user.student_id]
-          )
-          console.log('sampai sini3')
-          const uploadKelas = await pool.query(
-            `INSERT INTO course
-            (student_id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, deskripsi_materi,tipe_kelas, file_materi, paket, status)
-            VALUES
-            ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-            RETURNING course_id`,
-            [
-              req.user.student_id,
-              program_studi,
-              mata_kuliah,
-              tanggal_kelas,
-              waktu_kelas,
-              deskripsi_materi,
-              tipe_kelas,
-              req.file.path,
-              paket,
-              'pending',
-            ]
-          );
-          console.log('sampai sini4')
-          const kelasID = uploadKelas.rows[0].course_id
-          const insertPembuatKelas = await pool.query(
-            `INSERT INTO student_course VALUES ($1, $2, $3, $4) RETURNING course_id`,
-            [
-              req.user.student_id,
-              kelasID,
-              null,
-              null
-            ]
-          );
-          console.log('sampai sini5')
-          req.flash('success', 'kelas berhasil ditambahkan')
-          return res.redirect('/dashboard-student')
-        } else{
-          req.flash('error', 'koin anda tidak cukup untuk membuka kelas')
-          return res.redirect('/dashboard-student');
-        }
+        console.log('sampai sini3')
 
-  }catch(err) {
-          console.log(err);
-  }
-   }));
+        const uploadKelas = await pool.query(
+          `INSERT INTO course
+          (student_id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, deskripsi_materi,tipe_kelas, file_materi, paket, status)
+          VALUES
+          ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+          RETURNING course_id`,
+          [
+            req.user.student_id,
+            program_studi,
+            mata_kuliah,
+            tanggal_kelas,
+            waktu_kelas,
+            deskripsi_materi,
+            tipe_kelas,
+            req.file.path,
+            paket,
+            'pending',
+          ]
+        );
+        console.log('sampai sini4')
+
+        const kelasID = uploadKelas.rows[0].course_id
+        const insertPembuatKelas = await pool.query(
+          `INSERT INTO student_course VALUES ($1, $2, $3, $4) RETURNING course_id`,
+          [
+            req.user.student_id,
+            kelasID,
+            null,
+            null
+          ]
+        );
+        console.log('sampai sini5')
+
+        req.flash('success', 'Request kelas berhasil!')
+        return res.redirect('/dashboard-student')
+      } else{
+        req.flash('error', 'Koin anda tidak cukup untuk membuka kelas')
+        return res.redirect('/dashboard-student');
+      }
+    }catch(err) {
+      console.log(err);
+    }
+}));
 
 app.get("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
   const { id } = req.params;
@@ -595,9 +610,97 @@ app.get("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
     `SELECT * FROM student_course WHERE course_id = $1 AND student_id = $2`,
     [id, req.user.student_id]
   )
-  currentUserRegistered = currentUserRegisteredRaw.rows[0]; 
+  const currentUserRegistered = currentUserRegisteredRaw.rows[0];
+  
+  var currentKelasMasterRaw = null;
+  if(currentKelas.student_id != null){
+    console.log(currentKelas.student_id);
+    currentKelasMasterRaw = await pool.query(
+      `SELECT * FROM student WHERE student_id = $1`,
+      [currentKelas.student_id]
+    )
+  }
 
-  res.render("student/info-kelas", { currentUser: req.user, currentKelas, currentUserRegistered });
+  var currentKelasMaster = null;
+  if(currentKelasMasterRaw != null) currentKelasMaster = currentKelasMasterRaw.rows[0];
+
+  var currentKelasMentorRaw = null;
+  if(currentKelas.mentor_id){
+    currentKelasMentorRaw = await pool.query(
+      `SELECT * FROM mentor WHERE mentor_id = $1`,
+      [currentKelas.mentor_id]
+  )}
+  const currentKelasMentor = currentKelasMentorRaw.rows[0];
+
+  console.log(currentKelasMentor);
+
+  var harga = 0;
+  
+  if(currentKelas.paket === 'sarjana'){
+    harga = 10;
+  }
+  if(currentKelas.paket === 'cumlaude'){
+    harga = 15;
+  }
+  if(currentKelas.paket === 'mawapres'){
+    harga = 20;
+  }
+
+  res.render("student/info-kelas", { currentUser: req.user, currentKelas, currentUserRegistered, harga, currentKelasMaster, currentKelasMentor });
+}));
+
+app.post("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
+  const { id } = req.params;
+
+  try{
+    const currentKelasRaw = await pool.query(
+      `SELECT * FROM course WHERE course_id = $1`, [id]
+    )
+    currentKelas = currentKelasRaw.rows[0];
+
+    var harga = 0;
+
+    if(currentKelas.paket === 'sarjana'){
+      harga = 10;
+    }
+    if(currentKelas.paket === 'cumlaude'){
+      harga = 15;
+    }
+    if(currentKelas.paket === 'mawapres'){
+      harga = 20;
+    }
+
+    console.log(harga);
+
+    if ((req.user.saldo) >= harga) {
+      const saldoAkhir = req.user.saldo - harga
+      console.log(saldoAkhir)
+
+      const updateSaldo = await pool.query(
+        `UPDATE student SET saldo = $1 WHERE student_id= $2`, [saldoAkhir, req.user.student_id]
+      )
+      console.log('sampai sini3')
+
+      const insertPesertaKelas = await pool.query(
+        `INSERT INTO student_course VALUES ($1, $2, $3, $4) RETURNING course_id`,
+        [
+          req.user.student_id,
+          currentKelas.course_id,
+          null,
+          null
+        ]
+      );
+      console.log('sampai sini4')
+
+      req.flash('success', 'Berhasil bergabung ke kelas!')
+      return res.redirect('/dashboard-student')
+    } else{
+      req.flash('error', 'Koin anda tidak cukup untuk mengikuti kelas.')
+      return res.redirect('/dashboard-student');
+    }
+  }catch(err) {
+    console.log(err);
+  }
 }));
 
 

@@ -92,16 +92,20 @@
               <div class="row">
                 <div class="d-flex align-items-center">
                   <div class="col-md-1 col-4">
-                    <img src="dummy-file/ava-2.jpg" alt="" />
+                    <% if (peserta_kelas[i].foto_profil) { %>
+                      <img class="foto-profil img-fluid" src="/<%= peserta_kelas[i].foto_profil %>" alt="foto-profil"/>
+                    <% } else { %>
+                      <img class="foto-profil img-fluid" src="/IMG/foto-profil-placeholder.png" alt="foto-profil"/>
+                    <% } %>
                   </div>
                   <div class="col-md-8 col-7" style="text-align: start;">
                     <h4>
                       <%= peserta_kelas[i].nama_lengkap %>
                     </h4>
                   </div>
-                  <div class="col fs-3" style="text-align: end;">
+                  <!-- <div class="col fs-3" style="text-align: end;">
                     <i class="fa fa-ellipsis-v"></i>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <% } %>

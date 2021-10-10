@@ -120,29 +120,44 @@
     })
 
     let paket = "";
-
-    async function getPaket(sel)
-    {
-      paket = sel.value;
-    }
-
+    
     let tipe_kelas = "";
 
+    function getPaket(sel)
+    {
+      paket = sel.value;
+      changeHarga();
+    }
+    
     function handleClick(myRadio) {
       tipe_kelas = myRadio.value;
+      changeHarga();
     }
 
-    const result = document.getElementById('harga_kelas');
+    function changeHarga() {
+      const result = document.getElementById('harga_kelas');
+  
+      if(paket === 'sarjana' && tipe_kelas === 'public'){
+        result.innerHTML = 10;
+      }
+      if(paket === 'cumlaude' && tipe_kelas === 'public'){
+        result.innerHTML = 15;
+      }
+      if(paket === 'mawapres' && tipe_kelas === 'public'){
+        result.innerHTML = 20;
+      }
 
-    if(paket === 'sarjana' && tipe_kelas === 'public'){
-      result.innerHTML = 10;
+      if(paket === 'sarjana' && tipe_kelas === 'private'){
+        result.innerHTML = 30;
+      }
+      if(paket === 'cumlaude' && tipe_kelas === 'private'){
+        result.innerHTML = 40;
+      }
+      if(paket === 'mawapres' && tipe_kelas === 'private'){
+        result.innerHTML = 50;
+      }
     }
-    if(paket === 'cumlaude' && tipe_kelas === 'public'){
-      result.innerHTML = 15;
-    }
-    if(paket === 'mawapres' && tipe_kelas === 'public'){
-      result.innerHTML = 20;
-    }
+
 
   </script>
 </body>

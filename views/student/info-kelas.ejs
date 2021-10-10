@@ -130,18 +130,41 @@
             <div class="bg-primary-color mb-4" style="width: 25%; height: 4px;"></div>
           </center>
           <div class="ikut-kelas">
-            <div class="row">
+            <% if (currentKelasMaster) { %>
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <% if (currentKelasMaster.foto_profil) { %>
+                    <img class="foto-profil" src="/<%= currentKelasMaster.foto_profil %> " alt="foto-profil" width="80px" height="80px"/>
+                  <% } else { %>
+                      <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil" width="80px"/>
+                  <% } %>
+                </div>
+                <div class="col mt-2">
+                  <h5 class="text-start"><%= currentKelasMaster.nama_lengkap %></h5>
+                  <p class="text-secondary text-start">
+                    Ketua Kelas
+                  </p>
+                </div>
+              </div>
+            <% } %>
+            <div class="row mb-3">
               <div class="col-md-4">
-                <i class="fa fa-user-circle" style="font-size: 5rem;"></i>
+                <% if (currentKelasMentor.foto_profil) { %>
+                  <img class="foto-profil" src="/<%= currentKelasMentor.foto_profil %> " alt="foto-profil" width="80px" height="80px"/>
+                <% } else { %>
+                    <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil" width="80px"/>
+                <% } %>
               </div>
               <div class="col mt-2">
-                <h5 class="text-start">Troy</h5>
-                <p class="text-secondary text-start">Ketua Kelas</p>
+                <h5 class="text-start"><%= currentKelasMentor.nama_lengkap %></h5>
+                <p class="text-secondary text-start">
+                  Mentor
+                </p>
               </div>
             </div>
-            <% if (currentKelas.tipe_kelas=='private' ) { %>
+            <% if (currentKelas.tipe_kelas=='private') { %>
               <div class="row mt-2">
-                <p class="text-secondary" style="text-align: start;">
+                <p class="text-secondary" style="text-align: start; margin-bottom: 0;">
                   *) Cat: Kelas ini merupakan kelas private, maka untuk dapat bergabung ke dalam kelas ini memerlukan
                   persetujuan dari ketua kelas.
                 </p>
@@ -149,8 +172,8 @@
               <% } %>
               <% if (currentUserRegistered == null) { %>
                 <div class="row mt-3">
-                  <button data-bs-toggle="modal" data-bs-target="#ikut-kelas" class="btn  bg-primary-color text-light"
-                    style="margin-top: 13px;">Ikut Kelas</button>
+                  <button data-bs-toggle="modal" data-bs-target="#ikut-kelas" class="btn bg-primary-color text-light"
+                    style="margin-top: 13px;">Ikut Kelas<span> • <%= harga %>&nbsp;<img src="/IMG/ed.coin.svg" class="img-fluid" alt="" style="height: 1em;"/></span></button>
                 </div>
               <% } %>
           </div>
@@ -182,12 +205,20 @@
         <div class="modal-body">
           <h5 class="mb-1">Ikut Kelas</h5>
           <div class="bg-primary-color mb-4" style="width: 50%; height: 4px;"></div>
-          <h6 class=" fs-5 mb-4">Kelas yang kamu ajukan adalah kelas private, untuk bisa masuk kamu harus menunggu
-            perizinan pembuat kelas</h6>
+          <h6 class=" fs-5 mb-4">
+            <% if (currentKelas.tipe_kelas=='private') { %>
+              Kelas yang kamu ajukan adalah kelas private, untuk bisa masuk kamu harus menunggu
+              perizinan pembuat kelas.
+              <br>
+            <% } %>
+            Yakin untuk mengikuti kelas ini?
+          </h6>
           <div class="row justify-content-end">
             <div class="d-flex justify-content-end">
-              <a class="me-2 btn primary-outline primary-color btn-lg" data-bs-dismiss="modal">Batal</a>
-              <a class="me-2 btn bg-primary-color text-light btn-lg">Ok</a>
+              <button class="me-2 btn primary-outline primary-color btn-lg" data-bs-dismiss="modal">Batal</button>
+              <form action="/kelas/<%= currentKelas.course_id %>" method="post">
+                <button type="submit" class="me-2 btn bg-primary-color text-light btn-lg">Ya</button>
+              </form>
             </div>
           </div>
         </div>

@@ -158,8 +158,12 @@
           <% for (let i=0; i< peserta_kelas.length; i++) {%>
             <div class="row mt-1">
 
-              <div class="col-md-1 col-1 me-3">
-                <img src="dummy-file/ava-1.jpg" alt="" />
+              <div class="col-md-1 col-1 me-3 px-0">
+                <% if (peserta_kelas[i].foto_profil) { %>
+                  <img class="foto-profil img-fluid" src="/<%= peserta_kelas[i].foto_profil %>" alt="foto-profil"/>
+                <% } else { %>
+                  <img class="foto-profil img-fluid" src="/IMG/foto-profil-placeholder.png" alt="foto-profil"/>
+                <% } %>
               </div>
 
               <div class="col-md-9 col-7" style="text-align: start;">
@@ -168,7 +172,7 @@
                 </h6>
               </div>
 
-              <div class="col" style="text-align: end;"><i class="fa fa-ellipsis-v"></i></div>
+              <!-- <div class="col" style="text-align: end;"><i class="fa fa-ellipsis-v"></i></div> -->
 
             </div>
           <% } %>
