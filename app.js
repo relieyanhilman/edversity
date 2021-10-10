@@ -591,7 +591,13 @@ app.get("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
   
   currentKelas.waktu_kelas = time[0]+''+time[1]+':'+time[3]+''+time[4];
 
-  res.render("student/info-kelas", { currentUser: req.user, currentKelas });
+  const currentUserRegisteredRaw = await pool.query(
+    `SELECT * FROM student_course WHERE course_id = $1 AND student_id = $2`,
+    [id, req.user.student_id]
+  )
+  currentUserRegistered = currentUserRegisteredRaw.rows[0]; 
+
+  res.render("student/info-kelas", { currentUser: req.user, currentKelas, currentUserRegistered });
 }));
 
 
@@ -761,6 +767,15 @@ app.get("/edwallet-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, re
 app.post("/edwallet-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, res) => {
   const {nomor_rekening, nama_pemilik_rekening, bank, jumlah_koin} = req.body;
 
+  if(jumlah_koin > req.user.saldo){
+    req.flash('error', 'Pengajuan tarik koin gagal, periksa kembali saldo Anda.');
+    res.redirect('/dashboard-mentor');
+  }
+
+  if(jumlah_koin < 10){
+    req.flash('error', 'Pengajuan tarik koin gagal, penarikan minimal 10 koin.');
+    res.redirect('/dashboard-mentor');
+  }
 
   const cashoutInsert = await pool.query(
     `INSERT INTO cashouts(mentor_id, nomor_rekening, nama_pemilik_rekening, bank, jumlah_koin, is_verified, verified_by, created_at)

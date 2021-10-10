@@ -72,11 +72,11 @@
               <label for="inputLabel" class="form-label">Paket Kelas</label>
 
               <select style="text-align-last: center;" class="form-select" aria-label="Default select example"
-                name="paket">
+                name="paket" id="paket" onchange="getPaket(this);">
                 <option selected disabled hidden>Paket Kelas</option>
-                <option value="sarjana">sarjana</option>
-                <option value="cumlaude">cumlaude</option>
-                <option value="mawapres">mawapres</option>
+                <option value="sarjana">Sarjana</option>
+                <option value="cumlaude">Cumlaude</option>
+                <option value="mawapres">Mawapres</option>
               </select>
             </div>
             <div class="mb-3">
@@ -90,13 +90,17 @@
               <input class="radio me-2" type="radio" id="public" name="tipe_kelas" value="public"
                 data-bs-toggle="tooltip" data-bs-placement="top"
                 title="Kelas Public bisa diikuti oleh siapapun (tidak memerlukan persetujuan untuk masuk), dan mentor yang akan mengajar tidak bisa dipilih"
-                value="public" />
+                value="public" onclick="handleClick(this);"/>
               <label for="public">Public</label>
               <input class="ms-5 radio me-2" type="radio" id="private" name="tipe_kelas" value="private"
                 data-bs-toggle="tooltip" data-bs-placement="top"
                 title="Kelas private membutuhkan izin dari yang me-request kelas untuk masuk, dan mentor yang mengajukan untuk mengajar bisa dipilih"
-                value="private" />
+                value="private" onclick="handleClick(this);"/>
               <label for="private">Private</label>
+            </div>
+            <div class="harga_kelas mb-3">
+              <h5>Harga Kelas:&nbsp;<span class="harga_kelas" id="harga_kelas"></span>&nbsp;<img src="/IMG/ed.coin.svg" class="img-fluid" alt="" style="height: 1em;"/></h5>
+              
             </div>
             <button type="submit" style="width: 100%; margin-top: 6px;"
               class="btn text-light bg-primary-color">Kirim</button>
@@ -108,11 +112,38 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl)
     })
+
+    let paket = "";
+
+    async function getPaket(sel)
+    {
+      paket = sel.value;
+    }
+
+    let tipe_kelas = "";
+
+    function handleClick(myRadio) {
+      tipe_kelas = myRadio.value;
+    }
+
+    const result = document.getElementById('harga_kelas');
+
+    if(paket === 'sarjana' && tipe_kelas === 'public'){
+      result.innerHTML = 10;
+    }
+    if(paket === 'cumlaude' && tipe_kelas === 'public'){
+      result.innerHTML = 15;
+    }
+    if(paket === 'mawapres' && tipe_kelas === 'public'){
+      result.innerHTML = 20;
+    }
+
   </script>
 </body>
 

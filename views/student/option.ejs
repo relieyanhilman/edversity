@@ -229,9 +229,12 @@
                     <img src="/IMG/struktur-bangunan.png" alt="">
                   </div>
                   <div class="col-10">
-                    <h4><%=kelasAktif[i].mata_kuliah %> </h4>
+                    <a href="/kelas/<%= kelasAktif[i].course_id %>" class="text-dark"><h4><%=kelasAktif[i].mata_kuliah %></h4></a>
                     <p>by <strong><%=kelasAktif[i].nama_mentor%></strong> </p>
                     <p class="text-secondary" style="font-size: smaller;"><%=kelasAktif[i].tanggal_kelas %> • <%=kelasAktif[i].waktu_kelas %> WIB</p>
+                    <% if (kelasAktif[i].link_zoom) { %>
+                      <p>Link Zoom: <a href="<%=kelasAktif[i].link_zoom %>" class="text-secondary"><%=kelasAktif[i].link_zoom %></a></p>
+                    <% } %>
                   </div>
                 </div>
                 <hr>

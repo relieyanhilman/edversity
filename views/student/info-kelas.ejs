@@ -99,9 +99,16 @@
           <!-- Tanggal Kelas -->
           <div class="bg-primary-color rounded py-1">
             <h5 style="text-align: center;" class="mt-1 text-light">
-              <%= currentKelas.tanggal_kelas %> <span>• <%= currentKelas.waktu_kelas %> WIB</span>
+              <%= currentKelas.tanggal_kelas %><span> • <%= currentKelas.waktu_kelas %> WIB</span>
             </h5>
           </div>
+          <% if (currentUserRegistered && currentKelas.link_zoom) { %>
+            <div class="bg-primary-color rounded py-1 my-3">
+              <h5 style="text-align: center;" class="mt-1 text-light">
+                Link Zoom: <span><u><a href="<%= currentKelas.link_zoom %>" class="text-light"><%= currentKelas.link_zoom %></a></u></span>
+              </h5>
+            </div>
+          <% } %>
         </div>
         <!-- Gambar yang berkaitan dengan program studi/jurusan -->
         <div class="col-md-4 px-5 py-5">
@@ -140,10 +147,12 @@
                 </p>
               </div>
               <% } %>
+              <% if (currentUserRegistered == null) { %>
                 <div class="row mt-3">
                   <button data-bs-toggle="modal" data-bs-target="#ikut-kelas" class="btn  bg-primary-color text-light"
                     style="margin-top: 13px;">Ikut Kelas</button>
                 </div>
+              <% } %>
           </div>
         </div>
       </div>
