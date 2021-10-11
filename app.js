@@ -548,9 +548,9 @@ app.post(
 
         const uploadKelas = await pool.query(
           `INSERT INTO course
-          (student_id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, deskripsi_materi,tipe_kelas, file_materi, paket, status)
+          (student_id, program_studi, mata_kuliah, tanggal_kelas, waktu_kelas, deskripsi_materi,tipe_kelas, file_materi, paket, status, total_koin)
           VALUES
-          ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+          ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
           RETURNING course_id`,
           [
             req.user.student_id,
@@ -563,6 +563,7 @@ app.post(
             req.file.path,
             paket,
             'pending',
+            harga,
           ]
         );
         console.log('sampai sini4')
@@ -681,6 +682,11 @@ app.post("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
       )
       console.log('sampai sini3')
 
+      const updateKoin = await pool.query(
+        `UPDATE course SET total_koin = $1 WHERE course_id= $2`, [currentKelas.total_koin + harga, currentKelas.course_id]
+      )
+      console.log('sampai sini4')
+
       const insertPesertaKelas = await pool.query(
         `INSERT INTO student_course VALUES ($1, $2, $3, $4) RETURNING course_id`,
         [
@@ -690,7 +696,7 @@ app.post("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
           null
         ]
       );
-      console.log('sampai sini4')
+      console.log('sampai sini5')
 
       req.flash('success', 'Berhasil bergabung ke kelas!')
       return res.redirect('/dashboard-student')
