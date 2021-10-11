@@ -791,7 +791,7 @@ app.post(
 app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
 
   var currentUser = req.user;
-  console.log(currentUser);
+  // console.log(currentUser);
   const currentUserCourseRaw = await pool.query(
     `SELECT * FROM course WHERE status = $1 AND (mentor_id IS NULL OR mentor_id = $2) ORDER BY mentor_id`, 
     ['pending', req.user.mentor_id]
@@ -890,6 +890,11 @@ app.post("/edwallet-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, r
     `INSERT INTO cashouts(mentor_id, nomor_rekening, nama_pemilik_rekening, bank, jumlah_koin, is_verified, verified_by, created_at)
     VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
     [req.user.mentor_id, nomor_rekening, nama_pemilik_rekening, bank, parseInt(jumlah_koin), 0, null, new Date().toISOString().split('.')[0]+"Z"]
+  );
+
+  const updateSaldo = await pool.query(
+    `UPDATE mentor SET saldo = $1 WHERE mentor_id = $2`,
+    [req.user.saldo - jumlah_koin ,req.user.mentor_id]
   );
 
   req.flash('success', 'Pengajuan tarik koin berhasil');
