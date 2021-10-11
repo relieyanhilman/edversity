@@ -892,6 +892,11 @@ app.post("/edwallet-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, r
     [req.user.mentor_id, nomor_rekening, nama_pemilik_rekening, bank, parseInt(jumlah_koin), 0, null, new Date().toISOString().split('.')[0]+"Z"]
   );
 
+  const updateSaldo = await pool.query(
+    `UPDATE mentor SET saldo = $1 WHERE mentor_id = $2`,
+    [req.user.saldo - jumlah_koin ,req.user.mentor_id]
+  );
+
   req.flash('success', 'Pengajuan tarik koin berhasil');
   res.redirect('/dashboard-mentor');
 }));
