@@ -312,19 +312,47 @@ app.get(
         var mentor = await pool.query(`SELECT nama_lengkap FROM mentor WHERE mentor_id = $1`, [course.mentor_id]);
         course.nama_mentor = mentor.rows[0].nama_lengkap;
       }
-  
+
+      const privateCoursesRaw = await pool.query(`
+        SELECT * FROM course c
+        WHERE
+        (c.status = $1 AND c.tipe_kelas = $2)
+        AND c.mentor_id IS NOT NULL 
+        AND c.bukti_selesai IS NULL
+        AND c.student_id = $3
+        AND c.tanggal_kelas >= CURRENT_DATE
+        ORDER BY c.tanggal_kelas 
+        `,
+        [
+          'open', 'private',
+          id,
+        ]
+      );
+      var privateCourses = privateCoursesRaw.rows;
+      // console.log(privateCourses);
+
+      for await (let privateCourse of privateCourses) {
+        var pendaftar = await pool.query(`SELECT * FROM private_approval WHERE course_id = $1`, [privateCourse.course_id]);
+        privateCourse.pendaftar = pendaftar.rows;
+
+        for await (let pendaftar of privateCourse.pendaftar){
+          var nama_pendaftar = await pool.query(`SELECT nama_lengkap FROM student WHERE student_id = $1`, [pendaftar.student_id]);
+          pendaftar.nama_lengkap = nama_pendaftar.rows[0].nama_lengkap;
+        }
+      }
     } catch (error){
       console.log(error);
     }
 
     res.render("student/edmessage", {
       currentUser: req.user,
-      courses
+      courses,
+      privateCourses
     });
   })
 );
 
-app.put("/edmessage/terima",
+app.put("/edmessage/terima_mentor",
   isLoggedInStudent,
   catchAsync(async (req, res) => {
     try{
@@ -341,12 +369,11 @@ app.put("/edmessage/terima",
       console.log(error);
     }
 
-    // req.flash('success', 'Data profile berhasil di-update');
     res.redirect('/edmessage');
   })
 );
 
-app.put("/edmessage/tolak",
+app.put("/edmessage/tolak_mentor",
   isLoggedInStudent,
   catchAsync(async (req, res) => {
     try{
@@ -358,6 +385,107 @@ app.put("/edmessage/tolak",
           ['pending', course_id]
         );
       }
+  
+    } catch (error){
+      console.log(error);
+    }
+
+    res.redirect('/edmessage');
+  })
+);
+
+app.put("/edmessage/terima_siswa",
+  isLoggedInStudent,
+  catchAsync(async (req, res) => {
+    try{
+      // return res.send(req.body);
+      const {course_id, student_id} = req.body;
+  
+      const insertPesertaKelas = await pool.query(
+        `INSERT INTO student_course VALUES ($1, $2, $3, $4) RETURNING course_id`,
+        [
+          student_id,
+          course_id,
+          null,
+          null
+        ]
+      );
+      
+      const currentKelasRaw = await pool.query(
+        `SELECT * FROM course WHERE course_id = $1`, [course_id]
+      )
+      currentKelas = currentKelasRaw.rows[0];
+
+      var harga = 0;
+      if(currentKelas.paket === 'sarjana'){
+        harga = 10;
+      }
+      if(currentKelas.paket === 'cumlaude'){
+        harga = 15;
+      }
+      if(currentKelas.paket === 'mawapres'){
+        harga = 20;
+      }
+
+      const updateKoin = await pool.query(
+        `UPDATE course SET total_koin = $1 WHERE course_id= $2`, [currentKelas.total_koin + harga, currentKelas.course_id]
+      )
+
+      const deleteApproval = await pool.query(
+        `DELETE FROM private_approval WHERE student_id = $1 AND course_id = $2`,
+        [
+          student_id,
+          course_id,
+        ]
+      );
+  
+    } catch (error){
+      console.log(error);
+    }
+
+    // req.flash('success', 'Data profile berhasil di-update');
+    res.redirect('/edmessage');
+  })
+);
+
+app.put("/edmessage/tolak_siswa",
+  isLoggedInStudent,
+  catchAsync(async (req, res) => {
+    try{
+      const {course_id, student_id} = req.body;
+      
+      const currentKelasRaw = await pool.query(
+        `SELECT * FROM course WHERE course_id = $1`, [course_id]
+      )
+      currentKelas = currentKelasRaw.rows[0];
+
+      var harga = 0;
+      if(currentKelas.paket === 'sarjana'){
+        harga = 10;
+      }
+      if(currentKelas.paket === 'cumlaude'){
+        harga = 15;
+      }
+      if(currentKelas.paket === 'mawapres'){
+        harga = 20;
+      }
+
+      const getSaldoRaw = await pool.query(
+        `SELECT saldo FROM student WHERE student_id= $1`, [student_id]
+      )
+      const saldo = getSaldoRaw.rows[0].saldo;
+
+      const updateSaldo = await pool.query(
+        `UPDATE student SET saldo = $1 WHERE student_id= $2`, [saldo + harga, student_id]
+      )
+
+      const deleteApproval = await pool.query(
+        `DELETE FROM private_approval WHERE student_id = $1 AND course_id = $2`,
+        [
+          student_id,
+          course_id,
+        ]
+      );
   
     } catch (error){
       console.log(error);
@@ -647,7 +775,16 @@ app.get("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
     harga = 20;
   }
 
-  res.render("student/info-kelas", { currentUser: req.user, currentKelas, currentUserRegistered, harga, currentKelasMaster, currentKelasMentor });
+  var isPrivateAndRegistered = false;
+  if(currentKelas.tipe_kelas == 'private'){
+    const currentUserRegisteredPrivateRaw = await pool.query(
+      `SELECT * FROM private_approval WHERE course_id = $1 AND student_id = $2`,
+      [id, req.user.student_id]
+    )
+    if(currentUserRegisteredPrivateRaw.rowCount) isPrivateAndRegistered = true;
+  }
+
+  res.render("student/info-kelas", { currentUser: req.user, currentKelas, currentUserRegistered, harga, currentKelasMaster, currentKelasMentor, isPrivateAndRegistered });
 }));
 
 app.post("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
@@ -673,33 +810,62 @@ app.post("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
 
     console.log(harga);
 
-    if ((req.user.saldo) >= harga) {
+    if (req.user.saldo >= harga) {
       const saldoAkhir = req.user.saldo - harga
       console.log(saldoAkhir)
 
-      const updateSaldo = await pool.query(
-        `UPDATE student SET saldo = $1 WHERE student_id= $2`, [saldoAkhir, req.user.student_id]
-      )
-      console.log('sampai sini3')
+      if(currentKelas.tipe_kelas == 'public'){
+        const jumlahSiswaRaw = await pool.query(
+          `SELECT COUNT(*) FROM student_course WHERE course_id = $1`, [currentKelas.course_id]
+        )
+        const jumlahSiswa = jumlahSiswaRaw.rows[0];
+        if(jumlahSiswa > 15){
+          req.flash('error', 'Kelas sudah penuh.')
+          return res.redirect('/dashboard-student');
+        } else {
+          const updateSaldo = await pool.query(
+            `UPDATE student SET saldo = $1 WHERE student_id= $2`, [saldoAkhir, req.user.student_id]
+          )
+          console.log('sampai sini3')
+          const updateKoin = await pool.query(
+            `UPDATE course SET total_koin = $1 WHERE course_id= $2`, [currentKelas.total_koin + harga, currentKelas.course_id]
+          )
+          console.log('sampai sini4')
+    
+          const insertPesertaKelas = await pool.query(
+            `INSERT INTO student_course VALUES ($1, $2, $3, $4) RETURNING course_id`,
+            [
+              req.user.student_id,
+              currentKelas.course_id,
+              null,
+              null
+            ]
+          );
+          console.log('sampai sini5')
+    
+          req.flash('success', 'Berhasil bergabung ke kelas!')
+          return res.redirect('/dashboard-student')
+        }
 
-      const updateKoin = await pool.query(
-        `UPDATE course SET total_koin = $1 WHERE course_id= $2`, [currentKelas.total_koin + harga, currentKelas.course_id]
-      )
-      console.log('sampai sini4')
+      } else if (currentKelas.tipe_kelas == 'private') {
+        const updateSaldo = await pool.query(
+          `UPDATE student SET saldo = $1 WHERE student_id= $2`, [saldoAkhir, req.user.student_id]
+        )
+        console.log('sampai sini3');
 
-      const insertPesertaKelas = await pool.query(
-        `INSERT INTO student_course VALUES ($1, $2, $3, $4) RETURNING course_id`,
-        [
-          req.user.student_id,
-          currentKelas.course_id,
-          null,
-          null
-        ]
-      );
-      console.log('sampai sini5')
+        const insertPendaftarKelas = await pool.query(
+          `INSERT INTO private_approval VALUES ($1, $2) RETURNING course_id`,
+          [
+            req.user.student_id,
+            currentKelas.course_id
+          ]
+        );
+        console.log('sampai sini4');
+  
+        req.flash('success', 'Berhasil mendaftar kelas. Mohon tunggu persetujuan ketua kelas.')
+        return res.redirect('/dashboard-student')
+      }
 
-      req.flash('success', 'Berhasil bergabung ke kelas!')
-      return res.redirect('/dashboard-student')
     } else{
       req.flash('error', 'Koin anda tidak cukup untuk mengikuti kelas.')
       return res.redirect('/dashboard-student');

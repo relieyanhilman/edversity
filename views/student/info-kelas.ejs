@@ -169,13 +169,24 @@
                   persetujuan dari ketua kelas.
                 </p>
               </div>
+            <% } %>
+            <div class="row mt-3">
+              <% if (currentUserRegistered == null && !isPrivateAndRegistered) { %>
+                <button data-bs-toggle="modal" data-bs-target="#ikut-kelas" class="btn bg-primary-color text-light"
+                  style="margin-top: 13px;">
+                  Ikut Kelas
+                  <span> • <%= harga %>&nbsp;<img src="/IMG/ed.coin.svg" class="img-fluid" alt="" style="height: 1em;"/></span>
+                </button>
+              <% } else if(isPrivateAndRegistered) { %>
+                <button class="btn btn-warning text-dark" disabled
+                  style="margin-top: 13px;">Anda sudah mendaftar kelas ini. Mohon tunggu persetujuan ketua kelas.
+                </button>
+              <% } else if(currentUserRegistered) { %>
+                <button class="btn btn-success text-light" disabled
+                  style="margin-top: 13px;">Anda sudah terdaftar di kelas ini.
+                </button>
               <% } %>
-              <% if (currentUserRegistered == null) { %>
-                <div class="row mt-3">
-                  <button data-bs-toggle="modal" data-bs-target="#ikut-kelas" class="btn bg-primary-color text-light"
-                    style="margin-top: 13px;">Ikut Kelas<span> • <%= harga %>&nbsp;<img src="/IMG/ed.coin.svg" class="img-fluid" alt="" style="height: 1em;"/></span></button>
-                </div>
-              <% } %>
+            </div>
           </div>
         </div>
       </div>

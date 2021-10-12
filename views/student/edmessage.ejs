@@ -101,20 +101,20 @@
     </div>
 
 
-    <% courses.forEach(course=> { %>
-      <div class="row mt-5">
+    <% courses.forEach(course => { %>
+      <div class="row mt-3">
         <div class="msg rounded col-md-10 col-8 pt-2 text-light" style="text-align: center;">
           <h5>Kelas <%= course.mata_kuliah %> yang kamu ajukan sudah mendapatkan mentor!</h5>
         </div>
         <div class="col-4 col-md-2">
-          <a class="fs-3" href="#collapse<%= course.course_id %>" data-toggle="collapse">
+          <a class="fs-3" href="#collapseMentor<%= course.course_id %>" data-toggle="collapse">
             <div class="bg-light justify-center rounded py-2">
               <i class="far text-dark fa-envelope"></i>
             </div>
           </a>
         </div>
       </div>
-      <div class="row mt-3 collapse msg-body" id="collapse<%= course.course_id %>">
+      <div class="row mt-3 collapse msg-body" id="collapseMentor<%= course.course_id %>">
         <div class="card card-body text-light msg">
           <div class="text-center msg-title">
             <p class="text-center">
@@ -129,7 +129,7 @@
                 Karena kelas yang kamu ajukan bersifat private, kamu bisa memilih untuk menerima atau menolak mentor
                 yang mengajukan diri untuk mengajar.
               </p>
-              <form action="/edmessage/terima?_method=PUT" method="post" id="accept-form" style="display: none;">
+              <form action="/edmessage/terima_mentor?_method=PUT" method="post" id="accept-form" style="display: none;">
                 <input type="hidden" name="course_id" value="<%=course.course_id%>">
                 <input type="hidden" name="tipe_kelas" value="<%=course.tipe_kelas%>">
               </form>
@@ -137,7 +137,7 @@
                 <button type="submit" class="btn text-light bg-primary-color"
                   onclick="document.getElementById('accept-form').submit()">Terima</button>
               </div>
-              <form action="/edmessage/tolak?_method=PUT" method="post" id="decline-form" style="display: none;">
+              <form action="/edmessage/tolak_mentor?_method=PUT" method="post" id="decline-form" style="display: none;">
                 <input type="hidden" name="course_id" value="<%=course.course_id%>">
                 <input type="hidden" name="tipe_kelas" value="<%=course.tipe_kelas%>">
               </form>
@@ -145,13 +145,54 @@
                 <button type="submit" class="btn btn-danger" onclick="myFunction()">Tolak</button>
               </div>
               <% } else { %>
-                <p class="text-center">Ingat, kamu tidak bisa menolak mentor yang didapatkan karena kelas bersifat
-                  public.</p>
-                <% } %>
+                <p class="text-center">Ingat, kamu tidak bisa menolak mentor yang didapatkan karena kelas bersifat public.</p>
+              <% } %>
           </div>
         </div>
       </div>
+    <% }) %>
+
+    <% privateCourses.forEach(course => { %>
+      <% course.pendaftar.forEach((pendaftar, index) => { %>
+        <div class="row mt-3">
+          <div class="msg rounded col-md-10 col-8 pt-2 text-light" style="text-align: center;">
+            <h5>Ada yang ingin bergabung ke kelas <%= course.mata_kuliah %>!</h5>
+          </div>
+          <div class="col-4 col-md-2">
+            <a class="fs-3" href="#collapsePendaftar<%= course.course_id %><%= index %>" data-toggle="collapse">
+              <div class="bg-light justify-center rounded py-2">
+                <i class="far text-dark fa-envelope"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="row mt-3 collapse msg-body" id="collapsePendaftar<%= course.course_id %><%= index %>">
+          <div class="card card-body text-light msg">
+            <div class="text-center msg-title">
+              <p class="text-center">
+                <b><%= pendaftar.nama_lengkap %></b> ingin bergabung ke kelas <b><%= course.mata_kuliah %></b> yang kamu ajukan.
+            </div>
+            <div class="row">
+              <form action="/edmessage/terima_siswa?_method=PUT" method="post" id="accept-siswa-form" style="display: none;">
+                <input type="hidden" name="course_id" value="<%=course.course_id%>">
+                <input type="hidden" name="student_id" value="<%=pendaftar.student_id%>">
+              </form>
+              <div class="col text-end">
+                <button type="submit" class="btn text-light bg-primary-color"
+                  onclick="document.getElementById('accept-siswa-form').submit()">Terima</button>
+              </div>
+              <form action="/edmessage/tolak_siswa?_method=PUT" method="post" id="decline-siswa-form" style="display: none;">
+                <input type="hidden" name="course_id" value="<%=course.course_id%>">
+                <input type="hidden" name="student_id" value="<%=pendaftar.student_id%>">
+              </form>
+              <div class="col">
+                <button type="submit" class="btn btn-danger" onclick="myFunctionSiswa()">Tolak</button>
+              </div>
+            </div>
+          </div>
+        </div>
       <% }) %>
+    <% }) %>
         <!-- ; -->
 
         <!-- Call center Modal -->
@@ -187,6 +228,12 @@
             var r = confirm("Apakah kamu yakin untuk menolak mentor yang didapat?");
             if (r == true) {
               $('#decline-form').submit();
+            }
+          }
+          function myFunctionSiswa() {
+            var r = confirm("Apakah kamu yakin untuk menolak siswa ini untuk bergabung?");
+            if (r == true) {
+              $('#decline-siswa-form').submit();
             }
           }
         </script>
