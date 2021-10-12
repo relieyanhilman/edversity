@@ -808,17 +808,17 @@ app.post("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
       harga = 20;
     }
 
-    console.log(harga);
+    // console.log(harga);
 
     if (req.user.saldo >= harga) {
       const saldoAkhir = req.user.saldo - harga
-      console.log(saldoAkhir)
 
       if(currentKelas.tipe_kelas == 'public'){
         const jumlahSiswaRaw = await pool.query(
-          `SELECT COUNT(*) FROM student_course WHERE course_id = $1`, [currentKelas.course_id]
+          `SELECT student_id FROM student_course WHERE course_id = $1`, [currentKelas.course_id]
         )
-        const jumlahSiswa = jumlahSiswaRaw.rows[0];
+        const jumlahSiswa = jumlahSiswaRaw.rowCount;
+        // return console.log(jumlahSiswa);
         if(jumlahSiswa > 15){
           req.flash('error', 'Kelas sudah penuh.')
           return res.redirect('/dashboard-student');
