@@ -508,6 +508,7 @@ app.get(
 //post register student
 app.post(
   "/register-student",
+  isNotLoggedInStudent,
   catchAsync(async (req, res) => {
     const { nama_lengkap, email, password, asal_sekolah, angkatan, jenjang } =
       req.body;
@@ -629,6 +630,7 @@ app.get("/request-kelas", isLoggedInStudent, (req, res) => {
 
 app.post(
   "/request-kelas",
+  isLoggedInStudent,
   upload.single("file_materi"),
   catchAsync(async (req, res) => {
     try{
