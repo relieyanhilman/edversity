@@ -107,13 +107,22 @@
     </section>
     <div class="mt-4 d-flex justify-content-center text-light">
       <div class="row align-items-center">
-        <div class="col-md-6 col-12 align-items-center">
-          <h4 style="text-align: right;">Jumlah saldo kamu:</h4>
+        <div class="col-md-5 col-12 align-items-center">
+          <h3>Jumlah Saldo  :</h3>
         </div>
-        <div class="col-md-6 col-12">
-          <h1 class="m-0" style="font-size: 4rem;">
-            <%= currentUser.saldo %>&nbsp;<span><img src="/IMG/ed.coin.svg" alt=""/></span>
-          </h1>
+        <div class="col-md-7 col-12">
+          <div class="row">
+            <div class="col-md-8 col-12 ">
+              <h1 class="text-center" style="font-size: 5rem;">
+                <%= currentUser.saldo %>
+              </h1>
+            </div>
+            <div class="col-md-4 col-12">
+              <p class="text-center">
+                <img class="img-fluid" src="IMG/ed.coin.svg" alt="" />
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -160,13 +160,13 @@
                               <h6 class="mb-0">
                                 <%= courses[j].program_studi %>
                               </h6>
-                              <button onclick="href(<%= courses[j].course_id %>)" class="btn-link">
+                              <button onclick="href(<%= courses[j].course_id %>)" class="btn-link fs-6">
                                 <%= courses[j].mata_kuliah %>
                               </button>
                               <% if (courses[j].tipe_kelas=='private' ) { %>
                                 <i class="fa fa-lock fs-6"></i>
                               <% } %>
-                              <p>
+                              <p style="font-size: 14px;">
                                 <%= courses[j].nama_mentor %>
                               </p>
                               <p class="text-secondary" style="font-size: 14px">
@@ -237,13 +237,13 @@
                                 <% } %>
                               </div>
                               <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                                <button onclick="href(<%= courses[j].course_id %>)" class="btn-link">
+                                <button onclick="href(<%= courses[j].course_id %>)" class="btn-link fs-6">
                                   <%= courses[j].mata_kuliah %>
                                 </button>
                                 <% if (courses[j].tipe_kelas=='private' ) { %>
                                   <i class="fa fa-lock fs-6"></i>
                                 <% } %>
-                                <p>
+                                <p style="font-size: 14px;">
                                   <%= courses[j].nama_mentor %>
                                 </p>
                                 <p class="text-secondary" style="font-size: 14px">
