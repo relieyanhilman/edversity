@@ -212,7 +212,6 @@ app.put(
   isLoggedInStudent,
   catchAsync(async (req, res) => {
     try {
-      // res.send(req.body);
       const id = req.user.student_id;
       const { nama_lengkap, username, no_handphone, email } = req.body;
 
@@ -220,17 +219,22 @@ app.put(
         `SELECT username FROM student WHERE username = $1`, [username]
       );
 
-      if(usernamesRaw.rowCount){
+      if(usernamesRaw.rowCount && req.user.username != username){
         req.flash('error', 'Username sudah digunakan!');
-        res.redirect(`/dashboard-student/profile`);
+        return res.redirect(`/dashboard-student/profile`);
+      } else {
+        if(req.file){
+          var updatedProfile = await pool.query(
+            `UPDATE student SET nama_lengkap=$1, username=$2, no_handphone=$3, email=$4, foto_profil=$5 WHERE student_id=$6`,
+            [nama_lengkap, username, no_handphone, email, req.file.path, id]
+          );
+        } else {
+          var updatedProfile = await pool.query(
+            `UPDATE student SET nama_lengkap=$1, username=$2, no_handphone=$3, email=$4 WHERE student_id=$5`,
+            [nama_lengkap, username, no_handphone, email, id]
+          );
+        }
       }
-  
-      const updatedProfile = await pool.query(
-        `UPDATE student SET nama_lengkap=$1, username=$2, no_handphone=$3, email=$4, foto_profil=$5 WHERE student_id=$6`,
-        [nama_lengkap, username, no_handphone, email, req.file.path, id]
-      );
-
-      
     } catch (error) {
       console.log(error)
     }
