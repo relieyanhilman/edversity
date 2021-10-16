@@ -114,7 +114,7 @@
                 <span class="badge bg-warning text-dark">Anda sudah mengajukan diri sebagai mentor kelas
                   ini.<br>
                   Harap tunggu persetujuan siswa.</span>
-              <% } else if ((currentKelas.mentor_id==currentUser.mentor_id) && currentKelas.status=='open' && currentKelas.tipe_kelas=='public' ) { %>
+              <% } else if ((currentKelas.mentor_id==currentUser.mentor_id) && currentKelas.status=='open') { %>
                   <span class="badge bg-success text-light">Anda adalah mentor kelas ini.</span>
               <% } %>
             </div>
