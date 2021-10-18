@@ -104,7 +104,7 @@
     <div class="mt-4 d-flex justify-content-center text-light">
       <div class="row align-items-center">
         <div class="col-md-5 col-12 align-items-center">
-          <h3>Jumlah Saldo  :</h3>
+          <h3>Jumlah Saldo :</h3>
         </div>
         <div class="col-md-7 col-12">
           <div class="row">
@@ -144,25 +144,30 @@
           <div class="modal-body">
             <div class="mb-3">
               <label for="nomor_rekening" class="form-label">Nomor Rekening</label>
-              <input type="number" class="form-control" name="nomor_rekening" id="nomor_rekening" placeholder="Masukkan nomor rekening Anda" />
+              <input type="number" class="form-control" name="nomor_rekening" id="nomor_rekening"
+                placeholder="Masukkan nomor rekening Anda" />
             </div>
             <div class="mb-3">
               <label for="nama_pemilik_rekening" class="form-label">Nama Pemilik Rekening</label>
-              <input class="form-control" name="nama_pemilik_rekening" id="nama_pemilik_rekening" placeholder="Masukkan nama pemilik rekening" />
+              <input class="form-control" name="nama_pemilik_rekening" id="nama_pemilik_rekening"
+                placeholder="Masukkan nama pemilik rekening" />
             </div>
             <div class="mb-3">
               <label for="bank" class="form-label">Bank</label>
               <br>
               <select name="bank" id="bank">
                 <option selected disabled hidden>Pilih nama bank</option>
-                <% banks.forEach(bank => { %>
-                  <option value="<%= bank.nama_bank %>"><%= bank.nama_bank %></option>
-                <% }) %>
+                <% banks.forEach(bank=> { %>
+                  <option value="<%= bank.nama_bank %>">
+                    <%= bank.nama_bank %>
+                  </option>
+                  <% }) %>
               </select>
             </div>
             <div class="mb-3">
               <label for="jumlah_koin" class="form-label">Jumlah penarikan ed.coin</label>
-              <input type="number" class="form-control" name="jumlah_koin" id="jumlah_koin" placeholder="Minimal 10 ed.coin"  min="10" max="<%= currentUser.saldo %>" />
+              <input type="number" class="form-control" name="jumlah_koin" id="jumlah_koin"
+                placeholder="Minimal 10 ed.coin" min="10" max="<%= currentUser.saldo %>" />
             </div>
             <div class="mb-3">
               <p>
