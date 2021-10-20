@@ -527,6 +527,7 @@ app.post(
       req.body;
 
     let hashedPassword = await bcrypt.hash(password, 10);
+    // res.send(req.body);
 
     const emailSelect = await pool.query(
       `SELECT * FROM student

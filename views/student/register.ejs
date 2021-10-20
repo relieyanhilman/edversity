@@ -9,6 +9,11 @@
     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
   <link rel="stylesheet" href="css/student/register-pelajar.css" />
   <link rel="shortcut icon" href="IMG/logo.png" />
+  <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+   />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 </head>
 
 <body>
@@ -48,27 +53,29 @@
                       <label for="inputLabel" class="form-label">Nama Lengkap</label>
 
                       <input autocomplete="off" name="nama_lengkap" type="text" class="form-control"
-                        placeholder="Masukkan Nama Lengkap..." />
+                        placeholder="Masukkan Nama Lengkap..." required/>
                     </div>
                     <div class="mb-3">
                       <label for="inputLabel" class="form-label">Username</label>
 
                       <input name="username" type="text" class="form-control" id="username"
-                        placeholder="Masukkan Username..." />
+                        placeholder="Masukkan Username..." required autocomplete="off"/>
                     </div>
                     <div class="mb-3">
                       <label for="inputLabel" class="form-label">Alamat Email</label>
 
                       <input autocomplete="off" type="email" class="inputEmail form-control"
-                        aria-describedby="emailHelp" placeholder="Masukkan email yang valid.." name="email" />
+                        aria-describedby="emailHelp" placeholder="Masukkan email yang valid.." name="email" required/>
                         
                       <div id="emailHelp" class="form-text">
                         Kami tidak pernah menyebarkan informasi pribadi Anda.
                       </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 col-md-12">
                       <label for="inputLabel" class="form-label">Nomor Handphone</label>
-                      <input type="text" class="form-control" placeholder="Masukkan nomor handphone" name="no_handphone" />
+                      <input type="tel" class="form-control col-md-8" placeholder="Masukkan nomor handphone" name="no_handphone" id="no_handphone" required/>
+                      <button type="button" class="btn btn-primary" onclick="cek()">Cek</button>
+                      <div class="alert alert-success mt-3" style="display: none;" id="cekNoHP"></div>
                     </div>
                     <div class="mb-3">
                       <label for="inputLabel" class="inputPassword form-label">Asal Sekolah/Universitas</label>
@@ -180,6 +187,27 @@
 			e.preventDefault();
 		}
 	});
+  
+  const phoneInputField = document.querySelector("#no_handphone");
+  const phoneInput = window.intlTelInput(phoneInputField, {
+    preferredCountries: ["id"],
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  });
+
+  const info = document.querySelector("#cekNoHP");
+
+  function cek() {
+    const phoneNumber = phoneInput.getNumber();
+    info.style.display = "";
+    info.innerHTML = `Nomor telepon: <strong>${phoneNumber}</strong>`;
+  }
+
+  $("form").submit(function(){
+    const phoneNumber = phoneInput.getNumber();
+    var $input = $(this).find("input[name=no_handphone]");
+    $input.val(phoneNumber);
+  });
+
   </script>
 </body>
 
