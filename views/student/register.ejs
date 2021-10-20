@@ -90,7 +90,7 @@
                     </div>
                     <div class="mb-3">
                       <label for="inputLabel" class="inputPassword form-label">Angkatan</label>
-                      <input type="number" min="1960" max="<%= new Date().getFullYear();%>" step="1" autocomplete="off" name="angkatan" class="form-control" placeholder="<%= new Date().getFullYear();%>"/>
+                      <input type="number" min="1960" max="<%= new Date().getFullYear();%>" step="1" autocomplete="off" name="angkatan" class="form-control" placeholder="<%= new Date().getFullYear();%>" required/>
                     </div>
                     <div class="dropdown mb-3">
                       <div class="row">
@@ -122,8 +122,8 @@
                         </a>
                       </li>
                     </ul> -->
-                          <select class="form-select" aria-label="Default select example" name="jenjang" required>
-                            <option selected disabled hidden>Pilih salah satu</option>
+                          <select class="form-select" aria-label="Default select example" name="jenjang" required id="jenjang">
+                            <option label="Pilih salah satu" hidden></option>
                             <option value="SMA/SMK">SMA/SMK</option>
                             <option value="Mahasiswa">Mahasiswa</option>
                           </select>
@@ -133,7 +133,7 @@
                     <div class="mb-3">
                       <label for="inputLabel" class="inputPassword form-label">Kata Sandi</label>
                       <input autocomplete="off" type="password" class="form-control" id="password"
-                        placeholder="Password Minimal 8 karakter" name="password" minlength="8" maxlength="50"  required/>
+                        placeholder="Password Minimal 8 karakter" name="password" minlength="8" maxlength="50" required/>
                     </div>
                     <div class="mb-3">
                       <label for="inputLabel" class="inputPassword form-label">Konfirmasi Kata Sandi</label>
