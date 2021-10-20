@@ -77,32 +77,36 @@
   <!-- Navbar ; -->
 
   <!-- request kelas -->
-  <div class="container-fluid headContainer mt-5 mb-5 container rounded bg-light">
-    <div class="mt-5">
-      <center>
-        <img class="img-fluid" src="/IMG/logo-03.svg" alt="" />
-      </center>
-      <div class="requestContainer mb-5">
-        <a href="/request-kelas" class="req-btn primary-outline btn fw-bold primary-color" id="requestBtn"
-          style="font-size: 2rem;">Buka Kelas</a>
+  <div class="container">
+    <div class="headContainer mt-5 mb-5  rounded bg-light">
+      <div class="mt-5">
+        <center>
+          <img class="img-fluid" src="/IMG/logo-03.svg" alt="" />
+        </center>
+        <div class="requestContainer mb-5">
+          <a href="/request-kelas" class="req-btn primary-outline btn fw-bold primary-color" id="requestBtn"
+            style="font-size: 1.5rem;">Buka Kelas</a>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="container">
     <div class="row tab-container">
-      <div class="col list-prodi ms-2 rounded mb-5">
+      <div class="col list-prodi rounded mb-5">
         <h5 class="text-dark mt-3 mb-3 ms-2">Program Studi (<%= jumlahProdi %>)</h5>
         <!-- Nav tabs -->
         <ul class="nav flex-column nav-tabs">
           <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#semua">Semua</a>
           </li>
-          <% prodi.forEach((namaProdi, index) => { %>
+          <% prodi.forEach((namaProdi, index)=> { %>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#prodi<%= index %>"><%= namaProdi.program_studi %></a>
+              <a class="nav-link" data-toggle="tab" href="#prodi<%= index %>">
+                <%= namaProdi.program_studi %>
+              </a>
             </li>
-          <% }) %>
+            <% }) %>
         </ul>
       </div>
       <div class="col-md-9 col-12">
@@ -151,10 +155,12 @@
                           <div class="row">
                             <div class="col-3">
                               <% if (courses[j].foto_profil_mentor) { %>
-                                <img class="foto-profil" src="/<%= courses[j].foto_profil_mentor %> " alt="foto-profil" width="90px" height="90px"/>
-                              <% } else { %>
-                                  <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil" width="90px"/>
-                              <% } %>
+                                <img class="foto-profil" src="/<%= courses[j].foto_profil_mentor %> " alt="foto-profil"
+                                  width="90px" height="90px" />
+                                <% } else { %>
+                                  <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil"
+                                    width="90px" />
+                                  <% } %>
                             </div>
                             <div class="col pt-2" style="text-align: start; line-height: 0.6">
                               <h6 class="mb-0">
@@ -165,13 +171,13 @@
                               </button>
                               <% if (courses[j].tipe_kelas=='private' ) { %>
                                 <i class="fa fa-lock fs-6"></i>
-                              <% } %>
-                              <p style="font-size: 14px;">
-                                <%= courses[j].nama_mentor %>
-                              </p>
-                              <p class="text-secondary" style="font-size: 14px">
-                                <%= courses[j].tanggal_kelas %> • <%= courses[j].waktu_kelas %> WIB
-                              </p>
+                                <% } %>
+                                  <p style="font-size: 14px;">
+                                    <%= courses[j].nama_mentor %>
+                                  </p>
+                                  <p class="text-secondary" style="font-size: 12px">
+                                    <%= courses[j].tanggal_kelas %> • <%= courses[j].waktu_kelas %> WIB
+                                  </p>
                             </div>
                           </div>
                         </a>
@@ -182,14 +188,14 @@
                           </div>
                         </div>
                       </div>
-                    <% } %>
-                  <% } %>
+                      <% } %>
+                        <% } %>
                 </div>
-              <% } %>
+                <% } %>
             </div>
           </div>
 
-          <% prodi.forEach((namaProdi, index) => { %>
+          <% prodi.forEach((namaProdi, index)=> { %>
             <div id="prodi<%= index %>" class="container tab-pane">
               <div class="listKelasContainer">
                 <h3 class="text-light mb-4 mt-2">Kelas yang telah diajukan</h3>
@@ -218,12 +224,12 @@
                     </div>
                   </div>
                 </div> -->
-  
+
                 <!-- LIST KELAS -->
                 <% for( let i=0; i < courses.length; i+=2 ) { %>
                   <div class="row">
                     <% for( let j=i; j < i+2 && j < courses.length; j++ ) { %>
-                      <% if (courses[j] && courses[j].program_studi == namaProdi.program_studi) { %>
+                      <% if (courses[j] && courses[j].program_studi==namaProdi.program_studi) { %>
                         <div class="col-md-6 col-12">
                           <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse"
                             href="#collapse<%= courses[j].course_id %>" role="button" aria-expanded="false"
@@ -231,10 +237,12 @@
                             <div class="row">
                               <div class="col-3">
                                 <% if (courses[j].foto_profil_mentor) { %>
-                                  <img class="foto-profil" src="/<%= courses[j].foto_profil_mentor %> " alt="foto-profil" width="90px" height="90px"/>
-                                <% } else { %>
-                                    <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil" width="90px"/>
-                                <% } %>
+                                  <img class="foto-profil" src="/<%= courses[j].foto_profil_mentor %> "
+                                    alt="foto-profil" width="90px" height="90px" />
+                                  <% } else { %>
+                                    <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil"
+                                      width="90px" />
+                                    <% } %>
                               </div>
                               <div class="col pt-2" style="text-align: start; line-height: 0.6">
                                 <button onclick="href(<%= courses[j].course_id %>)" class="btn-link fs-6">
@@ -242,35 +250,35 @@
                                 </button>
                                 <% if (courses[j].tipe_kelas=='private' ) { %>
                                   <i class="fa fa-lock fs-6"></i>
-                                <% } %>
-                                <p style="font-size: 14px;">
-                                  <%= courses[j].nama_mentor %>
-                                </p>
-                                <p class="text-secondary" style="font-size: 14px">
-                                  <%= courses[j].tanggal_kelas %> • <%= courses[j].waktu_kelas %> WIB
-                                </p>
+                                  <% } %>
+                                    <p style="font-size: 14px;">
+                                      <%= courses[j].nama_mentor %>
+                                    </p>
+                                    <p class="text-secondary" style="font-size: 12px">
+                                      <%= courses[j].tanggal_kelas %> • <%= courses[j].waktu_kelas %> WIB
+                                    </p>
                               </div>
                             </div>
                           </a>
                           <div class="collapse" id="collapse<%= courses[j].course_id %>">
                             <div class="card card-body mb-3">
                               <%= courses[j].deskripsi_materi %>
-                              <a class="btn btn-dark mt-2" href="/kelas/<%= courses[j].course_id %>">Cek Kelas</a>
+                                <a class="btn btn-dark mt-2" href="/kelas/<%= courses[j].course_id %>">Cek Kelas</a>
                             </div>
                           </div>
                         </div>
-                      <% } %>
-                    <% } %>
+                        <% } %>
+                          <% } %>
                   </div>
-                <% } %>
+                  <% } %>
               </div>
             </div>
-          <% }) %>
-          
+            <% }) %>
+
         </div>
       </div>
     </div>
-    <div class="container berita-terbaru mb-5">
+    <!-- <div class="container berita-terbaru mb-5">
       <div class="row mt-3">
         <h3 class="text-light">Berita Terbaru</h3>
         <div class="col-md-4 col-12">
@@ -307,7 +315,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   <script>
     function href(id) {
