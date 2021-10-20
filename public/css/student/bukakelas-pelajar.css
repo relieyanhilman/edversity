@@ -108,6 +108,12 @@ body {
   .berita-terbaru .col-md-4 {
     padding-bottom: 20px;
   }
+  .list-prodi a , h5{
+    text-align: center;
+  }
+  .headContainer , .tab-container {
+    margin: 20px !important;
+  }
 }
 
 .form-control:focus {

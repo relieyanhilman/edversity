@@ -31,6 +31,7 @@ button:focus {
     padding: 0 !important;
   }
   .login-form-container {
+    margin: 0 !important;
     padding: 6% 6% !important;
   }
 }
