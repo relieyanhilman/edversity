@@ -112,7 +112,7 @@
       <div class="col-md-9 col-12">
         <!-- Tab Content -->
         <!-- Edit Profil -->
-        <form action='/dashboard-student/profile/<%=profileData.student_id%>?_method=PUT' method="POST"
+        <form action='/dashboard-student/profile?_method=PUT' method="POST"
           enctype="multipart/form-data">
           <% if (success && success.length) { %>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -137,7 +137,7 @@
                                 <h5>Nama Lengkap</h5>
                                 <div class="input-group flex-nowrap">
                                   <input value="<%= profileData.nama_lengkap%>" type="text" class="form-control"
-                                    name="nama_lengkap" />
+                                    name="nama_lengkap" pattern="[a-zA-Z]+"/>
                                 </div>
                               </div>
                             </div>
@@ -145,7 +145,7 @@
                               <div class="col mb-2">
                                 <h5>Username</h5>
                                 <div class="input-group flex-nowrap">
-                                  <input value="<%=profileData.username  %>" type="text" class="form-control"
+                                  <input value="<%=profileData.username %>" type="text" class="form-control" id="username"
                                     name="username" />
                                 </div>
                               </div>
@@ -155,7 +155,7 @@
                                 <h5>Nomor Handphone</h5>
                                 <div class="input-group flex-nowrap">
                                   <input value="<%=profileData.no_handphone%>" class="form-control"
-                                    name="no_handphone" />
+                                    name="no_handphone" type="number" />
                                 </div>
                               </div>
                             </div>
@@ -406,6 +406,21 @@
     $(function () {
       $('input#search').val('');
     });
+
+    $("#username").keydown(function (e){
+		var k = e.keyCode || e.which;
+		var ok = k >= 65 && k <= 90 || // A-Z
+			k >= 96 && k <= 105 || // a-z
+			k >= 35 && k <= 40 || // arrows
+			k == 9 || //tab
+			k == 46 || //del
+			k == 8 || // backspaces
+			(!e.shiftKey && k >= 48 && k <= 57); // only 0-9 (ignore SHIFT options)
+
+		if(!ok || (e.ctrlKey && e.altKey)){
+			e.preventDefault();
+		}
+	});
 
     foto_profil.onchange = evt => {
       const [file] = foto_profil.files

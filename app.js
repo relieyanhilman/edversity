@@ -207,21 +207,34 @@ app.get(
 
 //student mengubah profile
 app.put(
-  "/dashboard-student/profile/:id",
+  "/dashboard-student/profile",
   upload.single("foto_profil"),
   isLoggedInStudent,
   catchAsync(async (req, res) => {
     try {
-      // res.send(req.body);
       const id = req.user.student_id;
       const { nama_lengkap, username, no_handphone, email } = req.body;
-  
-      const updatedProfile = await pool.query(
-        `UPDATE student SET nama_lengkap=$1, username=$2, no_handphone=$3, email=$4, foto_profil=$5 WHERE student_id=$6`,
-        [nama_lengkap, username, no_handphone, email, req.file.path, id]
+
+      const usernamesRaw = await pool.query(
+        `SELECT username FROM student WHERE username = $1`, [username]
       );
 
-      
+      if(usernamesRaw.rowCount && req.user.username != username){
+        req.flash('error', 'Username sudah digunakan!');
+        return res.redirect(`/dashboard-student/profile`);
+      } else {
+        if(req.file){
+          var updatedProfile = await pool.query(
+            `UPDATE student SET nama_lengkap=$1, username=$2, no_handphone=$3, email=$4, foto_profil=$5 WHERE student_id=$6`,
+            [nama_lengkap, username, no_handphone, email, req.file.path, id]
+          );
+        } else {
+          var updatedProfile = await pool.query(
+            `UPDATE student SET nama_lengkap=$1, username=$2, no_handphone=$3, email=$4 WHERE student_id=$5`,
+            [nama_lengkap, username, no_handphone, email, id]
+          );
+        }
+      }
     } catch (error) {
       console.log(error)
     }
@@ -510,30 +523,42 @@ app.post(
   "/register-student",
   isNotLoggedInStudent,
   catchAsync(async (req, res) => {
-    const { nama_lengkap, email, password, asal_sekolah, angkatan, jenjang } =
+    const { nama_lengkap, email, username, no_handphone, password, asal_sekolah, angkatan, jenjang } =
       req.body;
 
     let hashedPassword = await bcrypt.hash(password, 10);
 
-    const rowsSelect = await pool.query(
+    const emailSelect = await pool.query(
       `SELECT * FROM student
       WHERE email = $1`,
       [email]
     );
 
-    if (rowsSelect.rows.length > 0) {
+    if (emailSelect.rows.length > 0) {
       req.flash("error", "E-mail sudah digunakan!");
       res.redirect("/register-student");
     } else {
-      const rowsInsert = await pool.query(
-        `INSERT INTO student(nama_lengkap, email, password, asal_sekolah, angkatan, jenjang, saldo)
-        VALUES($1, $2, $3, $4, $5, $6, $7)
-        RETURNING email, password`,
-        [nama_lengkap, email, hashedPassword, asal_sekolah, angkatan, jenjang, 0]
+
+      const unameSelect = await pool.query(
+        `SELECT * FROM student
+        WHERE username = $1`,
+        [username]
       );
-      // console.log(rowsInsert.rows[0]);
-      req.flash("success", "Anda sudah terdaftar, silakan login");
-      res.redirect("/login-student");
+
+      if (unameSelect.rows.length > 0) {
+        req.flash("error", "Username sudah digunakan!");
+        res.redirect("/register-student");
+      } else {
+        const rowsInsert = await pool.query(
+          `INSERT INTO student(nama_lengkap, email, password, asal_sekolah, angkatan, jenjang, saldo, username, no_handphone)
+          VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+          RETURNING email, password`,
+          [nama_lengkap, email, hashedPassword, asal_sekolah, angkatan, jenjang, 0, username, no_handphone]
+        );
+        // console.log(rowsInsert.rows[0]);
+        req.flash("success", "Anda sudah terdaftar, silakan login");
+        res.redirect("/login-student");
+      }
     }
   })
 );
