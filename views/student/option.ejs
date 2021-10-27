@@ -422,11 +422,17 @@
       }
     });
 
-    document.getElementById('foto_profil').onchange = e => {
-      const file = e.target.files[0];
-      const url = URL.createObjectURL(file); 
-      document.getElementById('previewImg').src = url;
-    }
+    $('#foto_profil').change(function(e){ 
+      if (e.target.files && e.target.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+          $('#previewImg').attr('src', e.target.result);
+        }
+        
+        reader.readAsDataURL(e.target.files[0]); // convert to base64 string
+      }
+    });
   </script>
 
 </body>

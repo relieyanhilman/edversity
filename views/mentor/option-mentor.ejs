@@ -172,7 +172,7 @@
                           <img src="/<%= currentUser.foto_profil %>" alt=""
                             style="height: 100px; width: 100px;" class="mx-auto d-block p-0">
                         <% } %>
-                          <img id="fotoprofilimg" src="" class="w-100 mt-3" />
+                          <img id="previewImg" src="" class="w-100 mt-3" />
                           <label class="btn primary-outline btn-file mt-3">
                             Unggah Gambar
                             <input type="file" style="display: none;" name="foto_profil" id="foto_profil" />
@@ -449,12 +449,17 @@
   <script src="/javascript/navbar-mentor.js"></script>
   <script src="/javascript/notif-mentor.js"></script>
   <script>
-    foto_profil.onchange = evt => {
-      const [file] = foto_profil.files
-      if (file) {
-        fotoprofilimg.src = URL.createObjectURL(file)
+    $('#foto_profil').change(function(e){ 
+      if (e.target.files && e.target.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+          $('#previewImg').attr('src', e.target.result);
+        }
+        
+        reader.readAsDataURL(e.target.files[0]); // convert to base64 string
       }
-    }
+    });
   </script>
 </body>
 
