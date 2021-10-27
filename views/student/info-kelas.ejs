@@ -166,7 +166,7 @@
               </div>
             </div>
             <% } %>
-            <% if (currentKelas.tipe_kelas=='private') { %>
+            <% if (currentUserRegistered == null && currentKelas.tipe_kelas=='private') { %>
               <div class="row mt-2">
                 <p class="text-secondary" style="text-align: start; margin-bottom: 0;">
                   *) Cat: Kelas ini merupakan kelas private, maka untuk dapat bergabung ke dalam kelas ini memerlukan
