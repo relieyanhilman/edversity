@@ -200,7 +200,7 @@ app.get(
       kelas.nama_mentor = mentor.rows[0].nama_lengkap;
     }
 
-    
+    res.setHeader("Content-Security-Policy", "default-src * data: blob: 'unsafe-eval' 'unsafe-inline'");
     res.render("student/option", { profileData: req.user, kelasAktif, kelasSelesai});
   })
 );
