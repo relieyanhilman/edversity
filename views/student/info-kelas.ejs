@@ -147,6 +147,7 @@
                 </div>
               </div>
             <% } %>
+            <% if (currentKelasMentor) { %>
             <div class="row mb-3">
               <div class="col-md-4">
                 <% if (currentKelasMentor.foto_profil) { %>
@@ -162,6 +163,7 @@
                 </p>
               </div>
             </div>
+            <% } %>
             <% if (currentKelas.tipe_kelas=='private') { %>
               <div class="row mt-2">
                 <p class="text-secondary" style="text-align: start; margin-bottom: 0;">
