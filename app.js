@@ -199,7 +199,7 @@ app.get(
       var mentor = await pool.query(`SELECT nama_lengkap FROM mentor WHERE mentor_id = $1`, [kelas.mentor_id]);
       kelas.nama_mentor = mentor.rows[0].nama_lengkap;
     }
-    
+
     res.render("student/option", { profileData: req.user, kelasAktif, kelasSelesai});
   })
 );
@@ -778,76 +778,86 @@ app.post(
       }
     }catch(err) {
       console.log(err);
+      res.status(500).render('500');
     }
 }));
 
 app.get("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
   const { id } = req.params;
-
-  const currentKelasRaw = await pool.query(
-    `SELECT * FROM course WHERE course_id = $1`, [id]
-  )
-  currentKelas = currentKelasRaw.rows[0];
-  
-  currentKelas.tanggal_kelas = currentKelas.tanggal_kelas.toLocaleString('id-ID', {
-    year: 'numeric', month: 'long', day: 'numeric'
-  });
-
-  var time = currentKelas.waktu_kelas;
-  
-  currentKelas.waktu_kelas = time[0]+''+time[1]+':'+time[3]+''+time[4];
-
-  const currentUserRegisteredRaw = await pool.query(
-    `SELECT * FROM student_course WHERE course_id = $1 AND student_id = $2`,
-    [id, req.user.student_id]
-  )
-  const currentUserRegistered = currentUserRegisteredRaw.rows[0];
-  
-  var currentKelasMasterRaw = null;
-  if(currentKelas.student_id != null){
-    console.log(currentKelas.student_id);
-    currentKelasMasterRaw = await pool.query(
-      `SELECT * FROM student WHERE student_id = $1`,
-      [currentKelas.student_id]
+    const currentKelasRaw = await pool.query(
+      `SELECT * FROM course WHERE course_id = $1`, [id]
     )
-  }
-  console.log('OK1');
 
-  var currentKelasMaster = null;
-  if(currentKelasMasterRaw != null) currentKelasMaster = currentKelasMasterRaw.rows[0];
+    if(currentKelasRaw.rowCount == 0){
+      res.status(404).render("404");
+    } else {
+      try {
+        var currentKelas = currentKelasRaw.rows[0];
+    
+        currentKelas.tanggal_kelas = currentKelas.tanggal_kelas.toLocaleString('id-ID', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
 
-  var currentKelasMentorRaw = null;
-  if(currentKelas.mentor_id){
-    currentKelasMentorRaw = await pool.query(
-      `SELECT * FROM mentor WHERE mentor_id = $1`,
-      [currentKelas.mentor_id]
-    )
-  }
-  
-  const currentKelasMentor = (currentKelas.mentor_id == null ? null : currentKelasMentorRaw.rows[0]);
+        var time = currentKelas.waktu_kelas;
+        
+        currentKelas.waktu_kelas = time[0]+''+time[1]+':'+time[3]+''+time[4];
 
-  var harga = 0;
-  
-  if(currentKelas.paket === 'sarjana'){
-    harga = 10;
-  }
-  if(currentKelas.paket === 'cumlaude'){
-    harga = 15;
-  }
-  if(currentKelas.paket === 'mawapres'){
-    harga = 20;
-  }
+        const currentUserRegisteredRaw = await pool.query(
+          `SELECT * FROM student_course WHERE course_id = $1 AND student_id = $2`,
+          [id, req.user.student_id]
+        )
+        const currentUserRegistered = currentUserRegisteredRaw.rows[0];
+        
+        var currentKelasMasterRaw = null;
+        if(currentKelas.student_id != null){
+          console.log(currentKelas.student_id);
+          currentKelasMasterRaw = await pool.query(
+            `SELECT * FROM student WHERE student_id = $1`,
+            [currentKelas.student_id]
+          )
+        }
 
-  var isPrivateAndRegistered = false;
-  if(currentKelas.tipe_kelas == 'private'){
-    const currentUserRegisteredPrivateRaw = await pool.query(
-      `SELECT * FROM private_approval WHERE course_id = $1 AND student_id = $2`,
-      [id, req.user.student_id]
-    )
-    if(currentUserRegisteredPrivateRaw.rowCount) isPrivateAndRegistered = true;
-  }
+        var currentKelasMaster = null;
+        if(currentKelasMasterRaw != null) currentKelasMaster = currentKelasMasterRaw.rows[0];
 
-  res.render("student/info-kelas", { currentUser: req.user, currentKelas, currentUserRegistered, harga, currentKelasMaster, currentKelasMentor, isPrivateAndRegistered });
+        var currentKelasMentorRaw = null;
+        if(currentKelas.mentor_id){
+          currentKelasMentorRaw = await pool.query(
+            `SELECT * FROM mentor WHERE mentor_id = $1`,
+            [currentKelas.mentor_id]
+          )
+        }
+        
+        const currentKelasMentor = (currentKelas.mentor_id == null ? null : currentKelasMentorRaw.rows[0]);
+
+        var harga = 0;
+        
+        if(currentKelas.paket === 'sarjana'){
+          harga = 10;
+        }
+        if(currentKelas.paket === 'cumlaude'){
+          harga = 15;
+        }
+        if(currentKelas.paket === 'mawapres'){
+          harga = 20;
+        }
+
+        var isPrivateAndRegistered = false;
+        if(currentKelas.tipe_kelas == 'private'){
+          const currentUserRegisteredPrivateRaw = await pool.query(
+            `SELECT * FROM private_approval WHERE course_id = $1 AND student_id = $2`,
+            [id, req.user.student_id]
+          )
+          if(currentUserRegisteredPrivateRaw.rowCount) isPrivateAndRegistered = true;
+        }
+
+        res.set("Content-Disposition", "inline");
+        res.render("student/info-kelas", { currentUser: req.user, currentKelas, currentUserRegistered, harga, currentKelasMaster, currentKelasMentor, isPrivateAndRegistered });
+      } catch (err) {
+        console.log(err);
+        res.status(500).render('500');
+      }
+    }
 }));
 
 app.post("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
@@ -1361,6 +1371,7 @@ app.get("/", (req, res) => {
 });
 
 app.all("*", (req, res, next) => {
+  res.render('404');
   next(new ExpressError("Page tidak ditemukan", 404));
 });
 
