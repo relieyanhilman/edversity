@@ -612,8 +612,7 @@ app.get(
   catchAsync(async (req, res) => {
 
     const coursesRaw = await pool.query(
-      `SELECT * FROM course WHERE status = $1 AND bukti_selesai IS NULL AND tanggal_kelas >= CURRENT_DATE`,
-      ['open']
+      `SELECT * FROM course WHERE bukti_selesai IS NULL AND tanggal_kelas >= CURRENT_DATE`
     )
 
     var courses = coursesRaw.rows;
@@ -630,8 +629,7 @@ app.get(
     }
 
     const prodiRaw = await pool.query(
-      `SELECT DISTINCT program_studi FROM course WHERE status = $1 AND bukti_selesai IS NULL AND tanggal_kelas >= CURRENT_DATE`,
-      ['open']
+      `SELECT DISTINCT program_studi FROM course WHERE bukti_selesai IS NULL AND tanggal_kelas >= CURRENT_DATE`
     )
     var prodi = prodiRaw.rows;
     var jumlahProdi = prodiRaw.rowCount;
