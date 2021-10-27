@@ -138,15 +138,8 @@
       <div class="row px-5 py-2">
 
         <div class="col-md-8 mb-5 py-2">
-          <!-- File Deskripsi Materi -->
-          <img class="img-fluid w-100" src="/<%= currentKelas.file_materi %>" alt="File Materi">
-          <!-- File Deskrpsip materi -> di lain tab -->
-          <form action="/dashboard-mentor/detail-kelas/<%=currentKelas.course_id%>/<%=currentKelas.file_materi%>" method="get">
-            <button type="submit" class="btn mt-3 text-light bg-primary-color w-100" style="margin-top: 3px;">
-              <i class="fa fa-file"></i> 
-              Lihat atau Download File
-            </button>
-          </form>
+          <iframe src="/<%= currentKelas.file_materi %>" frameborder="0" class="w-100 h-100"></iframe>
+            <a href="/<%= currentKelas.file_materi %>" class="btn mt-3 text-light bg-primary-color w-100" target="_blank"><i class="fa fa-file"></i>&nbsp;Lihat atau Download File</a>
         </div>
 
         <div class="col py-2" style="text-align: center;">

@@ -200,12 +200,12 @@
                         <div class="row">
                           <div class="col-3">
                             <% if (currentUserCourse[index].currentKelasMaster.foto_profil) { %>
-                                <img class="foto-profil" src="/<%= currentUserCourse[index].currentKelasMaster.foto_profil %> " alt="foto-profil"
+                              <img class="foto-profil" src="/<%= currentUserCourse[index].currentKelasMaster.foto_profil %> " alt="foto-profil"
                                   width="90px" height="90px" />
-                              <% } else { %>
-                                <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil"
-                                  width="90px" />
-                              <% } %>
+                            <% } else { %>
+                              <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil"
+                                width="90px" />
+                            <% } %>
                           </div>
                           <div class="col pt-2" style="text-align: start; line-height: 0.6;">
                             <p class="mb-0">
@@ -248,7 +248,13 @@
                         aria-expanded="false" aria-controls="collapse<%=currentUserCourse[index+1].course_id%>">
                         <div class="row">
                           <div class="col-3">
-                            <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                            <% if (currentUserCourse[index+1].currentKelasMaster.foto_profil) { %>
+                              <img class="foto-profil" src="/<%= currentUserCourse[index+1].currentKelasMaster.foto_profil %> " alt="foto-profil"
+                                  width="90px" height="90px" />
+                            <% } else { %>
+                              <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil"
+                                width="90px" />
+                            <% } %>
                           </div>
                           <div class="col pt-2" style="text-align: start; line-height: 0.6;">
                             <p class="mb-0">
