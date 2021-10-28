@@ -278,11 +278,11 @@
                                         </p>
                                         <button
                                           onClick="location.href='/dashboard-mentor/detail-kelas/<%=currentUserCourse[index+1].course_id%>'"
-                                          class="btn-link">
+                                          class="btn-link fw-bold" style="font-size: 16px;">
                                           <%= currentUserCourse[index+1].mata_kuliah %>
                                         </button>
                                         <% if (currentUserCourse[index+1].tipe_kelas=='private' ) { %>
-                                          <i class="fa fa-lock fs-6"></i>
+                                          <i class="fa fa-lock" style="font-size: 12px;"></i>
                                           <% } %>
                                             <p class="text-secondary" style="font-size: 14px;">
                                               <%= currentUserCourse[index+1].tanggal_kelas %> • <%=
