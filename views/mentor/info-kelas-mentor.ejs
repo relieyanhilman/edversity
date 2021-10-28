@@ -114,12 +114,12 @@
                       </button>
                       <% } else if ((currentKelas.mentor_id==currentUser.mentor_id) && currentKelas.status=='pending' &&
                         currentKelas.tipe_kelas=='private' ) { %>
-                        <span class="badge bg-warning text-dark">Anda sudah mengajukan diri sebagai mentor kelas
+                        <span class="badge bg-warning text-dark fs-5">Anda sudah mengajukan diri sebagai mentor kelas
                           ini.<br>
                           Harap tunggu persetujuan siswa.</span>
                         <% } else if ((currentKelas.mentor_id==currentUser.mentor_id) && currentKelas.status=='open' ) {
                           %>
-                          <span class="badge bg-primary text-light fs-4">Anda adalah mentor kelas ini.</span>
+                          <span class="badge bg-primary-color text-light fs-5">Anda adalah mentor kelas ini.</span>
                           <% } %>
                   </div>
                 </div>
