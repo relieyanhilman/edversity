@@ -51,12 +51,24 @@
                         placeholder="Masukkan Nama Lengkap..." />
                     </div>
                     <div class="mb-3">
+                      <label for="inputLabel" class="form-label">Username</label>
+
+                      <input name="username" type="text" class="form-control"
+                        placeholder="Masukkan Username..." />
+                    </div>
+                    <div class="mb-3">
                       <label for="inputLabel" class="form-label">Alamat Email</label>
+
                       <input autocomplete="off" type="email" class="inputEmail form-control"
                         aria-describedby="emailHelp" placeholder="Masukkan email yang valid.." name="email" />
+                        
                       <div id="emailHelp" class="form-text">
                         Kami tidak pernah menyebarkan informasi pribadi Anda.
                       </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="inputLabel" class="form-label">Nomor Handphone</label>
+                      <input type="text" class="form-control" placeholder="Masukkan nomor handphone" name="no_handphone" />
                     </div>
                     <div class="mb-3">
                       <label for="inputLabel" class="inputPassword form-label">Asal Sekolah/Universitas</label>
@@ -142,7 +154,7 @@
                   <center>
                     <p class="text-secondary mt-4">
                       Sudah punya akun?
-                      <a class="register-link" href="/login-pelajar">Masuk Sekarang</a>
+                      <a class="register-link" href="/login-student">Masuk Sekarang</a>
                     </p>
                   </center>
         </div>
