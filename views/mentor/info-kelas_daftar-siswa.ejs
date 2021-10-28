@@ -74,8 +74,8 @@
 
   <div class="container">
     <div class="row">
-      <a href="/dashboard-mentor/detail-kelas/<%=currentKelas.course_id%>"
-        class="text-light"><i class="pe-2 text-light fa fa-chevron-left"></i>Kembali</a>
+      <a href="/dashboard-mentor/detail-kelas/<%=currentKelas.course_id%>" class="text-light"><i
+          class="pe-2 text-light fa fa-chevron-left"></i>Kembali</a>
     </div>
     <div class="inner-container rounded bg-light">
       <div class="row mt-4 px-5 py-3">
@@ -93,10 +93,12 @@
                 <div class="d-flex align-items-center">
                   <div class="col-md-1 col-4">
                     <% if (peserta_kelas[i].foto_profil) { %>
-                      <img class="foto-profil img-fluid" src="/<%= peserta_kelas[i].foto_profil %>" alt="foto-profil"/>
-                    <% } else { %>
-                      <img class="foto-profil img-fluid" src="/IMG/foto-profil-placeholder.png" alt="foto-profil"/>
-                    <% } %>
+                      <img class="foto-profil ms-3 img-fluid" src="/<%= peserta_kelas[i].foto_profil %>"
+                        alt="foto-profil" />
+                      <% } else { %>
+                        <img class="foto-profil ms-3 img-fluid" src="/IMG/foto-profil-placeholder.png"
+                          alt="foto-profil" />
+                        <% } %>
                   </div>
                   <div class="col-md-8 col-7" style="text-align: start;">
                     <h4>
