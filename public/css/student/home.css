@@ -46,6 +46,11 @@ body {
     font-size: 12px;
   }
 
+  .navbar {
+    margin: 0 !important;
+    padding: 8px 2px!important;
+  }
+  
   .container h4 {
     font-size: large;
   }

@@ -155,12 +155,13 @@
                           <div class="row">
                             <div class="col-3">
                               <% if (courses[j].foto_profil_mentor) { %>
-                                <img class="foto-profil" src="/<%= courses[j].foto_profil_mentor %> " alt="foto-profil"
-                                  width="90px" height="90px" />
-                              <% } else { %>
-                                <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil"
-                                  width="90px" />
-                              <% } %>
+
+                                <img class="foto-profil img-fluid" src="/<%= courses[j].foto_profil_mentor %> "
+                                  alt="foto-profil" width="90px" height="90px" />
+                                <% } else { %>
+                                  <img class="foto-profil img-fluid" src="/IMG/foto-profil-placeholder.png"
+                                    alt="foto-profil" width="90px" />
+                                  <% } %>
                             </div>
                             <div class="col pt-2" style="text-align: start; line-height: 0.6">
                               <h6 class="mb-0">
@@ -229,14 +230,14 @@
 
                 <!-- LIST KELAS -->
                 <% for( let i=0; i < courses.length; i+=2 ) { %>
-                  <div class="row">
+                  <div class="row align-items-center">
                     <% for( let j=i; j < i+2 && j < courses.length; j++ ) { %>
                       <% if (courses[j] && courses[j].program_studi==namaProdi.program_studi) { %>
                         <div class="col-md-6 col-12">
                           <a style="width: 100%" class="btn btn-light mb-3" data-bs-toggle="collapse"
                             href="#collapse<%= courses[j].course_id %>" role="button" aria-expanded="false"
                             aria-controls="collapse<%= courses[j].course_id %>">
-                            <div class="row">
+                            <div class="row align-items-center">
                               <div class="col-3">
                                 <% if (courses[j].foto_profil_mentor) { %>
                                   <img class="foto-profil" src="/<%= courses[j].foto_profil_mentor %> "
@@ -246,8 +247,9 @@
                                       width="90px" />
                                     <% } %>
                               </div>
-                              <div class="col pt-2" style="text-align: start; line-height: 0.6">
-                                <button onclick="href(<%= courses[j].course_id %>)" class="btn-link fs-6">
+                              <div class="col" style="text-align: start; line-height: 0.9">
+                                <button onclick="href(<%= courses[j].course_id %>)"
+                                  class="btn-link fs-6 bg-transparent">
                                   <%= courses[j].mata_kuliah %>
                                 </button>
                                 <% if (courses[j].tipe_kelas=='private' ) { %>
