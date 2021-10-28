@@ -132,7 +132,7 @@
                   Bukti Pembayaran <input accept=".png, .jpg, .jpeg" type="file" style="display: none;"
                     name="bukti_transfer" id="bukti_transfer" required /> </label>
                 <p class="fs-6">File harus bertipe .jpg, .jpeg, atau .png, dan berukuran maksimal 3MB</p>
-                <img id="buktitransferimg" src="" class="w-100" />
+                <img id="previewImg" src="" class="w-100" />
               </div>
             </div>
             <div class="row my-3">
@@ -201,12 +201,17 @@
     source.addEventListener('input', inputHandler);
     source.addEventListener('propertychange', inputHandler);
 
-    bukti_transfer.onchange = evt => {
-      const [file] = bukti_transfer.files
-      if (file) {
-        buktitransferimg.src = URL.createObjectURL(file)
+    $('#bukti_transfer').change(function(e){ 
+      if (e.target.files && e.target.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+          $('#previewImg').attr('src', e.target.result);
+        }
+        
+        reader.readAsDataURL(e.target.files[0]); // convert to base64 string
       }
-    }
+    });
   </script>
 </body>
 
