@@ -223,38 +223,55 @@
             </div>
             <div class="tab-content">
               <div id="kelas-aktif" class="bg-light form-section tab-pane active">
-                <% for (let i = 0; i< kelasAktif.length; i++) {%>
-                <div class="row mt-3" style="line-height: 0.5;">
-                  <div class="col-2">
-                    <img src="/IMG/struktur-bangunan.png" alt="">
+                <% for (let i=0; i< kelasAktif.length; i++) {%>
+                  <div class="row mt-3" style="line-height: 0.95;">
+                    <div class="col-2">
+                      <img src="/IMG/struktur-bangunan.png" alt="">
+                    </div>
+                    <div class="col-10">
+                      <a href="/kelas/<%= kelasAktif[i].course_id %>" class="text-dark">
+                        <h4>
+                          <%=kelasAktif[i].mata_kuliah %>
+                        </h4>
+                      </a>
+                      <p>by <strong>
+                          <%=kelasAktif[i].nama_mentor%>
+                        </strong> </p>
+                      <p class="text-secondary" style="font-size: smaller;">
+                        <%=kelasAktif[i].tanggal_kelas %> • <%=kelasAktif[i].waktu_kelas %> WIB
+                      </p>
+                      <% if (kelasAktif[i].link_zoom) { %>
+                        <p style="font-size: 12px;">Link Zoom: <a href="<%=kelasAktif[i].link_zoom %>"
+                            class="text-secondary">
+                            <%=kelasAktif[i].link_zoom %>
+                          </a></p>
+                        <% } %>
+                    </div>
                   </div>
-                  <div class="col-10">
-                    <a href="/kelas/<%= kelasAktif[i].course_id %>" class="text-dark"><h4><%=kelasAktif[i].mata_kuliah %></h4></a>
-                    <p>by <strong><%=kelasAktif[i].nama_mentor%></strong> </p>
-                    <p class="text-secondary" style="font-size: smaller;"><%=kelasAktif[i].tanggal_kelas %> • <%=kelasAktif[i].waktu_kelas %> WIB</p>
-                    <% if (kelasAktif[i].link_zoom) { %>
-                      <p>Link Zoom: <a href="<%=kelasAktif[i].link_zoom %>" class="text-secondary"><%=kelasAktif[i].link_zoom %></a></p>
-                    <% } %>
-                  </div>
-                </div>
-                <hr>
-                <% } %> 
+                  <hr>
+                  <% } %>
               </div>
 
               <div id="kelas-selesai" class="container tab-pane fade">
-                <% for (let i = 0; i< kelasSelesai.length; i++) {%>
-                <div class="row mt-3" style="line-height: 0.5;">
-                  <div class="col-2">
-                    <img src="/IMG/struktur-bangunan.png" alt="">
+                <% for (let i=0; i< kelasSelesai.length; i++) {%>
+                  <div class="row mt-3" style="line-height: 0.95;">
+                    <div class="col-2">
+                      <img src="/IMG/struktur-bangunan.png" alt="">
+                    </div>
+                    <div class="col-10">
+                      <h4>
+                        <%=kelasSelesai[i].mata_kuliah %>
+                      </h4>
+                      <p>by <strong>
+                          <%=kelasSelesai[i].nama_mentor%>
+                        </strong> </p>
+                      <p class="text-secondary" style="font-size: smaller;">
+                        <%=kelasSelesai[i].tanggal_kelas %> • <%=kelasSelesai[i].waktu_kelas %> WIB
+                      </p>
+                    </div>
                   </div>
-                  <div class="col-10">
-                    <h4><%=kelasSelesai[i].mata_kuliah %> </h4>
-                    <p>by <strong><%=kelasSelesai[i].nama_mentor%></strong> </p>
-                    <p class="text-secondary" style="font-size: smaller;"><%=kelasSelesai[i].tanggal_kelas %> • <%=kelasSelesai[i].waktu_kelas %> WIB</p>
-                  </div>
-                </div>
-                <hr>
-                <% } %>
+                  <hr>
+                  <% } %>
 
 
 
