@@ -112,8 +112,7 @@
       <div class="col-md-9 col-12">
         <!-- Tab Content -->
         <!-- Edit Profil -->
-        <form action='/dashboard-student/profile?_method=PUT' method="POST"
-          enctype="multipart/form-data">
+        <form action='/dashboard-student/profile?_method=PUT' method="POST" enctype="multipart/form-data">
           <% if (success && success.length) { %>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
               <%= success %>
@@ -137,7 +136,7 @@
                                 <h5>Nama Lengkap</h5>
                                 <div class="input-group flex-nowrap">
                                   <input value="<%= profileData.nama_lengkap%>" type="text" class="form-control"
-                                    name="nama_lengkap" pattern="[a-zA-Z][a-zA-Z ]+"/>
+                                    name="nama_lengkap" pattern="[a-zA-Z][a-zA-Z ]+" />
                                 </div>
                               </div>
                             </div>
@@ -145,8 +144,8 @@
                               <div class="col mb-2">
                                 <h5>Username</h5>
                                 <div class="input-group flex-nowrap">
-                                  <input value="<%=profileData.username %>" type="text" class="form-control" id="username"
-                                    name="username" />
+                                  <input value="<%=profileData.username %>" type="text" class="form-control"
+                                    id="username" name="username" />
                                 </div>
                               </div>
                             </div>
@@ -154,8 +153,8 @@
                               <div class="col mb-2">
                                 <h5>Nomor Handphone</h5>
                                 <div class="input-group flex-nowrap">
-                                  <input value="<%=profileData.no_handphone%>" class="form-control"
-                                    name="no_handphone" type="number" />
+                                  <input value="<%=profileData.no_handphone%>" class="form-control" name="no_handphone"
+                                    type="number" />
                                 </div>
                               </div>
                             </div>
@@ -176,14 +175,14 @@
                                 <% if (profileData.foto_profil==null) { %>
                                   <i style="font-size: 4rem; text-align: center;"
                                     class="fa fa-user-circle text-secondary mb-3"></i>
-                                <% } else { %>
-                                  <img src="/<%= profileData.foto_profil %>" alt=""
-                                    style="height: 100px; width: 100px;" class="mx-auto d-block p-0">
-                                <% } %>
-                                <img id="previewImg" class="w-100 mt-3" />
-                                <label class="btn primary-outline btn-file mt-3">
-                                  Unggah Gambar <input accept=".png, .jpg, .jpeg" type="file"
-                                    style="display: none;" name="foto_profil" id="foto_profil" /> </label>
+                                  <% } else { %>
+                                    <img src="/<%= profileData.foto_profil %>" alt=""
+                                      style="height: 100px; width: 100px;" class="mx-auto d-block p-0">
+                                    <% } %>
+                                      <img id="previewImg" class="w-100 mt-3" />
+                                      <label class="btn primary-outline btn-file mt-3">
+                                        Unggah Gambar <input accept=".png, .jpg, .jpeg" type="file"
+                                          style="display: none;" name="foto_profil" id="foto_profil" /> </label>
                               </div>
                             </div>
                           </div>
@@ -257,22 +256,30 @@
                   <div class="d-flex justify-content-center">
                     <img class="vector-kelas-kosong mb-5 mt-5" src="/IMG/kelas-notfound.svg" alt="" />
                   </div>
-                <% } else { %>
-                  <% for (let i = 0; i< kelasSelesai.length; i++) {%>
-                  <div class="row mt-3" style="line-height: 0.5;">
-                    <div class="col-2">
-                      <img src="/IMG/struktur-bangunan.png" alt="">
-                    </div>
-                    <div class="col-10">
-                      <a href="/kelas/<%= kelasSelesai[i].course_id %>" class="text-dark"><h4><%=kelasSelesai[i].mata_kuliah %></h4></a>
-                      <p>by <strong><%=kelasSelesai[i].nama_mentor%></strong> </p>
-                      <p class="text-secondary" style="font-size: smaller;"><%=kelasSelesai[i].tanggal_kelas %> • <%=kelasSelesai[i].waktu_kelas %> WIB</p>
-                    </div>
-                  </div>
-                  <hr>
-                  <% } %>
+                  <% } else { %>
+                    <% for (let i=0; i< kelasSelesai.length; i++) {%>
+                      <div class="row mt-3" style="line-height: 0.5;">
+                        <div class="col-2">
+                          <img src="/IMG/struktur-bangunan.png" alt="">
+                        </div>
+                        <div class="col-10">
+                          <a href="/kelas/<%= kelasSelesai[i].course_id %>" class="text-dark">
+                            <h4>
+                              <%=kelasSelesai[i].mata_kuliah %>
+                            </h4>
+                          </a>
+                          <p>by <strong>
+                              <%=kelasSelesai[i].nama_mentor%>
+                            </strong> </p>
+                          <p class="text-secondary" style="font-size: smaller;">
+                            <%=kelasSelesai[i].tanggal_kelas %> • <%=kelasSelesai[i].waktu_kelas %> WIB
+                          </p>
+                        </div>
+                      </div>
+                      <hr>
+                      <% } %>
 
-                <% } %>
+                        <% } %>
 
               </div>
             </div>
@@ -423,29 +430,29 @@
       $('input#search').val('');
     });
 
-    $("#username").keydown(function (e){
-		var k = e.keyCode || e.which;
-		var ok = k >= 65 && k <= 90 || // A-Z
-			k >= 96 && k <= 105 || // a-z
-			k >= 35 && k <= 40 || // arrows
-			k == 9 || //tab
-			k == 46 || //del
-			k == 8 || // backspaces
-			(!e.shiftKey && k >= 48 && k <= 57); // only 0-9 (ignore SHIFT options)
+    $("#username").keydown(function (e) {
+      var k = e.keyCode || e.which;
+      var ok = k >= 65 && k <= 90 || // A-Z
+        k >= 96 && k <= 105 || // a-z
+        k >= 35 && k <= 40 || // arrows
+        k == 9 || //tab
+        k == 46 || //del
+        k == 8 || // backspaces
+        (!e.shiftKey && k >= 48 && k <= 57); // only 0-9 (ignore SHIFT options)
 
-      if(!ok || (e.ctrlKey && e.altKey)){
+      if (!ok || (e.ctrlKey && e.altKey)) {
         e.preventDefault();
       }
     });
 
-    $('#foto_profil').change(function(e){ 
+    $('#foto_profil').change(function (e) {
       if (e.target.files && e.target.files[0]) {
         var reader = new FileReader();
-        
-        reader.onload = function(e) {
+
+        reader.onload = function (e) {
           $('#previewImg').attr('src', e.target.result);
         }
-        
+
         reader.readAsDataURL(e.target.files[0]); // convert to base64 string
       }
     });

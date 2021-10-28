@@ -105,26 +105,31 @@
           <% if (currentUserRegistered && currentKelas.link_zoom) { %>
             <div class="bg-primary-color rounded py-1 my-3">
               <h5 style="text-align: center;" class="mt-1 text-light">
-                Link Zoom: <span><u><a href="<%= currentKelas.link_zoom %>" class="text-light"><%= currentKelas.link_zoom %></a></u></span>
+                Link Zoom: <span><u><a href="<%= currentKelas.link_zoom %>" class="text-light">
+                      <%= currentKelas.link_zoom %>
+                    </a></u></span>
               </h5>
             </div>
-          <% } %>
+            <% } %>
         </div>
         <!-- Gambar yang berkaitan dengan program studi/jurusan -->
         <div class="col-md-4 px-5 py-5">
-          <img class="img-fluid" src="/IMG/struktur-bangunan.jpg" alt="Struktur Bangunan" />
+          <img class="img-fluid" src="/IMG/bg-buka_kelas.png" alt="bg-buka_kelas" />
         </div>
       </div>
       <div class="row px-5 py-3">
         <div class="col-md-8 mb-5 py-2">
           <!-- File Deskripsi Materi -->
-          <% if (currentUserRegistered == null) { %>
+          <% if (currentUserRegistered==null) { %>
             <img class="img-fluid w-100" src="/IMG/blur.png" alt="File Materi">
-            <button data-bs-toggle="modal" data-bs-target="#acces-denied" class="btn mt-3 text-light bg-primary-color w-100"><i class="fa fa-file"></i>Lihat atau Download File</button>
-          <% } else { %> 
-            <iframe src="/<%= currentKelas.file_materi %>" frameborder="0" class="w-100 h-100"></iframe>
-            <a href="/<%= currentKelas.file_materi %>" class="btn mt-3 text-light bg-primary-color w-100" target="_blank"><i class="fa fa-file"></i>&nbsp;Lihat atau Download File</a>
-          <% } %> 
+            <button data-bs-toggle="modal" data-bs-target="#acces-denied"
+              class="btn mt-3 text-light bg-primary-color w-100"><i class="fa fa-file"></i>Lihat atau Download
+              File</button>
+            <% } else { %>
+              <iframe src="/<%= currentKelas.file_materi %>" frameborder="0" class="w-100 h-100"></iframe>
+              <a href="/<%= currentKelas.file_materi %>" class="btn mt-3 text-light bg-primary-color w-100"
+                target="_blank"><i class="fa fa-file"></i>&nbsp;Lihat atau Download File</a>
+              <% } %>
         </div>
         <div class="col mt-2 px-4 py-2" style="text-align: center;">
           <h5>Ikut Kelas</h5>
@@ -136,65 +141,75 @@
               <div class="row mb-3">
                 <div class="col-md-4">
                   <% if (currentKelasMaster.foto_profil) { %>
-                    <img class="foto-profil" src="/<%= currentKelasMaster.foto_profil %> " alt="foto-profil" width="80px" height="80px"/>
-                  <% } else { %>
-                      <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil" width="80px"/>
-                  <% } %>
+                    <img class="foto-profil" src="/<%= currentKelasMaster.foto_profil %> " alt="foto-profil"
+                      width="80px" height="80px" />
+                    <% } else { %>
+                      <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil" width="80px" />
+                      <% } %>
                 </div>
                 <div class="col mt-2">
-                  <h5 class="text-start"><%= currentKelasMaster.nama_lengkap %></h5>
+                  <h5 class="text-start">
+                    <%= currentKelasMaster.nama_lengkap %>
+                  </h5>
                   <p class="text-secondary text-start">
                     Ketua Kelas
                   </p>
                 </div>
               </div>
-            <% } %>
-            <% if (currentKelasMentor) { %>
-            <div class="row mb-3">
-              <div class="col-md-4">
-                <% if (currentKelasMentor.foto_profil) { %>
-                  <img class="foto-profil" src="/<%= currentKelasMentor.foto_profil %> " alt="foto-profil" width="80px" height="80px"/>
-                <% } else { %>
-                    <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil" width="80px"/>
-                <% } %>
-              </div>
-              <div class="col mt-2">
-                <h5 class="text-start"><%= currentKelasMentor.nama_lengkap %></h5>
-                <p class="text-secondary text-start">
-                  Mentor
-                </p>
-              </div>
-            </div>
-            <% } %>
-            <% if (currentUserRegistered == null && currentKelas.tipe_kelas=='private') { %>
-              <div class="row mt-2">
-                <p class="text-secondary" style="text-align: start; margin-bottom: 0;">
-                  *) Cat: Kelas ini merupakan kelas private, maka untuk dapat bergabung ke dalam kelas ini memerlukan
-                  persetujuan dari ketua kelas.
-                </p>
-              </div>
-            <% } %>
-            <div class="row mt-3">
-              <% if((currentKelas.status == 'done' || currentKelas.status == 'open') && currentKelas.bukti_selesai != null ) { %>
-                <button class="btn btn-danger text-light" disabled
-                  style="margin-top: 13px;">Kelas sudah selesai.
-                </button>
-              <% } else if (currentUserRegistered == null && !isPrivateAndRegistered) { %>
-                <button data-bs-toggle="modal" data-bs-target="#ikut-kelas" class="btn bg-primary-color text-light"
-                  style="margin-top: 13px;">
-                  Ikut Kelas
-                  <span> • <%= harga %>&nbsp;<img src="/IMG/ed.coin.svg" class="img-fluid" alt="" style="height: 1em;"/></span>
-                </button>
-              <% } else if(isPrivateAndRegistered) { %>
-                <button class="btn btn-warning text-dark" disabled
-                  style="margin-top: 13px;">Anda sudah mendaftar kelas ini. Mohon tunggu persetujuan ketua kelas.
-                </button>
-              <% } else if(currentUserRegistered) { %>
-                <button class="btn btn-success text-light" disabled
-                  style="margin-top: 13px;">Anda sudah terdaftar di kelas ini.
-                </button>
               <% } %>
-            </div>
+                <% if (currentKelasMentor) { %>
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <% if (currentKelasMentor.foto_profil) { %>
+                        <img class="foto-profil" src="/<%= currentKelasMentor.foto_profil %> " alt="foto-profil"
+                          width="80px" height="80px" />
+                        <% } else { %>
+                          <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil"
+                            width="80px" />
+                          <% } %>
+                    </div>
+                    <div class="col mt-2">
+                      <h5 class="text-start">
+                        <%= currentKelasMentor.nama_lengkap %>
+                      </h5>
+                      <p class="text-secondary text-start">
+                        Mentor
+                      </p>
+                    </div>
+                  </div>
+                  <% } %>
+                    <% if (currentUserRegistered==null && currentKelas.tipe_kelas=='private' ) { %>
+                      <div class="row mt-2">
+                        <p class="text-secondary" style="text-align: start; margin-bottom: 0;">
+                          *) Cat: Kelas ini merupakan kelas private, maka untuk dapat bergabung ke dalam kelas ini
+                          memerlukan
+                          persetujuan dari ketua kelas.
+                        </p>
+                      </div>
+                      <% } %>
+                        <div class="row mt-3">
+                          <% if((currentKelas.status=='done' || currentKelas.status=='open' ) &&
+                            currentKelas.bukti_selesai !=null ) { %>
+                            <button class="btn btn-danger text-light" disabled style="margin-top: 13px;">Kelas sudah
+                              selesai.
+                            </button>
+                            <% } else if (currentUserRegistered==null && !isPrivateAndRegistered) { %>
+                              <button data-bs-toggle="modal" data-bs-target="#ikut-kelas"
+                                class="btn bg-primary-color text-light" style="margin-top: 13px;">
+                                Ikut Kelas
+                                <span> • <%= harga %>&nbsp;<img src="/IMG/ed.coin.svg" class="img-fluid" alt=""
+                                      style="height: 1em;" /></span>
+                              </button>
+                              <% } else if(isPrivateAndRegistered) { %>
+                                <button class="btn btn-warning text-dark" disabled style="margin-top: 13px;">Anda sudah
+                                  mendaftar kelas ini. Mohon tunggu persetujuan ketua kelas.
+                                </button>
+                                <% } else if(currentUserRegistered) { %>
+                                  <button class="btn btn-success text-light" disabled style="margin-top: 13px;">Anda
+                                    sudah terdaftar di kelas ini.
+                                  </button>
+                                  <% } %>
+                        </div>
           </div>
         </div>
       </div>
@@ -225,12 +240,12 @@
           <h5 class="mb-1">Ikut Kelas</h5>
           <div class="bg-primary-color mb-4" style="width: 50%; height: 4px;"></div>
           <h6 class=" fs-5 mb-4">
-            <% if (currentKelas.tipe_kelas=='private') { %>
+            <% if (currentKelas.tipe_kelas=='private' ) { %>
               Kelas yang kamu ajukan adalah kelas private, untuk bisa masuk kamu harus menunggu
               perizinan pembuat kelas.
               <br>
-            <% } %>
-            Yakin untuk mengikuti kelas ini?
+              <% } %>
+                Yakin untuk mengikuti kelas ini?
           </h6>
           <div class="row justify-content-end">
             <div class="d-flex justify-content-end">

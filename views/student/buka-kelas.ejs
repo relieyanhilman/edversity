@@ -163,7 +163,7 @@
                                     alt="foto-profil" width="90px" />
                                   <% } %>
                             </div>
-                            <div class="col pt-2" style="text-align: start; line-height: 0.6">
+                            <div class="col pt-2" style="text-align: start; line-height: 0.95">
                               <h6 class="mb-0">
                                 <%= courses[j].program_studi %>
                               </h6>
@@ -172,15 +172,15 @@
                               </button>
                               <% if (courses[j].tipe_kelas=='private' ) { %>
                                 <i class="fa fa-lock fs-6"></i>
-                              <% } %>
-                              <% if (courses[j].nama_mentor) { %>
-                                <p style="font-size: 14px;">
-                                  <%= courses[j].nama_mentor %>
-                                </p>
-                              <% } %>
-                              <p class="text-secondary" style="font-size: 12px">
-                                <%= courses[j].tanggal_kelas %> • <%= courses[j].waktu_kelas %> WIB
-                              </p>
+                                <% } %>
+                                  <% if (courses[j].nama_mentor) { %>
+                                    <p style="font-size: 14px;">
+                                      <%= courses[j].nama_mentor %>
+                                    </p>
+                                    <% } %>
+                                      <p class="text-secondary" style="font-size: 12px">
+                                        <%= courses[j].tanggal_kelas %> • <%= courses[j].waktu_kelas %> WIB
+                                      </p>
                             </div>
                           </div>
                         </a>
@@ -243,8 +243,8 @@
                                   <img class="foto-profil" src="/<%= courses[j].foto_profil_mentor %> "
                                     alt="foto-profil" width="90px" height="90px" />
                                   <% } else { %>
-                                    <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil"
-                                      width="90px" />
+                                    <img class="foto-profil img-fluid" src="/IMG/foto-profil-placeholder.png"
+                                      alt="foto-profil" width="90px" />
                                     <% } %>
                               </div>
                               <div class="col" style="text-align: start; line-height: 0.9">
@@ -254,13 +254,13 @@
                                 </button>
                                 <% if (courses[j].tipe_kelas=='private' ) { %>
                                   <i class="fa fa-lock fs-6"></i>
-                                <% } %>
-                                <p style="font-size: 14px;">
-                                  <%= courses[j].nama_mentor %>
-                                </p>
-                                <p class="text-secondary" style="font-size: 12px">
-                                  <%= courses[j].tanggal_kelas %> • <%= courses[j].waktu_kelas %> WIB
-                                </p>
+                                  <% } %>
+                                    <p style="font-size: 14px;">
+                                      <%= courses[j].nama_mentor %>
+                                    </p>
+                                    <p class="text-secondary" style="font-size: 12px">
+                                      <%= courses[j].tanggal_kelas %> • <%= courses[j].waktu_kelas %> WIB
+                                    </p>
                               </div>
                             </div>
                           </a>

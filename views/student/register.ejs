@@ -9,10 +9,7 @@
     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
   <link rel="stylesheet" href="css/student/register-pelajar.css" />
   <link rel="shortcut icon" href="IMG/logo.png" />
-  <link
-     rel="stylesheet"
-     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
-   />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 </head>
 
@@ -53,27 +50,28 @@
                       <label for="inputLabel" class="form-label">Nama Lengkap</label>
 
                       <input autocomplete="off" name="nama_lengkap" type="text" class="form-control"
-                        placeholder="Masukkan Nama Lengkap..." required/>
+                        placeholder="Masukkan Nama Lengkap..." required />
                     </div>
                     <div class="mb-3">
                       <label for="inputLabel" class="form-label">Username</label>
 
                       <input name="username" type="text" class="form-control" id="username"
-                        placeholder="Masukkan Username..." required autocomplete="off"/>
+                        placeholder="Masukkan Username..." required autocomplete="off" />
                     </div>
                     <div class="mb-3">
                       <label for="inputLabel" class="form-label">Alamat Email</label>
 
                       <input autocomplete="off" type="email" class="inputEmail form-control"
-                        aria-describedby="emailHelp" placeholder="Masukkan email yang valid.." name="email" required/>
-                        
+                        aria-describedby="emailHelp" placeholder="Masukkan email yang valid.." name="email" required />
+
                       <div id="emailHelp" class="form-text">
                         Kami tidak pernah menyebarkan informasi pribadi Anda.
                       </div>
                     </div>
                     <div class="mb-3 col-md-12">
                       <label for="inputLabel" class="form-label">Nomor Handphone</label>
-                      <input type="tel" class="form-control col-md-8" placeholder="Masukkan nomor handphone" name="no_handphone" id="no_handphone" required/>
+                      <input type="tel" class="form-control col-md-8" placeholder="Masukkan nomor handphone"
+                        name="no_handphone" id="no_handphone" required />
                       <button type="button" class="btn btn-primary" onclick="cek()">Cek</button>
                       <div class="alert alert-success mt-3" style="display: none;" id="cekNoHP"></div>
                     </div>
@@ -81,8 +79,8 @@
                       <label for="inputLabel" class="inputPassword form-label">Asal Sekolah/Universitas</label>
                       <div class="input-group">
                         <input autocomplete="off" type="text" class="form-control"
-                          placeholder="Masukkan asal sekolah/universitas" required
-                          aria-describedby="button-addon2" name="asal_sekolah" />
+                          placeholder="Masukkan asal sekolah/universitas" required aria-describedby="button-addon2"
+                          name="asal_sekolah" />
                         <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2">
                           Cari
                         </button> -->
@@ -90,7 +88,8 @@
                     </div>
                     <div class="mb-3">
                       <label for="inputLabel" class="inputPassword form-label">Angkatan</label>
-                      <input type="number" min="1960" max="<%= new Date().getFullYear();%>" step="1" autocomplete="off" name="angkatan" class="form-control" placeholder="<%= new Date().getFullYear();%>" required/>
+                      <input type="number" min="1960" max="<%= new Date().getFullYear();%>" step="1" autocomplete="off"
+                        name="angkatan" class="form-control" placeholder="<%= new Date().getFullYear();%>" required />
                     </div>
                     <div class="dropdown mb-3">
                       <div class="row">
@@ -122,7 +121,8 @@
                         </a>
                       </li>
                     </ul> -->
-                          <select class="form-select" aria-label="Default select example" name="jenjang" required id="jenjang">
+                          <select class="form-select" aria-label="Default select example" name="jenjang" required
+                            id="jenjang">
                             <option label="Pilih salah satu" hidden></option>
                             <option value="SMA/SMK">SMA/SMK</option>
                             <option value="Mahasiswa">Mahasiswa</option>
@@ -133,13 +133,16 @@
                     <div class="mb-3">
                       <label for="inputLabel" class="inputPassword form-label">Kata Sandi</label>
                       <input autocomplete="off" type="password" class="form-control" id="password"
-                        placeholder="Password Minimal 8 karakter" name="password" minlength="8" maxlength="50" required/>
+                        placeholder="Password Minimal 8 karakter" name="password" minlength="8" maxlength="50"
+                        required />
                     </div>
                     <div class="mb-3">
                       <label for="inputLabel" class="inputPassword form-label">Konfirmasi Kata Sandi</label>
-                      <input autocomplete="off" name="password1" id="confirmPassword" type="password" class="form-control"
-                        placeholder="Password Minimal 8 karakter" minlength="8" maxlength="50" required/>
-                      <p class="text-danger" id="confirmPasswordWarning" style="display: none;">Kata sandi konfirmasi tidak cocok!</p>
+                      <input autocomplete="off" name="password1" id="confirmPassword" type="password"
+                        class="form-control" placeholder="Password Minimal 8 karakter" minlength="8" maxlength="50"
+                        required />
+                      <p class="text-danger" id="confirmPasswordWarning" style="display: none;">Kata sandi konfirmasi
+                        tidak cocok!</p>
                     </div>
                     <!-- <div class="mb-3 form-check">
                       <input type="checkbox" class="form-check-input" id="inputCheck" />
@@ -154,7 +157,8 @@
                         Ketentuan, Kebijakan Data dan Kebijakan Cookie kami.
                       </p>
                     </div> -->
-                    <button type="submit" style="width: 100%; margin-top: 6px" class="btn text-white bg-primary-color" id="formButton">
+                    <button type="submit" style="width: 100%; margin-top: 6px" class="btn text-white bg-primary-color"
+                      id="formButton">
                       Daftar
                     </button>
                   </form>
@@ -173,7 +177,7 @@
     crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
-    $("#username").keydown(function (e){
+    $("#username").keydown(function (e) {
       var k = e.keyCode || e.which;
       var ok = k >= 65 && k <= 90 || // A-Z
         k >= 96 && k <= 105 || // a-z
@@ -183,13 +187,13 @@
         k == 8 || // backspaces
         (!e.shiftKey && k >= 48 && k <= 57); // only 0-9 (ignore SHIFT options)
 
-      if(!ok || (e.ctrlKey && e.altKey)){
+      if (!ok || (e.ctrlKey && e.altKey)) {
         e.preventDefault();
       }
     });
 
-    $("#confirmPassword").keyup(function (e){
-      if($(this).val() !== $("#password").val()){
+    $("#confirmPassword").keyup(function (e) {
+      if ($(this).val() !== $("#password").val()) {
         $('#confirmPasswordWarning').show();
         $("#formButton").prop('disabled', true);
       } else {
@@ -197,26 +201,26 @@
         $("#formButton").prop('disabled', false);
       }
     });
-  
-  const phoneInputField = document.querySelector("#no_handphone");
-  const phoneInput = window.intlTelInput(phoneInputField, {
-    preferredCountries: ["id"],
-    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-  });
 
-  const info = document.querySelector("#cekNoHP");
+    const phoneInputField = document.querySelector("#no_handphone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+      preferredCountries: ["id"],
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
 
-  function cek() {
-    const phoneNumber = phoneInput.getNumber();
-    info.style.display = "";
-    info.innerHTML = `Nomor telepon: <strong>${phoneNumber}</strong>`;
-  }
+    const info = document.querySelector("#cekNoHP");
 
-  $("form").submit(function(){
-    const phoneNumber = phoneInput.getNumber();
-    var $input = $(this).find("input[name=no_handphone]");
-    $input.val(phoneNumber);
-  });
+    function cek() {
+      const phoneNumber = phoneInput.getNumber();
+      info.style.display = "";
+      info.innerHTML = `Nomor telepon: <strong>${phoneNumber}</strong>`;
+    }
+
+    $("form").submit(function () {
+      const phoneNumber = phoneInput.getNumber();
+      var $input = $(this).find("input[name=no_handphone]");
+      $input.val(phoneNumber);
+    });
 
   </script>
 </body>
