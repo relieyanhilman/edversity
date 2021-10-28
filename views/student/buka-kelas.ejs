@@ -167,7 +167,8 @@
                               <h6 class="mb-0">
                                 <%= courses[j].program_studi %>
                               </h6>
-                              <button onclick="href(<%= courses[j].course_id %>)" class="btn-link fs-6">
+                              <button style="text-align: start !important;" onclick="href(<%= courses[j].course_id %>)"
+                                class="btn-link fs-6 bg-transparent">
                                 <%= courses[j].mata_kuliah %>
                               </button>
                               <% if (courses[j].tipe_kelas=='private' ) { %>
