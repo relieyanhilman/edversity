@@ -200,7 +200,6 @@ app.get(
       kelas.nama_mentor = mentor.rows[0].nama_lengkap;
     }
 
-    
     res.render("student/option", { profileData: req.user, kelasAktif, kelasSelesai});
   })
 );
@@ -213,11 +212,13 @@ app.put(
   catchAsync(async (req, res) => {
     try {
       const id = req.user.student_id;
-      const { nama_lengkap, username, no_handphone, email } = req.body;
-
+      var { nama_lengkap, username, no_handphone, email } = req.body;
+      nama_lengkap = nama_lengkap.trim();
+      
       const usernamesRaw = await pool.query(
         `SELECT username FROM student WHERE username = $1`, [username]
       );
+
 
       if(usernamesRaw.rowCount && req.user.username != username){
         req.flash('error', 'Username sudah digunakan!');
@@ -273,10 +274,18 @@ app.post(
 
     if(method == 'gopay' || method == 'ovo' || method == 'transfer'){
       try {
+        var d = new Date();
+        var created_at = d.getFullYear() + "-" +
+        ("00" + (d.getMonth() + 1)).slice(-2) + "-" +
+        ("00" + d.getDate()).slice(-2) + " " +
+        ("00" + d.getHours()).slice(-2) + ":" +
+        ("00" + d.getMinutes()).slice(-2) + ":" +
+        ("00" + d.getSeconds()).slice(-2);
+
         const rowsInsert = await pool.query(
           `INSERT INTO transaction_topup(student_id, metode, jumlah_koin, nominal, is_verified, verified_by, bukti_transfer, created_at)
           VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
-          [req.user.student_id, method, jumlah_koin, jumlah_koin * 1100, 0, null, req.file.path, new Date().toISOString().split('.')[0]+"Z"]
+          [req.user.student_id, method, jumlah_koin, jumlah_koin * 1100, 0, null, req.file.path, created_at]
         );
       } catch (error){
         console.log(error);
@@ -527,6 +536,7 @@ app.post(
       req.body;
 
     let hashedPassword = await bcrypt.hash(password, 10);
+    // res.send(req.body);
 
     const emailSelect = await pool.query(
       `SELECT * FROM student
@@ -609,40 +619,65 @@ app.get(
   "/buka-kelas",
   isLoggedInStudent,
   catchAsync(async (req, res) => {
-
-    const coursesRaw = await pool.query(
-      `SELECT * FROM course WHERE status = $1 AND bukti_selesai IS NULL AND tanggal_kelas >= CURRENT_DATE`,
-      ['open']
-    )
-
-    var courses = coursesRaw.rows;
-  
-    for await (let course of courses) {
-      course.tanggal_kelas = course.tanggal_kelas.toLocaleString('id-ID', {
-        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
-      });
-      course.waktu_kelas = course.waktu_kelas[0]+''+course.waktu_kelas[1]+':'+course.waktu_kelas[3]+''+course.waktu_kelas[4];
-
-      var mentor = await pool.query(`SELECT * FROM mentor WHERE mentor_id = $1`, [course.mentor_id]);
-      course.nama_mentor = mentor.rows[0].nama_lengkap;
-      course.foto_profil_mentor = mentor.rows[0].foto_profil;
-    }
-
-    const prodiRaw = await pool.query(
-      `SELECT DISTINCT program_studi FROM course WHERE status = $1 AND bukti_selesai IS NULL AND tanggal_kelas >= CURRENT_DATE`,
-      ['open']
-    )
-    var prodi = prodiRaw.rows;
-    var jumlahProdi = prodiRaw.rowCount;
-    
     try {
-      res.render("student/buka-kelas", {
-        currentUser: req.user,
-        courses,
-        prodi,
-        jumlahProdi
-      });
+
+      const coursesRaw = await pool.query(
+        `SELECT * FROM course WHERE bukti_selesai IS NULL AND tanggal_kelas >= CURRENT_DATE`
+      )
       
+      console.log(coursesRaw.rowCount)
+      if(coursesRaw.rowCount == 0){
+
+        res.render("student/buka-kelas", {
+          currentUser: req.user,
+          courses: [],
+          prodi: [],
+          jumlahProdi: 0
+        });
+
+      } else {
+
+        var courses = coursesRaw.rows;
+      
+        for await (let course of courses) {
+          course.tanggal_kelas = course.tanggal_kelas.toLocaleString('id-ID', {
+            weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+          });
+          course.waktu_kelas = course.waktu_kelas[0]+''+course.waktu_kelas[1]+':'+course.waktu_kelas[3]+''+course.waktu_kelas[4];
+          
+          if(course.mentor_id){
+            var mentor = await pool.query(`SELECT * FROM mentor WHERE mentor_id = $1`, [course.mentor_id]);
+            course.nama_mentor = mentor.rows[0].nama_lengkap;
+            course.foto_profil_mentor = mentor.rows[0].foto_profil;
+          }
+        }
+    
+        const prodiRaw = await pool.query(
+          `SELECT DISTINCT LOWER(program_studi) AS program_studi FROM course WHERE bukti_selesai IS NULL AND tanggal_kelas >= CURRENT_DATE`
+        )
+        var prodi = prodiRaw.rows;
+        var jumlahProdi = prodiRaw.rowCount;
+
+        function titleCase(str) {
+          str = str.toLowerCase().split(' ');
+          for (var i = 0; i < str.length; i++) {
+            if (str[i] === 'dan' || str[i] === 'atau' || str[i] === 'untuk') continue;
+            str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
+          }
+          return str.join(' ');
+        }
+
+        prodi.forEach(programStudi => programStudi.program_studi = titleCase(programStudi.program_studi));
+        // console.log(prodi);
+        
+        res.render("student/buka-kelas", {
+          currentUser: req.user,
+          courses,
+          prodi,
+          jumlahProdi
+        });
+      }
+
     } catch (error) {
       console.log(error);
     }
@@ -743,75 +778,86 @@ app.post(
       }
     }catch(err) {
       console.log(err);
+      res.status(500).render('500');
     }
 }));
 
 app.get("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
   const { id } = req.params;
-
-  const currentKelasRaw = await pool.query(
-    `SELECT * FROM course WHERE course_id = $1`, [id]
-  )
-  currentKelas = currentKelasRaw.rows[0];
-  
-  currentKelas.tanggal_kelas = currentKelas.tanggal_kelas.toLocaleString('id-ID', {
-    year: 'numeric', month: 'long', day: 'numeric'
-  });
-
-  var time = currentKelas.waktu_kelas;
-  
-  currentKelas.waktu_kelas = time[0]+''+time[1]+':'+time[3]+''+time[4];
-
-  const currentUserRegisteredRaw = await pool.query(
-    `SELECT * FROM student_course WHERE course_id = $1 AND student_id = $2`,
-    [id, req.user.student_id]
-  )
-  const currentUserRegistered = currentUserRegisteredRaw.rows[0];
-  
-  var currentKelasMasterRaw = null;
-  if(currentKelas.student_id != null){
-    console.log(currentKelas.student_id);
-    currentKelasMasterRaw = await pool.query(
-      `SELECT * FROM student WHERE student_id = $1`,
-      [currentKelas.student_id]
+    const currentKelasRaw = await pool.query(
+      `SELECT * FROM course WHERE course_id = $1`, [id]
     )
-  }
 
-  var currentKelasMaster = null;
-  if(currentKelasMasterRaw != null) currentKelasMaster = currentKelasMasterRaw.rows[0];
+    if(currentKelasRaw.rowCount == 0){
+      res.status(404).render("404");
+    } else {
+      try {
+        var currentKelas = currentKelasRaw.rows[0];
+    
+        currentKelas.tanggal_kelas = currentKelas.tanggal_kelas.toLocaleString('id-ID', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
 
-  var currentKelasMentorRaw = null;
-  if(currentKelas.mentor_id){
-    currentKelasMentorRaw = await pool.query(
-      `SELECT * FROM mentor WHERE mentor_id = $1`,
-      [currentKelas.mentor_id]
-  )}
-  const currentKelasMentor = currentKelasMentorRaw.rows[0];
+        var time = currentKelas.waktu_kelas;
+        
+        currentKelas.waktu_kelas = time[0]+''+time[1]+':'+time[3]+''+time[4];
 
-  console.log(currentKelasMentor);
+        const currentUserRegisteredRaw = await pool.query(
+          `SELECT * FROM student_course WHERE course_id = $1 AND student_id = $2`,
+          [id, req.user.student_id]
+        )
+        const currentUserRegistered = currentUserRegisteredRaw.rows[0];
+        
+        var currentKelasMasterRaw = null;
+        if(currentKelas.student_id != null){
+          console.log(currentKelas.student_id);
+          currentKelasMasterRaw = await pool.query(
+            `SELECT * FROM student WHERE student_id = $1`,
+            [currentKelas.student_id]
+          )
+        }
 
-  var harga = 0;
-  
-  if(currentKelas.paket === 'sarjana'){
-    harga = 10;
-  }
-  if(currentKelas.paket === 'cumlaude'){
-    harga = 15;
-  }
-  if(currentKelas.paket === 'mawapres'){
-    harga = 20;
-  }
+        var currentKelasMaster = null;
+        if(currentKelasMasterRaw != null) currentKelasMaster = currentKelasMasterRaw.rows[0];
 
-  var isPrivateAndRegistered = false;
-  if(currentKelas.tipe_kelas == 'private'){
-    const currentUserRegisteredPrivateRaw = await pool.query(
-      `SELECT * FROM private_approval WHERE course_id = $1 AND student_id = $2`,
-      [id, req.user.student_id]
-    )
-    if(currentUserRegisteredPrivateRaw.rowCount) isPrivateAndRegistered = true;
-  }
+        var currentKelasMentorRaw = null;
+        if(currentKelas.mentor_id){
+          currentKelasMentorRaw = await pool.query(
+            `SELECT * FROM mentor WHERE mentor_id = $1`,
+            [currentKelas.mentor_id]
+          )
+        }
+        
+        const currentKelasMentor = (currentKelas.mentor_id == null ? null : currentKelasMentorRaw.rows[0]);
 
-  res.render("student/info-kelas", { currentUser: req.user, currentKelas, currentUserRegistered, harga, currentKelasMaster, currentKelasMentor, isPrivateAndRegistered });
+        var harga = 0;
+        
+        if(currentKelas.paket === 'sarjana'){
+          harga = 10;
+        }
+        if(currentKelas.paket === 'cumlaude'){
+          harga = 15;
+        }
+        if(currentKelas.paket === 'mawapres'){
+          harga = 20;
+        }
+
+        var isPrivateAndRegistered = false;
+        if(currentKelas.tipe_kelas == 'private'){
+          const currentUserRegisteredPrivateRaw = await pool.query(
+            `SELECT * FROM private_approval WHERE course_id = $1 AND student_id = $2`,
+            [id, req.user.student_id]
+          )
+          if(currentUserRegisteredPrivateRaw.rowCount) isPrivateAndRegistered = true;
+        }
+
+        res.set("Content-Disposition", "inline");
+        res.render("student/info-kelas", { currentUser: req.user, currentKelas, currentUserRegistered, harga, currentKelasMaster, currentKelasMentor, isPrivateAndRegistered });
+      } catch (err) {
+        console.log(err);
+        res.status(500).render('500');
+      }
+    }
 }));
 
 app.post("/kelas/:id", isLoggedInStudent, catchAsync(async(req, res) => {
@@ -938,36 +984,36 @@ app.get("/login-mentor", isNotLoggedInMentor, isMentor, (req, res) => {
 
 
 //post register mentor
-app.post(
-  "/register-mentor",
-  catchAsync(async (req, res) => {
-    const { nama_lengkap, jurusan, username, email, password } = req.body;
+// app.post(
+//   "/register-mentor",
+//   catchAsync(async (req, res) => {
+//     const { nama_lengkap, jurusan, username, email, password } = req.body;
 
-    // res.send(req.body);
-    let hashedPassword = await bcrypt.hash(password, 10);
+//     // res.send(req.body);
+//     let hashedPassword = await bcrypt.hash(password, 10);
 
-    const rowsSelect = await pool.query(
-      `SELECT * FROM mentor
-      WHERE email = $1`,
-      [email]
-    );
+//     const rowsSelect = await pool.query(
+//       `SELECT * FROM mentor
+//       WHERE email = $1`,
+//       [email]
+//     );
 
-    if (rowsSelect.rows.length > 0) {
-      req.flash("error", "E-mail sudah digunakan!");
-      res.redirect("/"); //kalo harusnya direct ke '/registerMentor'
-    } else {
-      const rowsInsert = await pool.query(
-        `INSERT INTO mentor(nama_lengkap, jurusan, username, email, password)
-        VALUES($1, $2, $3, $4, $5)
-        RETURNING email, password`,
-        [nama_lengkap, jurusan, username, email, hashedPassword]
-      );
-      console.log(rowsInsert.rows[0]);
-      req.flash("success", "kamu sudah terdaftar, silakan login");
-      res.redirect("/login-mentor");
-    }
-  })
-);
+//     if (rowsSelect.rows.length > 0) {
+//       req.flash("error", "E-mail sudah digunakan!");
+//       res.redirect("/"); //kalo harusnya direct ke '/registerMentor'
+//     } else {
+//       const rowsInsert = await pool.query(
+//         `INSERT INTO mentor(nama_lengkap, jurusan, username, email, password)
+//         VALUES($1, $2, $3, $4, $5)
+//         RETURNING email, password`,
+//         [nama_lengkap, jurusan, username, email, hashedPassword]
+//       );
+//       console.log(rowsInsert.rows[0]);
+//       req.flash("success", "kamu sudah terdaftar, silakan login");
+//       res.redirect("/login-mentor");
+//     }
+//   })
+// );
 
 //post login mentor
 app.post(
@@ -981,7 +1027,7 @@ app.post(
 
 // render dashboard
 
-app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
+app.get("/dashboard-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, res) => {
 
   var currentUser = req.user;
   // console.log(currentUser);
@@ -990,21 +1036,22 @@ app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
     ['pending', req.user.mentor_id]
   )
 
-  // const currentUserCourseRaw = await pool.query(
-  //   `SELECT * FROM course WHERE mentor_id = $1 AND status = $2`, 
-  //   [currentUser.mentor_id, 'open']
-  // ) ini artinya kelas yang udah didaftar mentor dong, dan statusnya open. harusnya di dashboard itu kan cuma kelas yang open aja
-// jadi fungsi yang dicomment ini bakal dipake di profile bagian informasi 'kelas saya'
-
   var currentUserCourse = currentUserCourseRaw.rows;
-
-
-  currentUserCourse.forEach(row => {
+    
+  for await (let row of currentUserCourse) {
     row.tanggal_kelas = row.tanggal_kelas.toLocaleString('id-ID', {
       weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
     });
     row.waktu_kelas = row.waktu_kelas[0]+''+row.waktu_kelas[1]+':'+row.waktu_kelas[3]+''+row.waktu_kelas[4];
-  });
+
+    const currentKelasMasterRaw = await pool.query(
+      `SELECT * FROM student WHERE student_id = $1`,
+      [row.student_id]
+    )
+
+    row.currentKelasMaster = currentKelasMasterRaw.rows[0];
+  };
+
 
   const userCourseRaw = await pool.query(
     `SELECT * FROM course WHERE status = $1 AND mentor_id = $2 AND bukti_selesai IS NULL ORDER BY tanggal_kelas`, 
@@ -1024,7 +1071,7 @@ app.get("/dashboard-mentor", isLoggedInMentor, isMentor, async (req, res) => {
   })
 
   res.render('mentor/home-mentor', {currentUser, currentUserCourse, userCourse});
-});
+}));
 
 //render page buka-kelas
 app.get("/dashboard-mentor/buka-kelas", isLoggedInMentor, isMentor, (req, res)=> {
@@ -1079,10 +1126,18 @@ app.post("/edwallet-mentor", isLoggedInMentor, isMentor, catchAsync(async(req, r
     res.redirect('/dashboard-mentor');
   }
 
+  var d = new Date();
+  var created_at = d.getFullYear() + "-" +
+  ("00" + (d.getMonth() + 1)).slice(-2) + "-" +
+  ("00" + d.getDate()).slice(-2) + " " +
+  ("00" + d.getHours()).slice(-2) + ":" +
+  ("00" + d.getMinutes()).slice(-2) + ":" +
+  ("00" + d.getSeconds()).slice(-2);
+
   const cashoutInsert = await pool.query(
     `INSERT INTO cashouts(mentor_id, nomor_rekening, nama_pemilik_rekening, bank, jumlah_koin, is_verified, verified_by, created_at)
     VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
-    [req.user.mentor_id, nomor_rekening, nama_pemilik_rekening, bank, parseInt(jumlah_koin), 0, null, new Date().toISOString().split('.')[0]+"Z"]
+    [req.user.mentor_id, nomor_rekening, nama_pemilik_rekening, bank, parseInt(jumlah_koin), 0, null, created_at]
   );
 
   const updateSaldo = await pool.query(
@@ -1316,6 +1371,7 @@ app.get("/", (req, res) => {
 });
 
 app.all("*", (req, res, next) => {
+  res.render('404');
   next(new ExpressError("Page tidak ditemukan", 404));
 });
 

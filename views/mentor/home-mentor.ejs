@@ -199,7 +199,13 @@
                         aria-controls="collapse<%=currentUserCourse[index].course_id%>">
                         <div class="row">
                           <div class="col-3">
-                            <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                            <% if (currentUserCourse[index].currentKelasMaster.foto_profil) { %>
+                              <img class="foto-profil" src="/<%= currentUserCourse[index].currentKelasMaster.foto_profil %> " alt="foto-profil"
+                                  width="90px" height="90px" />
+                            <% } else { %>
+                              <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil"
+                                width="90px" />
+                            <% } %>
                           </div>
                           <div class="col pt-2" style="text-align: start; line-height: 0.6;">
                             <p class="mb-0">
@@ -213,6 +219,9 @@
                             <% if (currentUserCourse[index].tipe_kelas=='private' ) { %>
                               <i class="fa fa-lock fs-6"></i>
                             <% } %>
+                            <p style="font-size: 14px;">
+                              <%= currentUserCourse[index].currentKelasMaster.nama_lengkap %>
+                            </p>
                             <p class="text-secondary" style="font-size: 14px;">
                               <%= currentUserCourse[index].tanggal_kelas %> • <%= currentUserCourse[index].waktu_kelas %> WIB
                             </p>
@@ -239,7 +248,13 @@
                         aria-expanded="false" aria-controls="collapse<%=currentUserCourse[index+1].course_id%>">
                         <div class="row">
                           <div class="col-3">
-                            <img class="foto-profil img-fluid" src="/IMG/foto-profil.jpg" alt="profil" />
+                            <% if (currentUserCourse[index+1].currentKelasMaster.foto_profil) { %>
+                              <img class="foto-profil" src="/<%= currentUserCourse[index+1].currentKelasMaster.foto_profil %> " alt="foto-profil"
+                                  width="90px" height="90px" />
+                            <% } else { %>
+                              <img class="foto-profil" src="/IMG/foto-profil-placeholder.png" alt="foto-profil"
+                                width="90px" />
+                            <% } %>
                           </div>
                           <div class="col pt-2" style="text-align: start; line-height: 0.6;">
                             <p class="mb-0">
