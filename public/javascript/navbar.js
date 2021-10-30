@@ -7,16 +7,16 @@ navbar.forEach(navs => {
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item" style="margin-bottom: 0 !important;>
+      <li class="nav-item" style="margin-bottom: 0 !important;">
         <a class="nav-link active" aria-current="page" href="/dashboard-student">Home</a>
       </li>
-      <li class="nav-item" style="margin-bottom: 0 !important;>
+      <li class="nav-item" style="margin-bottom: 0 !important;">
         <a class="nav-link" href="/edpedia">ed.pedia</a>
       </li>
-      <li class="nav-item" style="margin-bottom: 0 !important;>
+      <li class="nav-item" style="margin-bottom: 0 !important;">
         <a class="nav-link" href="/edwallet" tabindex="-1">ed.wallet</a>
       </li>
-      <li class="nav-item" style="margin-bottom: 0 !important;>
+      <li class="nav-item" style="margin-bottom: 0 !important;">
         <a style="color: #fff100 !important" class="nav-link" href="/buka-kelas">
           BUKA KELAS
         </a>

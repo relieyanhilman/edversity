@@ -116,7 +116,7 @@ app.get(
   isLoggedInStudent,
   catchAsync(async (req, res) => {
 
-    const courseInfoRaw = await pool.query(`SELECT * FROM course WHERE status = 'open' AND tipe_kelas = 'public' AND bukti_selesai IS NULL`);
+    const courseInfoRaw = await pool.query(`SELECT * FROM course WHERE status = 'open' AND tipe_kelas = 'public' AND bukti_selesai IS NULL LIMIT 9`);
     var courseInfo = courseInfoRaw.rows;
     
     for await (let course of courseInfo) {
@@ -129,17 +129,35 @@ app.get(
       
       course.nama_mentor = mentor.rows[0].nama_lengkap;
       course.foto_profil_mentor = mentor.rows[0].foto_profil;
+      course.program_studi = titleCase(course.program_studi);
       // console.log(mentor.rows[0])
     }
     
-    const mostPopularProdiRaw = await pool.query(`SELECT program_studi FROM course WHERE tipe_kelas = 'public' AND bukti_selesai IS NULL GROUP BY program_studi ORDER BY COUNT(program_studi) DESC LIMIT 2`);
+    const mostPopularProdiRaw = await pool.query(`
+      SELECT DISTINCT LOWER(program_studi) AS program_studi, COUNT(LOWER(program_studi))
+      FROM course
+      WHERE tipe_kelas = 'public'
+      AND bukti_selesai IS NULL
+      GROUP BY program_studi
+      ORDER BY COUNT(LOWER(program_studi)) DESC
+      LIMIT 2
+    `);
     
     var mostPopularProdi = mostPopularProdiRaw.rows;
     var prodiCourses = [];
 
+    function titleCase(str) {
+      str = str.toLowerCase().split(' ');
+      for (var i = 0; i < str.length; i++) {
+        if (str[i] === 'dan' || str[i] === 'atau' || str[i] === 'untuk') continue;
+        str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
+      }
+      return str.join(' ');
+    }
+
     for await (let prodi of mostPopularProdi) {
       // console.log(prodi);
-      var prodiCoursesRaw = await pool.query(`SELECT * FROM course WHERE program_studi = $1 AND status=$2`, [prodi.program_studi, 'open']);
+      var prodiCoursesRaw = await pool.query(`SELECT * FROM course WHERE LOWER(program_studi) = $1 AND status=$2`, [prodi.program_studi, 'open']);
       var courses = prodiCoursesRaw.rows;
       // console.log(courses);
       
@@ -155,10 +173,15 @@ app.get(
         course.nama_mentor = mentor.rows[0].nama_lengkap;
         
         course.foto_profil_mentor = mentor.rows[0].foto_profil;
+
+        course.program_studi = titleCase(course.program_studi);
       };
       
       prodiCourses.push(courses);
-    } 
+    }
+
+    mostPopularProdi.forEach(programStudi => programStudi.program_studi = titleCase(programStudi.program_studi));
+
     res.render("student/home", { currentUser: req.user, courseInfo, mostPopularProdi, prodiCourses });
   })
 );
@@ -1158,7 +1181,7 @@ app.get("/dashboard-mentor/detail-kelas/:kelasId", isLoggedInMentor, isMentor, c
   )
 
   const peserta_kelasRaw = await pool.query(
-    `SELECT nama_lengkap FROM student_course JOIN student on student_course.student_id = student.student_id WHERE student_course.course_id = $1`, [kelasId]
+    `SELECT s.nama_lengkap, s.foto_profil FROM student s JOIN student_course sc on sc.student_id = s.student_id WHERE sc.course_id = $1`, [kelasId]
   );
   
   const currentKelas = currentKelasRaw.rows[0];
@@ -1214,7 +1237,7 @@ app.get('/dashboard-mentor/detail-kelas/:kelasId/daftar-siswa',
     )
 
     const peserta_kelasRaw = await pool.query(
-      `SELECT nama_lengkap FROM student_course JOIN student on student_course.student_id = student.student_id WHERE student_course.course_id = $1`, [kelasId]
+      `SELECT s.nama_lengkap, s.foto_profil FROM student s JOIN student_course sc on sc.student_id = s.student_id WHERE sc.course_id = $1`, [kelasId]
     );
 
     res.render('mentor/info-kelas_daftar-siswa', {

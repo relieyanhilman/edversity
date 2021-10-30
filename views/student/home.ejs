@@ -86,53 +86,53 @@
   <section>
     <div class="container mt-5">
 
-      <% if (success && success.length) { %>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          <%= success %>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <% } %>
-          <% if (error && error.length) { %>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <%= error %>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            <% } %>
+    <% if (success && success.length) { %> 
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% } %> 
+    <% if (error && error.length) { %> 
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% } %> 
 
-              <div id="carouselCaptions" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-                  <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="/IMG/banner1.png" class="d-block w-100" alt="..." />
-                    <div class="carousel-caption d-none d-md-block"></div>
-                  </div>
-                  <div class="carousel-item">
-                    <img src="/IMG/banner2.png" class="d-md-block w-100" alt="..." />
-                    <div class="carousel-caption d-none d-md-block"></div>
-                  </div>
-                  <div class="carousel-item">
-                    <img src="/IMG/banner3.png" class="d-block w-100" alt="..." />
-                    <div class="carousel-caption d-none d-md-block"></div>
-                  </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselCaptions"
-                  data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselCaptions"
-                  data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-              </div>
+      <div id="carouselCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/IMG/banner1.png" class="d-block w-100" alt="..." />
+            <div class="carousel-caption d-none d-md-block"></div>
+          </div>
+          <div class="carousel-item">
+            <img src="/IMG/banner2.png" class="d-md-block w-100" alt="..." />
+            <div class="carousel-caption d-none d-md-block"></div>
+          </div>
+          <div class="carousel-item">
+            <img src="/IMG/banner3.png" class="d-block w-100" alt="..." />
+            <div class="carousel-caption d-none d-md-block"></div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselCaptions"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselCaptions"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -159,57 +159,57 @@
               <% for( let index=0; index < courseInfo.length; index+=3 ) { %>
                 <% if (index < 3 ) { %>
                   <div class="carousel-item active">
-                    <% } else { %>
-                      <div class="carousel-item">
-                        <% } %>
-                          <div class="row">
-                            <% for( let i=index; i < index+3 && i < courseInfo.length; i++ ) { %>
-                              <% if (courseInfo[i]) { %>
-                                <div class="col-md-4 mb-3">
-                                  <a href="/kelas/<%= courseInfo[i].course_id %> " class="card-kelas">
-                                    <div class="card">
-                                      <div class="bg-buka_kelas" style="background-image: url('IMG/bg-buka_kelas.png'); 
-                                        width: 100%; height: 150px; background-size: cover; ">
-                                      </div>
-                                    </div>
-                                    <div class="card-body bg-light">
-                                      <div class="row">
-                                        <div class="col-md-3">
-                                          <!-- foto profil -->
-                                          <% if (courseInfo[i].foto_profil_mentor) { %>
-                                            <img class="foto-profil" src="/<%= courseInfo[i].foto_profil_mentor %> "
-                                              alt="foto-profil" width="90px" height="90px" />
-                                            <% } else { %>
-                                              <img class="foto-profil" src="/IMG/foto-profil-placeholder.png"
-                                                alt="foto-profil" width="90px" />
-                                              <% } %>
-                                        </div>
-                                        <div class="col ms-3">
-                                          <h6 class="mb-0">
-                                            <%= courseInfo[i].program_studi %>
-                                          </h6>
-                                          <h5 class="mb-1 fw-bold">
-                                            <%= courseInfo[i].mata_kuliah %>
-                                          </h5>
-                                          <p class="mb-3 p-0">
-                                            <%= courseInfo[i].nama_mentor %>
-                                          </p>
-                                          <div style="line-height: 0.3">
-                                            <p class="text-secondary">
-                                              <%= courseInfo[i].tanggal_kelas %>
-                                            </p>
-                                            <p>
-                                              <%= courseInfo[i].waktu_kelas %> WIB
-                                            </p>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
+                <% } else { %>
+                  <div class="carousel-item">
+                <% } %>
+                    <div class="row align-items-stretch">
+                      <% for( let i=index; i < index+3 && i < courseInfo.length; i++ ) { %>
+                        <% if (courseInfo[i]) { %>
+                          <div class="col-md-4 mb-3">
+                            <a href="/kelas/<%= courseInfo[i].course_id %> " class="card-kelas">
+                              <div class="card">
+                                <div class="bg-buka_kelas" style="background-image: url('IMG/bg-buka_kelas.png'); 
+                                  width: 100%; height: 150px; background-size: cover; ">
                                 </div>
-                                </a>
+                              </div>
+                              <div class="card-body bg-light">
+                                <div class="row">
+                                  <div class="col-md-3">
+                                    <!-- foto profil -->
+                                    <% if (courseInfo[i].foto_profil_mentor) { %>
+                                      <img class="foto-profil" src="/<%= courseInfo[i].foto_profil_mentor %> "
+                                        alt="foto-profil" width="90px" height="90px" />
+                                      <% } else { %>
+                                        <img class="foto-profil" src="/IMG/foto-profil-placeholder.png"
+                                          alt="foto-profil" width="90px" />
+                                        <% } %>
+                                  </div>
+                                  <div class="col ms-3">
+                                    <h6 class="mb-0">
+                                      <%= courseInfo[i].program_studi %>
+                                    </h6>
+                                    <h5 class="mb-0">
+                                      <%= courseInfo[i].mata_kuliah %>
+                                    </h5>
+                                    <p class="mb-3 p-0">
+                                      <%= courseInfo[i].nama_mentor %>
+                                    </p>
+                                    <div style="line-height: 0.3">
+                                      <p>
+                                        <%= courseInfo[i].tanggal_kelas %>
+                                      </p>
+                                      <p>
+                                        <%= courseInfo[i].waktu_kelas %> WIB
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </a> 
                           </div>
-                          <% } %>
-                            <% } %>
+                        <% } %>
+                        <% } %>
+                      </div>
                       </div>
                   </div>
                   <% } %>
@@ -224,99 +224,99 @@
   <!-- Kelas yang sudah di buka (berdasarkan fakultas) -->
   <!-- Fakultas A -->
   <% mostPopularProdi.forEach((prodi, index)=> { %>
-    <section class="pt-2 pb-2">
-      <div class="container">
-        <div class="row">
-          <div class="col-6">
-            <h4 class="mb-3 text-light">Mata Kuliah Program Studi <%= prodi.program_studi %>
-            </h4>
-          </div>
-          <div class="col-6 text-right">
-            <a class="btn btn-dark mb-3 mr-1" href="#carouselControls<%= index %>" role="button" data-slide="prev">
-              <i class="fa fa-arrow-left"></i>
-            </a>
-            <a class="btn btn-dark mb-3" href="#carouselControls<%= index %>" role="button" data-slide="next">
-              <i class="fa fa-arrow-right"></i>
-            </a>
-          </div>
-          <div class="col-12">
-            <div id="carouselControls<%= index %>" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner programA">
-
-                <% for( let idx=0; idx < prodiCourses[index].length; idx+=3 ) { %>
-                  <% if (idx < 3 ) { %>
-                    <div class="carousel-item active">
-                      <% } else { %>
-                        <div class="carousel-item">
-                          <% } %>
-                            <div class="row">
-                              <% for( let i=idx; i < idx+3 && i < prodiCourses[index].length; i++ ) { %>
-                                <% if (prodiCourses[index][i]) { %>
-                                  <div class="col-md-4 mb-3">
-                                    <a href="/kelas/<%= prodiCourses[index][i].course_id %> " class="card-kelas">
-                                      <div class="card">
-                                        <div class="bg-buka_kelas" style="background-image: url('IMG/bg-buka_kelas.png'); 
-                                        width: 100%; height: 150px; background-size: cover; ">
+    <% if (prodiCourses[index].length) { %>
+      <section class="pt-2 pb-2">
+        <div class="container">
+          <div class="row">
+            <div class="col-6">
+              <h4 class="mb-3 text-light">Mata Kuliah Program Studi <%= prodi.program_studi %>
+              </h4>
+            </div>
+            <div class="col-6 text-right">
+              <a class="btn btn-dark mb-3 mr-1" href="#carouselControls<%= index %>" role="button" data-slide="prev">
+                <i class="fa fa-arrow-left"></i>
+              </a>
+              <a class="btn btn-dark mb-3" href="#carouselControls<%= index %>" role="button" data-slide="next">
+                <i class="fa fa-arrow-right"></i>
+              </a>
+            </div>
+            <div class="col-12">
+              <div id="carouselControls<%= index %>" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner programA">
+                  <% for( let idx=0; idx < prodiCourses[index].length; idx+=3 ) { %>
+                    <% if (idx < 3 ) { %>
+                      <div class="carousel-item active">
+                    <% } else { %>
+                      <div class="carousel-item">
+                    <% } %>
+                        <div class="row">
+                          <% for( let i=idx; i < idx+3 && i < prodiCourses[index].length; i++ ) { %>
+                            <% if (prodiCourses[index][i]) { %>
+                              <div class="col-md-4 mb-3">
+                                <a href="/kelas/<%= prodiCourses[index][i].course_id %> " class="card-kelas">
+                                  <div class="card">
+                                    <div class="bg-buka_kelas" style="background-image: url('IMG/bg-buka_kelas.png'); 
+                                    width: 100%; height: 150px; background-size: cover; ">
+                                    </div>
+                                    <div class="card-body bg-light">
+                                      <div class="row">
+                                        <div class="col-md-3">
+                                          <!-- foto profil -->
+                                          <% if (prodiCourses[index][i].foto_profil_mentor) { %>
+                                            <img class="foto-profil"
+                                              src="/<%= prodiCourses[index][i].foto_profil_mentor %> "
+                                              alt="foto-profil" width="90px" height="90px" />
+                                            <% } else { %>
+                                              <img class="foto-profil" src="/IMG/foto-profil-placeholder.png"
+                                                alt="foto-profil" width="90px" />
+                                              <% } %>
                                         </div>
-                                        <div class="card-body bg-light">
-                                          <div class="row">
-                                            <div class="col-md-3" <!-- foto profil -->
-                                              <% if (prodiCourses[index][i].foto_profil_mentor) { %>
-                                                <img class="foto-profil"
-                                                  src="/<%= prodiCourses[index][i].foto_profil_mentor %> "
-                                                  alt="foto-profil" width="90px" height="90px" />
-                                                <% } else { %>
-                                                  <img class="foto-profil" src="/IMG/foto-profil-placeholder.png"
-                                                    alt="foto-profil" width="90px" />
-                                                  <% } %>
-                                            </div>
-                                            <div class="col ms-3">
-                                              <h6 class="mb-0">
-                                                <%= prodiCourses[index][i].program_studi %>
-                                              </h6>
-                                              <h5 class="mb-1 fw-bold">
-                                                <%= prodiCourses[index][i].mata_kuliah %>
-                                              </h5>
-                                              <p class="mb-3 p-0">
-                                                <%= prodiCourses[index][i].nama_mentor %>
-                                              </p>
-                                              <div style="line-height: 0.3; font-size: 14px;"">
-                                                <p  class=" text-secondary">
-                                                <%= prodiCourses[index][i].tanggal_kelas %>
-                                                  </p>
-                                                  <p>
-                                                    <%= prodiCourses[index][i].waktu_kelas %> WIB
-                                                  </p>
-                                              </div>
-                                            </div>
+                                        <div class="col ms-3">
+                                          <h6 class="mb-0">
+                                            <%= prodiCourses[index][i].program_studi %>
+                                          </h6>
+                                          <h5 class="mb-0">
+                                            <%= prodiCourses[index][i].mata_kuliah %>
+                                          </h5>
+                                          <p class="mb-3 p-0">
+                                            <%= prodiCourses[index][i].nama_mentor %>
+                                          </p>
+                                          <div style="line-height: 0.3">
+                                            <p>
+                                              <%= prodiCourses[index][i].tanggal_kelas %>
+                                            </p>
+                                            <p>
+                                              <%= prodiCourses[index][i].waktu_kelas %> WIB
+                                            </p>
                                           </div>
                                         </div>
                                       </div>
-                                    </a>
+                                    </div>
                                   </div>
-                                  <% } %>
-                                    <% } %>
-                            </div>
+                                </a>
+                              </div>
+                            <% } %>
+                          <% } %>
                         </div>
-                        <% } %>
-
-
-                    </div>
+                      </div>
+                  <% } %>
+                </div>
               </div>
             </div>
           </div>
         </div>
-    </section>
+      </section>
+    <% } %>
+  <% }) %>
 
-    <% }) %>
-      <!-- Fakultas A ; -->
-
-      <!-- Bootstrap bundle -->
+  <!-- Fakultas A ; -->
+ 
+  <!-- Bootstrap bundle -->
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-      <script src="javascript/navbar.js"></script>
+      <script src="/javascript/navbar.js"></script>
       <!-- <script src="javascript/notif.js"></script> -->
 </body>
 
